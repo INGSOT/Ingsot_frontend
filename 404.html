@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="public/img/favicon.ico" />
+
+  <link rel="stylesheet" href="css/style.css">
+  <title>INGSOT</title>
+</head>
+
+<body>
+
+  <div class="wrapper">
+
+    <div class="modal" id="modal"></div>
+
+    <div id="header_placeholder"></div>
+
+    <section class="error404">
+      <div class="anim_fond">
+        <div class="blur_layer">
+          <div class="ball v1"></div>
+          <div class="ball v2"></div>
+        </div>
+      </div>
+
+      <div class="cont">
+        <div>
+          <p>Помилка 000</p>
+          <h1>Сторінку не знайдено</h1>
+        </div>
+        <div>
+          <a href="#" class="h5">Повернутись назад</a>
+          <a href="index.html" class="btn_decor_white">
+            <span class="bcg">
+              <img src="public/img/svg/shevron_black_right.svg" alt="">
+            </span>
+            <span>На головну</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+
+
+  </div>
+  <script src="js/jquery_min_3.7.1.js"></script>
+  <script src="js/slick.min.js"></script>
+  <script src="js/script.js" defer></script>
+
+  <!-- Виклики компоненнтів -->
+  <script src="js/loadComponent.js"></script>
+  <script>
+    loadComponent('header', '#header_placeholder');
+  </script>
+
+</body>
+
+</html>

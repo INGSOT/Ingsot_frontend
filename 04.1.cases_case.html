@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="public/img/favicon.ico" />
+
+  <link rel="stylesheet" href="css/style.css">
+  <title>INGSOT</title>
+</head>
+
+<body>
+
+  <section class="intro">
+    <img src="public/img/case_ksimex.webp" alt="">
+  </section>
+
+  <div class="wrapper">
+
+    <div class="modal" id="modal"></div>
+
+    <div id="header_placeholder"></div>
+
+    <section class="case_disc">
+      <div>
+        <h1>Ксімекс-Електро</h1>
+        <p>Розробка корпоративного порталу та інтернет-магазину</p>
+        <a href="" class="btn_decor_white blue">
+          <span class="bcg">
+            <img src="public/img/svg/shevron_white_right.svg" alt="">
+          </span>
+          <span>ksimex-electro.com.ua</span>
+        </a>
+        <div class="tags black">
+          <a href="">#tag</a>
+          <a href="">#tag</a>
+          <a href="">#tag</a>
+        </div>
+      </div>
+      <div>
+        <h2>
+          Підприємство ТОВ «Концерн «Ксімекс» (Одеса), створене в кінці минулого століття, вже третє десятиліття
+          демонструє
+          стабільно високі показники якості виготовленої продукції та наданих послуг, є лідером з виробництва
+          низьковольтного
+          комплектного обладнання на півдні України.
+        </h2>
+      </div>
+      <div>
+        <h3>
+          Задача
+        </h3>
+        <p>Клієнт хотів бла-бла-бла.</p>
+      </div>
+    </section>
+
+    <section class="case_screens" style="background-color: #0056A7;">
+      <div class="big_img">
+        <img src="public/img/ksimex_mainImg.webp" alt="">
+      </div>
+      <div class="case_phones">
+        <div class="text">
+          <h3>Заголовок</h3>
+          <p>Про мобільні пристрої</p>
+        </div>
+        <div class="img">
+          <img src="public/img/ksimex_phoneImg1.webp" alt="">
+        </div>
+      </div>
+      <div class="case_phones">
+        <div class="img">
+          <img src="public/img/ksimex_phoneImg2.webp" alt="">
+        </div>
+        <div class="text">
+          <h3>Заголовок</h3>
+          <p>Про мобільні пристрої</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="case_white">
+      <div class="text">
+        <h3>Заголовок</h3>
+        <p>Ще щось про замовника</p>
+      </div>
+      <div class="img">
+        <img src="/public/img/ksimex_detail.webp" alt="">
+      </div>
+    </section>
+
+    <div id="coplexity_placeholder"></div>
+
+    <div id="footer_placeholder"></div>
+
+  </div>
+
+  <script src="js/jquery_min_3.7.1.js"></script>
+  <script src="js/slick.min.js"></script>
+
+  <script src="js/flatpickr/flatpickr.js"></script>
+  <script src="js/flatpickr/uk.js"></script>
+  <script src="js/flatpickr/ru.js"></script>
+
+  <script src="js/script.js" defer></script>
+
+  <!-- Виклики компоненнтів -->
+  <script src="js/loadComponent.js"></script>
+  <script>
+    loadComponent('header_dark', '#header_placeholder');
+    loadComponent('coplexity', '#coplexity_placeholder');
+    loadComponent('footer', '#footer_placeholder');
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const wrapper = document.querySelector('.wrapper');
+
+      function initHeaderScroll() {
+        const header = document.getElementById('header');
+        if (!header || !wrapper) return;
+
+        function checkScroll() {
+          const rect = wrapper.getBoundingClientRect();
+          if (rect.top <= 0) {
+            header.classList.remove('absolute');
+          } else {
+            header.classList.add('absolute');
+          }
+        }
+
+        window.addEventListener('scroll', checkScroll);
+        checkScroll();
+      }
+
+      // якщо header додається асинхронно через loadComponent
+      const observer = new MutationObserver(() => {
+        const header = document.getElementById('header');
+        if (header) {
+          initHeaderScroll();
+          observer.disconnect(); // зупиняємо спостереження
+        }
+      });
+
+      observer.observe(document.body, { childList: true, subtree: true });
+    });
+
+  </script>
+
+  <script>
+    $(window).scroll(function () {
+      var scroll = $(window).scrollTop();
+      $(".intro").css({
+        transform: 'translate3d(0, +' + (scroll / 100) + '%, 0) scale(' + (100 - scroll / 50) / 100 + ')'
+      });
+      var scroll = $(window).scrollTop();
+      $(".intro img").css({
+        // Blur 
+        "-webkit-filter": "blur(" + (scroll / 50) + "px)",
+        filter: "blur(" + (scroll / 50) + "px)"
+      });
+    });
+  </script>
+
+</body>
+
+</html>

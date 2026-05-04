@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="public/img/favicon.ico" />
+
+  <link rel="stylesheet" href="css/style.css">
+  <title>INGSOT</title>
+</head>
+
+<body>
+
+  <div class="wrapper">
+
+    <div class="modal" id="modal"></div>
+
+    <div id="header_placeholder"></div>
+
+    <section class="main_banner blue">
+      <div class="item">
+        <div class="cont">
+          <h1>Послуги агенції</h1>
+          <h4>
+            Від аналітики й проєктування до розробки, інтеграції та підтримки.
+          </h4>
+          <button type="button" class="btn_decor_white"
+            onclick="loadComponent('submit_request', '#modal'); openModal();">
+            <span class="bcg">
+              <img src="public/img/svg/shevron_black_right.svg" alt="">
+            </span>
+            <span>Залишити заявку</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="services">
+      <div class="anim_fond">
+        <div class="blur_layer">
+          <div class="ball v1"></div>
+          <div class="ball v2"></div>
+        </div>
+      </div>
+
+      <div class="help_ways v3" id="help_ways">
+        <div class="item blue on">
+          <div class="left">
+            <button type="button">Web/Dev</button>
+            <div class="drop">
+              <div class="tags blue">
+                <a href="">#моніторинг верстатів</a>
+                <a href="">#статистика використання електроенергії</a>
+                <a href="">#лічильник виготовленої продукції</a>
+                <a href="">#вимірювання тиску</a>
+                <a href="">#контроль температури</a>
+              </div>
+            </div>
+          </div>
+          <div class="right">
+            <div class="drop">
+              <div class="text">
+                <div class="cards">
+                  <a href="02.4.1.services_marketing.html">
+                    <h4>Бізнес-аналіз і Solution Design</h4>
+                    <p>
+                      BRD, Scope, User Stories, прототип (Figma), критерії приймання (DoD/AC). Повний опис вимог,
+                      сценарії
+                      користувачів і
+                      прототип майбутнього рішення.
+                    </p>
+                  </a>
+                  <a href="02.4.1.services_marketing.html">
+                    <h4>UX/UI дизайн</h4>
+                    <p>
+                      Вайрфрейми, дизайн-система, клікабельний прототип, UI-гіди. Візуальні макети, які задають вигляд і
+                      структуру продукту.
+                    </p>
+                  </a>
+                  <a href="02.4.1.services_marketing.html">
+                    <h4>Веб-розробка</h4>
+                    <h5>Laravel / React / SSR</h5>
+                    <p>
+                      Репозиторій Git, код, документація API, CI/CD пайплайни, реліз-ноти. Готовий веб-продукт із
+                      технічною документацією.
+                    </p>
+                  </a>
+                  <a href="02.4.1.services_marketing.html">
+                    <h4>Інтеграції</h4>
+                    <h5>1С / ERP / CRM / Payments</h5>
+                    <p>
+                      Маппінг даних, API контракти, cron/webhook сценарії, логування, UAT чек-листи. Документація
+                      взаємодії між системами.
+                    </p>
+                  </a>
+                  <a href="02.4.1.services_marketing.html">
+                    <h4>Підтримка</h4>
+                    <h5>SLA</h5>
+                    <p>
+                      Runbook, моніторинг, політика бекапів, щомісячний SLA-звіт. Технічне обслуговування з гарантією
+                      SLA.
+                    </p>
+                  </a>
+                  <a href="02.4.1.services_marketing.html">
+                    <h4>DevOps / CI/CD</h4>
+                    <p>
+                      Пайплайни, IaC маніфести, інструкції з деплою та rollback. Автоматизація релізів та управління
+                      інфраструктурою.
+                    </p>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="item orange">
+          <div class="left">
+            <button type="button">Marketing</button>
+            <div class="drop">
+              <div class="tags orange">
+                <a href="">#моніторинг верстатів</a>
+                <a href="">#статистика використання електроенергії</a>
+                <a href="">#лічильник виготовленої продукції</a>
+              </div>
+            </div>
+          </div>
+          <div class="right">
+            <div class="drop">
+              <div class="text">
+                <div class="cards">
+                  <a href="02.4.1.services_marketing.html">
+                    <h4>SMM</h4>
+                    <h5>Ведення соцмереж</h5>
+                    <p>
+                      Контент-план, шаблони постів, медіапак, аналітичний звіт. Стратегія, контент і звітність по
+                      соцмережам.
+                    </p>
+                  </a>
+                  <a href="02.4.1.services_marketing.html">
+                    <h4>Відео / Фото продакшн</h4>
+                    <p>
+                      Сценарій, шот-лист, сирі матеріали, готові ролики. Повний комплект фото та відео для бренду.
+                    </p>
+                  </a>
+                  <a href="02.4.1.services_marketing.html">
+                    <h4>Реклама</h4>
+                    <h5>Meta / TikTok / Google Ads</h5>
+                    <p>
+                      Стратегія кампаній, структура акаунта, креативи, UTM-план, звіти. Комплексна рекламна аналітика.
+                    </p>
+                  </a>
+                  <a href="02.4.1.services_marketing.html">
+                    <h4>SEO</h4>
+                    <h5>Технічне / семантика / off-site</h5>
+                    <p>
+                      Аудит, семантичне ядро, метадані, список зовнішніх посилань, звіт. Оптимізація сайту та результати
+                      просування.
+                    </p>
+                  </a>
+                  <a href="02.4.1.services_marketing.html">
+                    <h4>Аналітика та дослідження</h4>
+                    <p>
+                      GA4 / Looker Studio дашборди, карти подій, дослідження конкурентів, звіт з ROI. Візуальна
+                      аналітика, інсайти та
+                      рекомендації.
+                    </p>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="item purple">
+          <div class="left">
+            <button type="button">AI/Data</button>
+            <div class="drop">
+              <div class="tags purple">
+                <a href="">#моніторинг верстатів</a>
+                <a href="">#статистика використання електроенергії</a>
+                <a href="">#лічильник виготовленої продукції</a>
+                <a href="">#контроль температури</a>
+              </div>
+            </div>
+          </div>
+          <div class="right">
+            <div class="drop">
+              <div class="text">
+                <div class="cards">
+                  <a href="02.4.1.services_marketing.html">
+                    <h4>AI-агенти / чат-боти</h4>
+                    <p>
+                      Промпт-флоу, сценарії діалогів, інтеграція з CRM/API, тестові кейси. Налаштований бот або асистент
+                      із заданою
+                      поведінкою.
+                    </p>
+                  </a>
+                  <a href="02.4.1.services_marketing.html">
+                    <h4>RAG / Бази знань</h4>
+                    <p>
+                      Індексовані документи, політика оновлення, метрики відповідей, QA-звіти. Інтелектуальна база знань
+                      із контрольованою
+                      якістю.
+                    </p>
+                  </a>
+                  <a href="02.4.1.services_marketing.html">
+                    <h4>AI-процеси / Автоматизація</h4>
+                    <p>
+                      BPMN-флоу, сценарії автодій, журнали подій, гайд для операторів. Документація робочих процесів із
+                      вбудованим AI.
+                    </p>
+                  </a>
+                  <a href="02.4.1.services_marketing.html">
+                    <h4>AI-навчання / воркшопи</h4>
+                    <p>
+                      Програма навчання, презентації, чек-листи, записи, сертифікати. Навчальні матеріали для персоналу
+                      клієнта.
+                    </p>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="item black">
+          <div class="left">
+            <button type="button">IoT</button>
+            <div class="drop">
+              <div class="tags black">
+                <a href="">#моніторинг верстатів</a>
+                <a href="">#лічильник виготовленої продукції</a>
+                <a href="">#контроль температури</a>
+              </div>
+            </div>
+          </div>
+          <div class="right">
+            <div class="drop">
+              <div class="text">
+                <div class="cards">
+                  <a href="02.4.1.services_marketing.html">
+                    <h4>Інтеграція з обладнанням</h4>
+                    <p>
+                      Реєстр пристроїв, схема підключень, протоколи, інструкції. Повна документація інтеграції фізичних
+                      пристроїв.
+                    </p>
+                  </a>
+                  <a href="02.4.1.services_marketing.html">
+                    <h4>Хмарні дашборди</h4>
+                    <p>
+                      Макети інтерфейсів, тест-плани, матриця показників. Візуальні дашборди з метриками і логікою
+                      оновлення.
+                    </p>
+                  </a>
+                  <a href="02.4.1.services_marketing.html">
+                    <h4>Мобільне керування</h4>
+                    <p>
+                      Додаток, UX-флоу, API-документація, безпекові політики. Мобільний застосунок із захищеним
+                      управлінням.
+                    </p>
+                  </a>
+                  <a href="02.4.1.services_marketing.html">
+                    <h4>Сповіщення / Алерти</h4>
+                    <p>
+                      Матриця алертів, сценарії повідомлень, журнали тестів. Система сповіщень про критичні події та
+                      моніторинг.
+                    </p>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stack_projects">
+        <h3>Технологічний стек проєктів</h3>
+        <div class="direction">
+          <h4>Frontend</h4>
+          <div class="item">
+            <div class="img">
+              <img src="public/img/svg/technologies/vue.svg" alt="">
+            </div>
+            <p>Vue.js</p>
+          </div>
+          <div class="item">
+            <div class="img">
+              <img src="public/img/svg/technologies/react.svg" alt="">
+            </div>
+            <p>React JS</p>
+          </div>
+          <div class="item">
+            <div class="img">
+              <img src="public/img/svg/technologies/three.svg" alt="">
+            </div>
+            <p>Three.js</p>
+          </div>
+          <div class="item">
+            <div class="img">
+              <img src="public/img/svg/technologies/ts.svg" alt="">
+            </div>
+            <p>TypeScript</p>
+          </div>
+          <div class="item">
+            <div class="img">
+              <img src="public/img/svg/technologies/next.svg" alt="">
+            </div>
+            <p>Next.js</p>
+          </div>
+          <div class="item">
+            <div class="img">
+              <img src="public/img/svg/technologies/webgl.svg" alt="">
+            </div>
+            <p>WebGL</p>
+          </div>
+        </div>
+        <div class="direction">
+          <h4>Backend</h4>
+          <div class="item">
+            <div class="img">
+              <img src="public/img/svg/technologies/laravel.svg" alt="">
+            </div>
+            <p>Laravel</p>
+          </div>
+          <div class="item">
+            <div class="img">
+              <img src="public/img/svg/technologies/mysql.svg" alt="">
+            </div>
+            <p>MySQL</p>
+          </div>
+          <div class="item">
+            <div class="img">
+              <img src="public/img/svg/technologies/php.svg" alt="">
+            </div>
+            <p>PHP</p>
+          </div>
+          <div class="item">
+            <div class="img">
+              <img src="public/img/svg/technologies/node.svg" alt="">
+            </div>
+            <p>Node.js</p>
+          </div>
+          <div class="item">
+            <div class="img">
+              <img src="public/img/svg/technologies/aws.svg" alt="">
+            </div>
+            <p>AWS</p>
+          </div>
+        </div>
+        <div class="direction">
+          <h4>API</h4>
+          <div class="item">
+            <div class="img">
+              <img src="public/img/svg/technologies/rest.svg" alt="">
+            </div>
+            <p>REST</p>
+          </div>
+          <div class="item">
+            <div class="img">
+              <img src="public/img/svg/technologies/openapi.svg" alt="">
+            </div>
+            <p>OpenAPI</p>
+          </div>
+        </div>
+        <div class="direction">
+          <h4>Аутентифікація</h4>
+          <div class="item">
+            <div class="img">
+              <img src="public/img/svg/technologies/laravel.svg" alt="">
+            </div>
+            <p>Laravel Sanctum</p>
+          </div>
+          <div class="item">
+            <div class="img">
+              <img src="public/img/svg/technologies/rbac.svg" alt="">
+            </div>
+            <p>Ролі / права</p>
+          </div>
+        </div>
+        <div class="direction">
+          <h4>Аналітика</h4>
+          <div class="item">
+            <div class="img">
+              <img src="public/img/svg/technologies/plausible.svg" alt="">
+            </div>
+            <p>Plausible</p>
+          </div>
+          <div class="item">
+            <div class="img">
+              <img src="public/img/svg/technologies/ga.svg" alt="">
+            </div>
+            <p>Google Analytics 4</p>
+          </div>
+          <div class="item">
+            <div class="img">
+              <img src="public/img/svg/technologies/sentry.svg" alt="">
+            </div>
+            <p>Sentry</p>
+          </div>
+        </div>
+        <div class="direction">
+          <h4>ШІ</h4>
+          <div class="item">
+            <div class="img">
+              <img src="public/img/svg/technologies/copilot.svg" alt="">
+            </div>
+            <p>Copilot</p>
+          </div>
+          <div class="item">
+            <div class="img">
+              <img src="public/img/svg/technologies/codex.svg" alt="">
+            </div>
+            <p>Codex</p>
+          </div>
+          <div class="item">
+            <div class="img">
+              <img src="public/img/svg/technologies/chatGPT.svg" alt="">
+            </div>
+            <p>ChatGPT</p>
+          </div>
+          <div class="item">
+            <div class="img">
+              <img src="public/img/svg/technologies/claude.svg" alt="">
+            </div>
+            <p>Claude</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="projects_slider black" id="projects_slider">
+      <div class="slider">
+        <a href="04.1.cases_case.html" class="project_item">
+          <div class="pict">
+            <img src="public/img/projects_slider1.webp" alt="">
+          </div>
+          <div class="box">
+            <p class="h4">Система обліку комунальних ресурсів</p>
+            <button type="button" class="round_btn white">
+              <svg width="8" height="12" viewBox="0 0 8 12" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M0 10.5859L4.58594 6.00296L8.01831e-07 1.41406L1.41406 0L7.41406 6.00296L1.41406 12L0 10.5859Z" />
+              </svg>
+            </button>
+          </div>
+        </a>
+        <a href="04.1.cases_case.html" class="project_item">
+          <div class="pict">
+            <img src="public/img/projects_slider2.webp" alt="">
+          </div>
+          <div class="box">
+            <p class="h4">Система обліку комунальних ресурсів</p>
+            <button type="button" class="round_btn white">
+              <svg width="8" height="12" viewBox="0 0 8 12" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M0 10.5859L4.58594 6.00296L8.01831e-07 1.41406L1.41406 0L7.41406 6.00296L1.41406 12L0 10.5859Z" />
+              </svg>
+            </button>
+          </div>
+        </a>
+        <a href="04.1.cases_case.html" class="project_item">
+          <div class="pict">
+            <img src="public/img/projects_slider3.webp" alt="">
+          </div>
+          <div class="box">
+            <p class="h4">Система обліку комунальних ресурсів</p>
+            <button type="button" class="round_btn white">
+              <svg width="8" height="12" viewBox="0 0 8 12" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M0 10.5859L4.58594 6.00296L8.01831e-07 1.41406L1.41406 0L7.41406 6.00296L1.41406 12L0 10.5859Z" />
+              </svg>
+            </button>
+          </div>
+        </a>
+      </div>
+      <div class="slider_control">
+        <div class="progress">
+          <span></span>
+        </div>
+        <button type="button" class="round_btn">
+          <svg width="8" height="12" viewBox="0 0 8 12" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7.41406 1.41406L2.82812 5.99704L7.41406 10.5859L6 12L0 5.99704L6 0L7.41406 1.41406Z" />
+          </svg>
+        </button>
+        <button type="button" class="round_btn">
+          <svg width="8" height="12" viewBox="0 0 8 12" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 10.5859L4.58594 6.00296L8.01831e-07 1.41406L1.41406 0L7.41406 6.00296L1.41406 12L0 10.5859Z" />
+          </svg>
+        </button>
+      </div>
+    </section>
+
+    <div id="coplexity_placeholder"></div>
+
+    <div id="footer_placeholder"></div>
+
+  </div>
+
+  <script src="js/jquery_min_3.7.1.js"></script>
+  <script src="js/slick.min.js"></script>
+
+  <script src="js/flatpickr/flatpickr.js"></script>
+  <script src="js/flatpickr/uk.js"></script>
+  <script src="js/flatpickr/ru.js"></script>
+
+  <script src="js/script.js" defer></script>
+
+  <!-- Виклики компоненнтів -->
+  <script src="js/loadComponent.js"></script>
+  <script>
+    loadComponent('header', '#header_placeholder');
+    loadComponent('coplexity', '#coplexity_placeholder');
+    loadComponent('footer', '#footer_placeholder');
+  </script>
+
+</body>
+
+</html>

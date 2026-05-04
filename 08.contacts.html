@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="public/img/favicon.ico" />
+
+  <link rel="stylesheet" href="css/style.css">
+  <title>INGSOT</title>
+</head>
+
+<body>
+
+  <div class="wrapper">
+
+    <div class="modal" id="modal"></div>
+
+    <div id="header_placeholder"></div>
+
+    <section class="main_banner white">
+      <div class="item">
+        <div class="cont">
+          <h1>Контакти</h1>
+          <h4>
+            Зв’яжіться з нами, щоб обговорити ваш проєкт і знайти найкраще цифрове рішення для вашого бізнесу.
+          </h4>
+        </div>
+      </div>
+    </section>
+
+    <section class="prices bb_white">
+      <div class="anim_fond">
+        <div class="blur_layer">
+          <div class="ball v1"></div>
+          <div class="ball v2"></div>
+        </div>
+      </div>
+
+      <div class="left">
+        <div class="contacts">
+          <a href="mailto:info@ingsot.com" class="btn_decor_white">
+            <span class="bcg">
+              <img src="public/img/svg/mail.svg" alt="">
+            </span>
+            <span>info@ingsot.com</span>
+          </a>
+          <a href="tel:+380444920613" class="btn_decor_white">
+            <span class="bcg">
+              <img src="public/img/svg/phone.svg" alt="">
+            </span>
+            <span>+38 044 492 06 13</span>
+          </a>
+          <a href="" class="btn_decor_white">
+            <span class="bcg">
+              <img src="public/img/svg/telegram.svg" alt="">
+            </span>
+            <span>@ingsot_support</span>
+          </a>
+          <p>м. Київ, вул. Еспланадна, 20</p>
+          <p>Пн–Пт, 09:00–18:00</p>
+        </div>
+      </div>
+
+      <div class="right">
+        <div class="cont">
+          <div class="title">
+            <h2>Маєте задачу — ми маємо рішення</h2>
+          </div>
+          <form>
+            <div class="title">
+              <label class="input">
+                <p>Розкажіть про свій проєкт</p>
+                <textarea rows="5"></textarea>
+              </label>
+            </div>
+            <div class="title column">
+              <h3>Розкажіть про себе</h3>
+              <div class="fields">
+                <label class="input">
+                  <p>Як до вас звертатись</p>
+                  <input type="text">
+                  <p>Помилка</p>
+                </label>
+                <label class="input w50">
+                  <p>Ваш телефон</p>
+                  <input type="number">
+                  <p>Помилка</p>
+                </label>
+                <label class="input w50">
+                  <p>Ваш e-mail</p>
+                  <input type="text">
+                  <p>Помилка</p>
+                </label>
+              </div>
+            </div>
+            <div class="title jce">
+              <button type="submit" class="btn_decor_white">
+                <span class="bcg">
+                  <img src="public/img/svg/shevron_black_right.svg" alt="">
+                </span>
+                <span>Відправити повідомлення</span>
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div class="cont">
+          <div class="title">
+            <h2>Відправлено!</h2>
+          </div>
+          <div class="title column">
+            <p>Маємо ваш запит — дякуємо.</p>
+            <p>Ми вже в процесі й підготуємо змістовну відповідь найближчим часом.</p>
+          </div>
+          <div class="title jce">
+            <button type="button" class="btn_decor_white">
+              <span class="bcg">
+                <img src="public/img/svg/shevron_black_right.svg" alt="">
+              </span>
+              <span>Чудово</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+
+    </section>
+
+    <div id="coplexity_placeholder"></div>
+
+    <div id="footer_placeholder"></div>
+
+  </div>
+
+  <script src="js/jquery_min_3.7.1.js"></script>
+  <script src="js/slick.min.js"></script>
+
+  <script src="js/flatpickr/flatpickr.js"></script>
+  <script src="js/flatpickr/uk.js"></script>
+  <script src="js/flatpickr/ru.js"></script>
+
+  <script src="js/script.js" defer></script>
+
+  <!-- Виклики компоненнтів -->
+  <script src="js/loadComponent.js"></script>
+  <script>
+    loadComponent('header', '#header_placeholder');
+    loadComponent('coplexity', '#coplexity_placeholder');
+    loadComponent('footer', '#footer_placeholder');
+  </script>
+
+</body>
+
+</html>

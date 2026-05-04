@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="public/img/favicon.ico" />
+
+  <link rel="stylesheet" href="css/style.css">
+  <title>INGSOT</title>
+</head>
+
+<body>
+
+  <div class="wrapper">
+
+    <div class="modal" id="modal"></div>
+
+    <div id="header_placeholder"></div>
+
+    <section class="main_banner white">
+      <div class="anim_fond">
+        <div class="blur_layer">
+          <div class="ball v1"></div>
+          <div class="ball v2"></div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="cont">
+          <h1>Рішення</h1>
+          <h4>
+            Від B2B-порталів до штучного інтелкту — ми розробляємо технології, що підсилюють бізнес і приносять реальний
+            результат.
+          </h4>
+          <div class="btns_container">
+            <button type="button" class="btn_decor_white"
+              onclick="loadComponent('submit_request', '#modal'); openModal();">
+              <span class="bcg">
+                <img src="public/img/svg/shevron_black_right.svg" alt="">
+              </span>
+              <span>Залишити заявку</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="helping black">
+      <div class="help_ways v1" id="help_ways">
+        <div class="item">
+          <div class="left">
+            <button type="button">Автоматизація дилерських мереж</button>
+          </div>
+          <div class="small_img">
+            <img src="/public/img/gif/sbtr1.gif" alt="">
+          </div>
+          <div class="right">
+            <div class="drop">
+              <div class="text">
+                <p>
+                  Автоматизуємо роботу дилерів, постачальників і клієнтів через єдину цифрову платформу. B2B-портал
+                  дозволяє керувати
+                  замовленнями, залишками, документами, оплатами та знижками.
+                </p>
+                <p>
+                  Система інтегрується з 1С, CRM і ERP, забезпечує персональні ціни, ліміти та контроль дебіторки.
+                  Результат — скорочення
+                  ручної роботи, швидша обробка замовлень і повна прозорість процесів.
+                </p>
+                <div class="tags pine_green">
+                  <a href="">#моніторинг верстатів</a>
+                  <a href="">#статистика використання електроенергії</a>
+                  <a href="">#лічильник виготовленої продукції</a>
+                  <a href="">#вимірювання тиску</a>
+                  <a href="">#контроль температури</a>
+                </div>
+                <div class="btns_container">
+                  <button type="button" class="btn_decor_white">
+                    <span class="bcg">
+                      <img src="public/img/svg/shevron_black_right.svg" alt="">
+                    </span>
+                    <span>Відправити запит</span>
+                  </button>
+                  <a href="" class="btn_decor_blue">
+                    Детальніше
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <div class="left">
+            <button type="button">Цифровізація та IoT-моніторинг</button>
+          </div>
+          <div class="small_img">
+            <img src="/public/img/gif/sbtr2.gif" alt="">
+          </div>
+          <div class="right">
+            <div class="drop">
+              <div class="text">
+                <p>
+                  Створюємо рішення для моніторингу та керування обладнанням у реальному часі. Наші IoT-системи
+                  збирають і аналізують дані
+                  з датчиків, дозволяють керувати пристроями через веб або мобільний застосунок.
+                </p>
+                <p>
+                  Підтримуються протоколи MQTT, Modbus, TCP/IP, REST API. Клієнти отримують надійну систему з
+                  аналітикою, дашбордами,
+                  сповіщеннями та журналами подій.
+                </p>
+                <div class="tags white">
+                  <a href="">#моніторинг верстатів</a>
+                  <a href="">#статистика використання електроенергії</a>
+                  <a href="">#лічильник виготовленої продукції</a>
+                  <a href="">#вимірювання тиску</a>
+                  <a href="">#контроль температури</a>
+                </div>
+                <div class="btns_container">
+                  <button type="button" class="btn_decor_white">
+                    <span class="bcg">
+                      <img src="public/img/svg/shevron_black_right.svg" alt="">
+                    </span>
+                    <span>Відправити запит</span>
+                  </button>
+                  <a href="" class="btn_decor_blue">
+                    Детальніше
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="item on">
+          <div class="left">
+            <button type="button">Цифрові представництва та медіа-активи</button>
+          </div>
+          <div class="small_img">
+            <img src="/public/img/gif/sbtr3.gif" alt="">
+          </div>
+          <div class="right">
+            <div class="drop">
+              <div class="text">
+                <p>
+                  Розробляємо сучасні корпоративні сайти з продуманою структурою, SEO-оптимізацією та швидкодією. Мета —
+                  представити
+                  компанію професійно, забезпечити зрозумілу навігацію й інструменти конверсії (заявки, завантаження,
+                  контакти).
+                </p>
+                <p>
+                  Кожен сайт створюється на основі аналітики бізнесу, під потреби відділів продажу, HR або PR.
+                </p>
+                <div class="tags blue">
+                  <a href="">#моніторинг верстатів</a>
+                  <a href="">#статистика використання електроенергії</a>
+                  <a href="">#лічильник виготовленої продукції</a>
+                  <a href="">#вимірювання тиску</a>
+                  <a href="">#контроль температури</a>
+                </div>
+                <div class="btns_container">
+                  <button type="button" class="btn_decor_white">
+                    <span class="bcg">
+                      <img src="public/img/svg/shevron_black_right.svg" alt="">
+                    </span>
+                    <span>Відправити запит</span>
+                  </button>
+                  <a href="" class="btn_decor_blue">
+                    Детальніше
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <div class="left">
+            <button type="button">Е-commerce рішення</button>
+          </div>
+          <div class="small_img">
+            <img src="/public/img/gif/sbtr4.gif" alt="">
+          </div>
+          <div class="right">
+            <div class="drop">
+              <div class="text">
+                <p>
+                  Розробляємо онлайн-магазини, інтегровані з 1С, CRM, платіжними системами та службами доставки.
+                </p>
+                <p>
+                  Наш фокус — автоматизація процесів, швидка обробка замовлень і комфорт клієнтів. Передбачено
+                  адаптивний дизайн,
+                  багатомовність, персональні знижки, аналітику продажів і SEO.
+                </p>
+                <div class="tags green">
+                  <a href="">#моніторинг верстатів</a>
+                  <a href="">#статистика використання електроенергії</a>
+                  <a href="">#лічильник виготовленої продукції</a>
+                  <a href="">#вимірювання тиску</a>
+                  <a href="">#контроль температури</a>
+                </div>
+                <div class="btns_container">
+                  <button type="button" class="btn_decor_white">
+                    <span class="bcg">
+                      <img src="public/img/svg/shevron_black_right.svg" alt="">
+                    </span>
+                    <span>Відправити запит</span>
+                  </button>
+                  <a href="" class="btn_decor_blue">
+                    Детальніше
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <div class="left">
+            <button type="button">Екосистеми маркетингу та продажів</button>
+          </div>
+          <div class="small_img">
+            <img src="/public/img/gif/sbtr5.gif" alt="">
+          </div>
+          <div class="right">
+            <div class="drop">
+              <div class="text">
+                <p>
+                  Просуваємо бізнес у digital: від стратегії до звітів. Включає ведення соцмереж, відео / фото продакшн,
+                  рекламу (Meta,
+                  TikTok, Google Ads), SEO, аналітику.
+                </p>
+                <p>
+                  Ми забезпечуємо повний цикл маркетингу, орієнтований на результат — зростання трафіку, заявок і
+                  впізнаваності бренду.
+                </p>
+                <div class="tags orange">
+                  <a href="">#моніторинг верстатів</a>
+                  <a href="">#статистика використання електроенергії</a>
+                  <a href="">#лічильник виготовленої продукції</a>
+                  <a href="">#вимірювання тиску</a>
+                  <a href="">#контроль температури</a>
+                </div>
+                <div class="btns_container">
+                  <button type="button" class="btn_decor_white">
+                    <span class="bcg">
+                      <img src="public/img/svg/shevron_black_right.svg" alt="">
+                    </span>
+                    <span>Відправити запит</span>
+                  </button>
+                  <a href="" class="btn_decor_blue">
+                    Детальніше
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <div class="left">
+            <button type="button">ШІ-трансформація бізнесу</button>
+          </div>
+          <div class="small_img">
+            <img src="/public/img/gif/sbtr6.gif" alt="">
+          </div>
+          <div class="right">
+            <div class="drop">
+              <div class="text">
+                <p>
+                  Впроваджуємо штучний інтелект для автоматизації рутинних процесів, аналізу даних і комунікацій.
+                  Розробляємо AI-агентів,
+                  бази знань, чат-боти, інтелектуальні дашборди.
+                </p>
+                <p>
+                  Завдяки AI компанії отримують швидшу обробку звернень, точнішу аналітику й персоналізований
+                  клієнтський досвід.
+                </p>
+                <div class="tags purple">
+                  <a href="">#моніторинг верстатів</a>
+                  <a href="">#статистика використання електроенергії</a>
+                  <a href="">#лічильник виготовленої продукції</a>
+                  <a href="">#вимірювання тиску</a>
+                  <a href="">#контроль температури</a>
+                </div>
+                <div class="btns_container">
+                  <button type="button" class="btn_decor_white">
+                    <span class="bcg">
+                      <img src="public/img/svg/shevron_black_right.svg" alt="">
+                    </span>
+                    <span>Відправити запит</span>
+                  </button>
+                  <a href="" class="btn_decor_blue">
+                    Детальніше
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="projects_slider black" id="projects_slider">
+      <div class="slider">
+        <a href="04.1.cases_case.html" class="project_item">
+          <div class="pict">
+            <img src="public/img/projects_slider1.webp" alt="">
+          </div>
+          <div class="box">
+            <p class="h4">Система обліку комунальних ресурсів</p>
+            <button type="button" class="round_btn white">
+              <svg width="8" height="12" viewBox="0 0 8 12" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M0 10.5859L4.58594 6.00296L8.01831e-07 1.41406L1.41406 0L7.41406 6.00296L1.41406 12L0 10.5859Z" />
+              </svg>
+            </button>
+          </div>
+        </a>
+        <a href="04.1.cases_case.html" class="project_item">
+          <div class="pict">
+            <img src="public/img/projects_slider2.webp" alt="">
+          </div>
+          <div class="box">
+            <p class="h4">Система обліку комунальних ресурсів</p>
+            <button type="button" class="round_btn white">
+              <svg width="8" height="12" viewBox="0 0 8 12" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M0 10.5859L4.58594 6.00296L8.01831e-07 1.41406L1.41406 0L7.41406 6.00296L1.41406 12L0 10.5859Z" />
+              </svg>
+            </button>
+          </div>
+        </a>
+        <a href="04.1.cases_case.html" class="project_item">
+          <div class="pict">
+            <img src="public/img/projects_slider3.webp" alt="">
+          </div>
+          <div class="box">
+            <p class="h4">Система обліку комунальних ресурсів</p>
+            <button type="button" class="round_btn white">
+              <svg width="8" height="12" viewBox="0 0 8 12" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M0 10.5859L4.58594 6.00296L8.01831e-07 1.41406L1.41406 0L7.41406 6.00296L1.41406 12L0 10.5859Z" />
+              </svg>
+            </button>
+          </div>
+        </a>
+      </div>
+      <div class="slider_control">
+        <div class="progress">
+          <span></span>
+        </div>
+        <button type="button" class="round_btn">
+          <svg width="8" height="12" viewBox="0 0 8 12" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7.41406 1.41406L2.82812 5.99704L7.41406 10.5859L6 12L0 5.99704L6 0L7.41406 1.41406Z" />
+          </svg>
+        </button>
+        <button type="button" class="round_btn">
+          <svg width="8" height="12" viewBox="0 0 8 12" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 10.5859L4.58594 6.00296L8.01831e-07 1.41406L1.41406 0L7.41406 6.00296L1.41406 12L0 10.5859Z" />
+          </svg>
+        </button>
+      </div>
+    </section>
+
+    <div id="coplexity_placeholder"></div>
+
+    <div id="footer_placeholder"></div>
+
+  </div>
+
+  <script src="js/jquery_min_3.7.1.js"></script>
+  <script src="js/slick.min.js"></script>
+
+  <script src="js/flatpickr/flatpickr.js"></script>
+  <script src="js/flatpickr/uk.js"></script>
+  <script src="js/flatpickr/ru.js"></script>
+
+  <script src="js/script.js" defer></script>
+
+  <!-- Виклики компоненнтів -->
+  <script src="js/loadComponent.js"></script>
+  <script>
+    loadComponent('header', '#header_placeholder');
+    loadComponent('coplexity', '#coplexity_placeholder');
+    loadComponent('footer', '#footer_placeholder');
+  </script>
+
+</body>
+
+</html>

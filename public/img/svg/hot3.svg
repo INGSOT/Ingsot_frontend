@@ -1,0 +1,33 @@
+<svg width="10" height="13" viewBox="0 0 10 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="fireGradient" x1="5" y1="12.5" x2="5" y2="0.5" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#CE480E">
+        <animate attributeName="stop-color" values="#CE480E;#FF8D22;#CE480E" dur="3s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="0.5" stop-color="#FFD543">
+        <animate attributeName="stop-color" values="#FFD543;#FFFF69;#FFD543" dur="2.5s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="1" stop-color="#FFFF8D">
+        <animate attributeName="stop-color" values="#FFFF8D;#FFD543;#FFFF8D" dur="4s" repeatCount="indefinite"/>
+      </stop>
+    </linearGradient>
+  </defs>
+
+  <path d="M1.40525 5.04187C0.629216 6.14943 0.518037 7.99536 0.5 8.01419C0.5 9.36187 0.906425 10.4506 1.68246 11.2078C3.01292 12.5187 5.04574 12.5 5.08252 12.5C6.43175 12.5 7.50384 12.112 8.24307 11.3369C9.53671 10.008 9.49989 7.9954 9.49989 7.95866C9.49989 5.79911 7.78105 4.30354 7.76301 4.28563C5.78578 2.77068 5.50857 1.27511 5.5265 0.5C2.51398 2.19811 3.49363 6.6283 3.51248 6.66504"
+        stroke="url(#fireGradient)" stroke-linecap="round" stroke-linejoin="round"
+        stroke-opacity="0">
+    <!-- Прозорість -->
+    <animate attributeName="stroke-opacity"
+             values="0;0.7;1;0.7;0"
+             dur="3s"
+             repeatCount="indefinite"/>
+    <!-- Пульсування -->
+    <animateTransform attributeName="transform"
+                      attributeType="XML"
+                      type="scale"
+                      values="1;1.05;1;0.95;1"
+                      dur="2s"
+                      repeatCount="indefinite"
+                      additive="sum"/>
+  </path>
+</svg>

@@ -1,0 +1,39 @@
+<div class="modal_content request">
+  <button type="button" class="round_btn x12"></button>
+  <form>
+    <span class="h2">Залишити заявку</span>
+    <div class="fields">
+      <label class="input error">
+        <p>Як до вас звертатись</p>
+        <input type="text">
+        <p>Помилка</p>
+      </label>
+      <label class="input">
+        <p>Назва організації</p>
+        <input type="text">
+        <p>Помилка</p>
+      </label>
+      <label class="input w50">
+        <p>Ваш телефон</p>
+        <input type="number">
+        <p>Помилка</p>
+      </label>
+      <label class="input w50">
+        <p>Ваш e-mail</p>
+        <input type="text">
+        <p>Помилка</p>
+      </label>
+      <label class="input">
+        <p>Додайте повідомлення</p>
+        <textarea rows="5"></textarea>
+      </label>
+    </div>
+    <button type="submit" class="btn_decor_white"
+      onclick="closeModal(); loadComponent('confirm_request', '#modal'); openModal();">
+      <span class="bcg">
+        <img src="public/img/svg/shevron_black_right.svg" alt="">
+      </span>
+      <span>Відправити</span>
+    </button>
+  </form>
+</div>

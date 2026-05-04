@@ -1,0 +1,33 @@
+<svg width="320" height="320" viewBox="0 0 320 320">
+  <!-- Уявне коло діаметром 270px з відступом 24px -->
+  <circle cx="160" cy="160" r="135" fill="none" stroke="lightgray" stroke-dasharray="4 4"/>
+
+  <!-- Верхня дуга -->
+  <path id="topArc" d="M 25 160 A 135 135 0 0 1 295 160" fill="none"/>
+  <!-- Нижня дуга -->
+  <path id="bottomArc" d="M 295 160 A 135 135 0 0 1 25 160" fill="none"/>
+
+  <!-- Верхні написи -->
+  <text font-size="18" font-weight="700" text-anchor="middle">
+    <textPath href="#topArc" startOffset="50%">
+      Stakeholder Alignment
+    </textPath>
+  </text>
+  <text font-size="12" font-weight="500" text-anchor="middle" dy="18">
+    <textPath href="#topArc" startOffset="50%">
+      комунікація та прозорість
+    </textPath>
+  </text>
+
+  <!-- Нижні написи -->
+  <text font-size="18" font-weight="700" text-anchor="middle">
+    <textPath href="#bottomArc" startOffset="50%">
+      Комплексна реалізація
+    </textPath>
+  </text>
+  <text font-size="12" font-weight="500" text-anchor="middle" dy="18">
+    <textPath href="#bottomArc" startOffset="50%">
+      Виробнитство та тест
+    </textPath>
+  </text>
+</svg>
