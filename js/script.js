@@ -280,6 +280,26 @@ $(document).ready(function () {
   });
 });
 
+// скрол до якоря
+document.addEventListener("DOMContentLoaded", () => {
+  const hash = window.location.hash; // наприклад "#anchor_approach"
+  if (hash) {
+    const target = document.querySelector(hash);
+    if (target) {
+      // зняти клас on з усіх братів
+      document.querySelectorAll(".item.on").forEach(el => {
+        el.classList.remove("on");
+      });
+
+      // додати клас on до цільового
+      target.classList.add("on");
+
+      // необов'язково: плавний скрол
+      target.scrollIntoView({ behavior: "smooth" });
+    }
+  }
+});
+
 
 
 

@@ -1123,6 +1123,7 @@ body {
     }
   }
   .item {
+    scroll-margin-top: 96px;
     display: flex;
     justify-content: space-between;
     gap: 12px;
@@ -2090,7 +2091,7 @@ header {
     flex-wrap: wrap;
     gap: 12px;
     padding: 24px 0 240px;
-    a {
+    .item {
       display: flex;
       flex-direction: column;
       gap: 24px;
@@ -2138,7 +2139,7 @@ header {
 @media (max-width: 1250px) {
   .helping {
     .cards {
-      a {
+      .item {
         width: calc(50% - 6px);
       }
     }
@@ -2151,7 +2152,7 @@ header {
     gap: 24px;
     .cards {
       padding: 24px 0 120px;
-      a {
+      .item {
         width: 100%;
       }
     }
@@ -2199,7 +2200,7 @@ header {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  a {
+  .item {
     width: calc((100% - 24px) / 4);
     aspect-ratio: 1;
     border-radius: 24px;
@@ -2287,7 +2288,7 @@ header {
 
 @media (max-width: 1700px) {
   .cont_sites {
-    a,
+    .item,
     .plug {
       width: calc((100% - 16px) / 3);
     }
@@ -2296,7 +2297,7 @@ header {
 
 @media (max-width: 1300px) {
   .cont_sites {
-    a,
+    .item,
     .plug {
       width: calc((100% - 8px) / 2);
     }
@@ -2308,7 +2309,7 @@ header {
     .plug {
       display: none;
     }
-    a {
+    .item {
       p {
         display: none;
       }
@@ -2318,7 +2319,7 @@ header {
 
 @media (max-width: 700px) {
   .cont_sites {
-    a {
+    .item {
       width: 100%;
     }
   }
@@ -3543,7 +3544,6 @@ footer {
     .cont {
       display: flex;
       gap: 24px;
-      justify-content: space-between;
       flex-wrap: wrap;
       margin-top: 24px;
       .linkWithImg {
