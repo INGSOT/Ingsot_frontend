@@ -1012,10 +1012,6 @@ body {
     border-radius: 12px;
     @include p3;
     color: #fff;
-    &:hover {
-      color: $black;
-      background-color: #fff !important;
-    }
     &.on {
       pointer-events: none;
       color: $black;
@@ -1025,16 +1021,6 @@ body {
   &.pine_green {
     a {
       background-color: #1a676b;
-    }
-  }
-  &.white {
-    a {
-      color: $black;
-      background-color: #fff;
-      &:hover {
-        background-color: $black;
-        color: #fff;
-      }
     }
   }
   &.blue {
@@ -1550,6 +1536,8 @@ header {
   display: flex;
   align-items: center;
   gap: 24px;
+  backdrop-filter: blur(5px);
+  background: linear-gradient(0deg, rgba(2, 3, 5, 0) 0%, rgba(2, 3, 5, 1) 100%);
   .logo {
     width: 200px;
     height: 72px;
@@ -1777,15 +1765,21 @@ header {
 
 .marquee {
   padding: 24px 0;
-  background-color: #fff;
   overflow: hidden;
   white-space: nowrap;
   display: flex;
+  &:hover {
+    .inner {
+      animation-play-state: paused;
+    }
+  }
   .inner {
+    width: fit-content;
     display: inline-flex;
     padding-right: 24px;
     gap: 24px;
-    animation: marquee infinite 15s linear;
+    animation: marquee infinite 5s linear;
+    color: #fff;
     a:hover {
       color: $blue;
     }
@@ -1875,7 +1869,7 @@ header {
         left: 0;
         z-index: 1;
         background: linear-gradient(180deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 1) 90%);
-        opacity: 0.5;
+        opacity: 0.75;
       }
       &:hover,
       &.hover_active {
@@ -1883,7 +1877,7 @@ header {
           transform: scale(1);
         }
         &::after {
-          opacity: 1;
+          opacity: 0.3;
         }
       }
     }
@@ -1928,23 +1922,13 @@ header {
 }
 
 .projects_slider {
-  background-color: #fff;
+  background-color: $black;
   padding: 144px 72px;
-  &.black {
-    background-color: $black;
-    .slider_control {
-      .progress {
-        background-color: #ffffff26;
-        span {
-          background-color: #fff;
-        }
-      }
-    }
-  }
   .slider {
     width: calc(100% + 72px);
     .project_item {
       width: 800px;
+      height: 600px;
       margin-right: 12px;
     }
   }
@@ -1952,9 +1936,9 @@ header {
     margin-top: 72px;
     padding: 24px 0 0;
     .progress {
-      background-color: #0203054d;
+      background-color: #ffffff26;
       span {
-        background-color: $black;
+        background-color: #fff;
       }
     }
   }
@@ -1967,6 +1951,7 @@ header {
       width: calc(100% + 48px);
       .project_item {
         width: 650px;
+        height: 487.5px;
         &.slick-active {
           .pict {
             img {
@@ -1996,6 +1981,7 @@ header {
       width: calc(100% + 24px);
       .project_item {
         width: 350px;
+        height: 262.5px;
       }
     }
     .slider_control {
@@ -2188,7 +2174,7 @@ header {
 }
 
 .created_websites {
-  background-color: $grey;
+  background-color: $black;
   .cont_sites {
     max-width: 1624px;
   }
@@ -2208,7 +2194,7 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #fff;
+    background-color: #ffffff0d;
     transition: 0.5s all ease-in-out;
     div {
       width: 210px;
@@ -2219,7 +2205,7 @@ header {
       transition: inherit;
     }
     svg {
-      fill: $black;
+      fill: #fff;
     }
     p {
       position: absolute;
@@ -3292,13 +3278,21 @@ header {
   display: flex;
   flex-direction: column;
   gap: 144px;
-  background-color: #fff;
+  padding-bottom: 0;
+  background-color: #1b1c1f;
   position: relative;
   z-index: 1;
   & > div {
     display: flex;
     flex-direction: column;
     gap: 24px;
+    color: #fff;
+    &:last-of-type {
+      padding: 72px;
+      background-color: $black;
+      width: calc(100% + 144px);
+      margin-left: -72px;
+    }
   }
 }
 
@@ -3306,12 +3300,26 @@ header {
   .case_disc {
     padding-top: 144px;
     gap: 72px;
+    & > div {
+      &:last-of-type {
+        padding: 48px;
+        width: calc(100% + 96px);
+        margin-left: -48px;
+      }
+    }
   }
 }
 
 @media (max-width: 700px) {
   .case_disc {
     gap: 48px;
+    & > div {
+      &:last-of-type {
+        padding: 24px;
+        width: calc(100% + 48px);
+        margin-left: -24px;
+      }
+    }
   }
 }
 
@@ -3372,9 +3380,9 @@ header {
   }
 }
 
-.case_white {
+.case_black {
   position: relative;
-  background-color: #fff;
+  background-color: $black;
   display: flex;
   gap: 12px;
   .text {
@@ -3385,9 +3393,7 @@ header {
     justify-content: center;
     gap: 12px;
     text-align: center;
-    p {
-      color: #415c7c;
-    }
+    color: #fff;
   }
   .img {
     width: 56.5%;
@@ -3401,7 +3407,7 @@ header {
 }
 
 @media (max-width: 700px) {
-  .case_white {
+  .case_black {
     flex-wrap: wrap;
     .text,
     .img {
@@ -3421,12 +3427,6 @@ header {
   }
   .cont_sites {
     position: relative;
-    a {
-      background-color: #ffffff0d;
-      svg {
-        fill: #fff;
-      }
-    }
   }
   .btn_decor_white {
     margin: 0 auto;
@@ -3490,9 +3490,17 @@ header {
 
 footer {
   position: relative;
-  background-color: $grey;
+  background-color: $black;
   .map {
     height: 600px;
+    position: relative;
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-color: #02030580;
+      pointer-events: none;
+    }
     iframe {
       width: 100%;
       height: 100%;
@@ -3503,6 +3511,7 @@ footer {
     flex-direction: column;
     gap: 72px;
     padding: 144px 72px;
+    color: #fff;
     hr {
       width: 100%;
       height: 1px;
@@ -3514,8 +3523,10 @@ footer {
       justify-content: space-between;
       a {
         transform-origin: 50% 50%;
+        animation: spin 5s infinite linear;
+        animation-play-state: paused;
         &:hover {
-          animation: spin 5s infinite linear;
+          animation-play-state: running;
         }
       }
     }
@@ -3604,7 +3615,7 @@ footer {
               content: "";
               width: 24px;
               height: 24px;
-              background: url("../public/img/svg/telegram.svg") no-repeat 50%;
+              background: url("../public/img/svg/telegram_white.svg") no-repeat 50%;
             }
           }
           &:hover {

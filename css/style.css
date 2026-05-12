@@ -1020,11 +1020,6 @@ body .slick-track {
   line-height: 16px;
   color: #fff;
 }
-.tags a:hover,
-.tags button:hover {
-  color: #020305;
-  background-color: #fff !important;
-}
 .tags a.on,
 .tags button.on {
   pointer-events: none;
@@ -1033,14 +1028,6 @@ body .slick-track {
 }
 .tags.pine_green a {
   background-color: #1a676b;
-}
-.tags.white a {
-  color: #020305;
-  background-color: #fff;
-}
-.tags.white a:hover {
-  background-color: #020305;
-  color: #fff;
 }
 .tags.blue a {
   background-color: #0088cc;
@@ -1538,6 +1525,11 @@ header {
   -ms-flex-align: center;
   align-items: center;
   gap: 24px;
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+  background: -webkit-gradient(linear, left bottom, left top, from(rgba(2, 3, 5, 0)), to(rgb(2, 3, 5)));
+  background: -o-linear-gradient(bottom, rgba(2, 3, 5, 0) 0%, rgb(2, 3, 5) 100%);
+  background: linear-gradient(0deg, rgba(2, 3, 5, 0) 0%, rgb(2, 3, 5) 100%);
 }
 header .logo {
   width: 200px;
@@ -1748,21 +1740,28 @@ header.dark .panel .burger:hover {
 }
 .marquee {
   padding: 24px 0;
-  background-color: #fff;
   overflow: hidden;
   white-space: nowrap;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
+.marquee:hover .inner {
+  -webkit-animation-play-state: paused;
+  animation-play-state: paused;
+}
 .marquee .inner {
+  width: -moz-fit-content;
+  width: -webkit-fit-content;
+  width: fit-content;
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
   padding-right: 24px;
   gap: 24px;
-  -webkit-animation: marquee infinite 15s linear;
-  animation: marquee infinite 15s linear;
+  -webkit-animation: marquee infinite 5s linear;
+  animation: marquee infinite 5s linear;
+  color: #fff;
 }
 .marquee .inner a:hover {
   color: #0088cc;
@@ -1892,7 +1891,7 @@ header.dark .panel .burger:hover {
   background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.6)), color-stop(90%, rgb(0, 0, 0)));
   background: -o-linear-gradient(top, rgba(0, 0, 0, 0.6) 0%, rgb(0, 0, 0) 90%);
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.6) 0%, rgb(0, 0, 0) 90%);
-  opacity: 0.5;
+  opacity: 0.75;
 }
 .sbtr .cont .item:hover .img,
 .sbtr .cont .item.hover_active .img {
@@ -1902,7 +1901,7 @@ header.dark .panel .burger:hover {
 }
 .sbtr .cont .item:hover::after,
 .sbtr .cont .item.hover_active::after {
-  opacity: 1;
+  opacity: 0.3;
 }
 
 @media (max-width: 1400px) {
@@ -1929,23 +1928,15 @@ header.dark .panel .burger:hover {
   }
 }
 .projects_slider {
-  background-color: #fff;
-  padding: 144px 72px;
-}
-.projects_slider.black {
   background-color: #020305;
-}
-.projects_slider.black .slider_control .progress {
-  background-color: rgba(255, 255, 255, 0.1490196078);
-}
-.projects_slider.black .slider_control .progress span {
-  background-color: #fff;
+  padding: 144px 72px;
 }
 .projects_slider .slider {
   width: calc(100% + 72px);
 }
 .projects_slider .slider .project_item {
   width: 800px;
+  height: 600px;
   margin-right: 12px;
 }
 .projects_slider .slider_control {
@@ -1953,10 +1944,10 @@ header.dark .panel .burger:hover {
   padding: 24px 0 0;
 }
 .projects_slider .slider_control .progress {
-  background-color: rgba(2, 3, 5, 0.3019607843);
+  background-color: rgba(255, 255, 255, 0.1490196078);
 }
 .projects_slider .slider_control .progress span {
-  background-color: #020305;
+  background-color: #fff;
 }
 
 @media (max-width: 1024px) {
@@ -1968,6 +1959,7 @@ header.dark .panel .burger:hover {
   }
   .projects_slider .slider .project_item {
     width: 650px;
+    height: 487.5px;
   }
   .projects_slider .slider .project_item.slick-active .pict img {
     -webkit-transform: scale(1);
@@ -1996,6 +1988,7 @@ header.dark .panel .burger:hover {
   }
   .projects_slider .slider .project_item {
     width: 350px;
+    height: 262.5px;
   }
   .projects_slider .slider_control {
     margin-top: 24px;
@@ -2235,7 +2228,7 @@ header.dark .panel .burger:hover {
 }
 
 .created_websites {
-  background-color: #e1e7ed;
+  background-color: #020305;
 }
 .created_websites .cont_sites {
   max-width: 1624px;
@@ -2265,7 +2258,7 @@ header.dark .panel .burger:hover {
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.0509803922);
   -webkit-transition: 0.5s all ease-in-out;
   -o-transition: 0.5s all ease-in-out;
   transition: 0.5s all ease-in-out;
@@ -2287,7 +2280,7 @@ header.dark .panel .burger:hover {
   transition: inherit;
 }
 .cont_sites .item svg {
-  fill: #020305;
+  fill: #fff;
 }
 .cont_sites .item p {
   position: absolute;
@@ -3613,7 +3606,8 @@ header.dark .panel .burger:hover {
   -ms-flex-direction: column;
   flex-direction: column;
   gap: 144px;
-  background-color: #fff;
+  padding-bottom: 0;
+  background-color: #1b1c1f;
   position: relative;
   z-index: 1;
 }
@@ -3626,6 +3620,13 @@ header.dark .panel .burger:hover {
   -ms-flex-direction: column;
   flex-direction: column;
   gap: 24px;
+  color: #fff;
+}
+.case_disc > div:last-of-type {
+  padding: 72px;
+  background-color: #020305;
+  width: calc(100% + 144px);
+  margin-left: -72px;
 }
 
 @media (max-width: 1024px) {
@@ -3633,10 +3634,20 @@ header.dark .panel .burger:hover {
     padding-top: 144px;
     gap: 72px;
   }
+  .case_disc > div:last-of-type {
+    padding: 48px;
+    width: calc(100% + 96px);
+    margin-left: -48px;
+  }
 }
 @media (max-width: 700px) {
   .case_disc {
     gap: 48px;
+  }
+  .case_disc > div:last-of-type {
+    padding: 24px;
+    width: calc(100% + 48px);
+    margin-left: -24px;
   }
 }
 .case_screens {
@@ -3723,15 +3734,15 @@ header.dark .panel .burger:hover {
     width: 100%;
   }
 }
-.case_white {
+.case_black {
   position: relative;
-  background-color: #fff;
+  background-color: #020305;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   gap: 12px;
 }
-.case_white .text {
+.case_black .text {
   width: calc(43.5% - 12px);
   display: -webkit-box;
   display: -ms-flexbox;
@@ -3748,11 +3759,9 @@ header.dark .panel .burger:hover {
   justify-content: center;
   gap: 12px;
   text-align: center;
+  color: #fff;
 }
-.case_white .text p {
-  color: #415c7c;
-}
-.case_white .img {
+.case_black .img {
   width: 56.5%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -3764,17 +3773,17 @@ header.dark .panel .burger:hover {
   -ms-flex-pack: center;
   justify-content: center;
 }
-.case_white .img img {
+.case_black .img img {
   max-width: 100%;
 }
 
 @media (max-width: 700px) {
-  .case_white {
+  .case_black {
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
   }
-  .case_white .text,
-  .case_white .img {
+  .case_black .text,
+  .case_black .img {
     width: 100%;
   }
 }
@@ -3795,12 +3804,6 @@ header.dark .panel .burger:hover {
 }
 .clients .cont_sites {
   position: relative;
-}
-.clients .cont_sites a {
-  background-color: rgba(255, 255, 255, 0.0509803922);
-}
-.clients .cont_sites a svg {
-  fill: #fff;
 }
 .clients .btn_decor_white {
   margin: 0 auto;
@@ -3877,10 +3880,18 @@ header.dark .panel .burger:hover {
 
 footer {
   position: relative;
-  background-color: #e1e7ed;
+  background-color: #020305;
 }
 footer .map {
   height: 600px;
+  position: relative;
+}
+footer .map::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(2, 3, 5, 0.5019607843);
+  pointer-events: none;
 }
 footer .map iframe {
   width: 100%;
@@ -3896,6 +3907,7 @@ footer .footer {
   flex-direction: column;
   gap: 72px;
   padding: 144px 72px;
+  color: #fff;
 }
 footer .footer hr {
   width: 100%;
@@ -3917,10 +3929,14 @@ footer .footer .head a {
   -webkit-transform-origin: 50% 50%;
   -ms-transform-origin: 50% 50%;
   transform-origin: 50% 50%;
-}
-footer .footer .head a:hover {
   -webkit-animation: spin 5s infinite linear;
   animation: spin 5s infinite linear;
+  -webkit-animation-play-state: paused;
+  animation-play-state: paused;
+}
+footer .footer .head a:hover {
+  -webkit-animation-play-state: running;
+  animation-play-state: running;
 }
 footer .footer .title {
   display: -webkit-box;
@@ -4033,7 +4049,7 @@ footer .footer .link_block div a.tg::before {
   content: "";
   width: 24px;
   height: 24px;
-  background: url("../public/img/svg/telegram.svg") no-repeat 50%;
+  background: url("../public/img/svg/telegram_white.svg") no-repeat 50%;
 }
 footer .footer .link_block div a:hover {
   color: #0088cc;
