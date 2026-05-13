@@ -218,6 +218,7 @@ body {
 
   section {
     padding: 144px 72px;
+    position: relative;
   }
 
   @media (max-width: 1024px) {
@@ -346,6 +347,15 @@ body {
       background: url("../public/img/svg/shevron_black_left.svg") no-repeat 50% #fff;
     }
   }
+  &.up {
+    background: url("../public/img/svg/shevron_white_up.svg") no-repeat 50%;
+    &.black {
+      background: url("../public/img/svg/shevron_up.svg") no-repeat 50%;
+    }
+    &:hover {
+      background: url("../public/img/svg/shevron_up.svg") no-repeat 50% #fff;
+    }
+  }
 }
 
 .btn_decor_blue {
@@ -447,79 +457,85 @@ body {
   gap: 24px;
 }
 
-.anim_fond {
-  width: 100%;
-  height: 100%;
-  background-color: $black;
+.bcg_anim {
   position: absolute;
-  top: 0;
-  left: 0;
+  inset: 0;
   z-index: 0;
-  overflow: hidden;
-  .blur_layer {
-    position: absolute;
-    height: 100%;
-    inset: 0;
-    filter: blur(250px);
-  }
-  .ball {
-    position: absolute;
-    border-radius: 50%;
-    aspect-ratio: 1;
-    &.v1 {
-      width: 800px;
-      background: radial-gradient(circle, rgba(172, 221, 242, 1) 0%, rgba(0, 136, 204, 1) 100%);
-      aspect-ratio: 3 / 2;
-    }
-    &.v2 {
-      width: 700px;
-      background: radial-gradient(circle, rgba(217, 240, 255, 1) 0%, rgba(0, 114, 214, 1) 44%);
-    }
-    &.v3 {
-      width: 800px;
-      aspect-ratio: 3 / 2;
-      background: radial-gradient(circle, rgba(247, 217, 161, 1) 0%, rgba(255, 157, 61, 1) 100%);
-    }
-    &.v4 {
-      width: 700px;
-      background: radial-gradient(circle, rgba(247, 161, 162, 1) 0%, rgba(255, 80, 61, 1) 100%);
-    }
-    &.v5 {
-      width: 800px;
-      background: radial-gradient(circle, rgba(179, 156, 255, 1) 0%, rgba(85, 43, 222, 1) 100%);
-    }
-    &.v6 {
-      width: 700px;
-      background: radial-gradient(circle, rgba(208, 195, 247, 1) 0%, rgba(132, 102, 242, 1) 100%);
-    }
-  }
 }
 
-@media (max-width: 700px) {
-  .anim_fond {
-    .ball {
-      &.v1,
-      &.v3,
-      &.v5 {
-        width: 500px;
-      }
-      &.v2,
-      &.v4,
-      &.v6 {
-        width: 450px;
-      }
-    }
-  }
-}
+// .anim_fond {
+//   width: 100%;
+//   height: 100%;
+//   background-color: $black;
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   z-index: 0;
+//   overflow: hidden;
+//   .blur_layer {
+//     position: absolute;
+//     height: 100%;
+//     inset: 0;
+//     filter: blur(250px);
+//   }
+//   .ball {
+//     position: absolute;
+//     border-radius: 50%;
+//     aspect-ratio: 1;
+//     &.v1 {
+//       width: 800px;
+//       background: radial-gradient(circle, rgba(172, 221, 242, 1) 0%, rgba(0, 136, 204, 1) 100%);
+//       aspect-ratio: 3 / 2;
+//     }
+//     &.v2 {
+//       width: 700px;
+//       background: radial-gradient(circle, rgba(217, 240, 255, 1) 0%, rgba(0, 114, 214, 1) 44%);
+//     }
+//     &.v3 {
+//       width: 800px;
+//       aspect-ratio: 3 / 2;
+//       background: radial-gradient(circle, rgba(247, 217, 161, 1) 0%, rgba(255, 157, 61, 1) 100%);
+//     }
+//     &.v4 {
+//       width: 700px;
+//       background: radial-gradient(circle, rgba(247, 161, 162, 1) 0%, rgba(255, 80, 61, 1) 100%);
+//     }
+//     &.v5 {
+//       width: 800px;
+//       background: radial-gradient(circle, rgba(179, 156, 255, 1) 0%, rgba(85, 43, 222, 1) 100%);
+//     }
+//     &.v6 {
+//       width: 700px;
+//       background: radial-gradient(circle, rgba(208, 195, 247, 1) 0%, rgba(132, 102, 242, 1) 100%);
+//     }
+//   }
+// }
 
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
+// @media (max-width: 700px) {
+//   .anim_fond {
+//     .ball {
+//       &.v1,
+//       &.v3,
+//       &.v5 {
+//         width: 500px;
+//       }
+//       &.v2,
+//       &.v4,
+//       &.v6 {
+//         width: 450px;
+//       }
+//     }
+//   }
+// }
+
+// @keyframes spin {
+//   0% {
+//     transform: rotate(0deg);
+//   }
+//   100% {
+//     transform: rotate(360deg);
+//   }
+// }
 
 .anim_bg {
   overflow: hidden;
@@ -573,91 +589,6 @@ body {
 .trans1 {
   transition: 1s;
 }
-
-// .animate_bg {
-//   position: absolute;
-//   top: 0;
-//   left: 0;
-//   width: 100%;
-//   height: 100%;
-//   z-index: 0;
-//   background-color: $black;
-//   overflow: hidden;
-//   inset: 0;
-//   &::before {
-//     content: "";
-//     width: 52vw;
-//     aspect-ratio: 2 / 1;
-//     border-radius: 50%;
-//     position: absolute;
-//     top: calc(50% - 8vw);
-//     left: calc(50% - 16vw);
-//     filter: blur(10vw);
-//     background: radial-gradient(circle, rgba(79, 158, 247, 1) 0%, rgba(2, 3, 5, 1) 100%);
-//     animation: moveElips 20s infinite linear;
-//   }
-//   &::after {
-//     content: "";
-//     width: 57vw;
-//     aspect-ratio: 1;
-//     background: radial-gradient(circle, rgba(0, 204, 255, 1) 0%, rgba(2, 3, 5, 1) 100%);
-//     border-radius: 50%;
-//     position: absolute;
-//     top: 50%;
-//     left: 50%;
-//     filter: blur(15vw);
-//     animation: moveEight 25s infinite ease-in-out;
-//   }
-// }
-
-// @keyframes moveElips {
-//   0% {
-//     transform: translate(-50%, -50%) rotate(0);
-//   }
-//   25% {
-//     transform: translate(12%, -25%) rotate(90deg);
-//   }
-//   50% {
-//     transform: translate(50%, 50%) rotate(180deg);
-//   }
-//   75% {
-//     transform: translate(-12%, 25%) rotate(270deg);
-//   }
-
-//   100% {
-//     transform: translate(-50%, -50%) rotate(360deg);
-//   }
-// }
-
-// @keyframes moveEight {
-//   0% {
-//     transform: translate(-25%, -25%);
-//   }
-//   12% {
-//     transform: translate(-50%, 20%);
-//   }
-//   25% {
-//     transform: translate(-35%, 25%);
-//   }
-//   37% {
-//     transform: translate(0%, 30%);
-//   }
-//   50% {
-//     transform: translate(-35%, -20%);
-//   }
-//   63% {
-//     transform: translate(-10%, -40%);
-//   }
-//   75% {
-//     transform: translate(30%, -70%);
-//   }
-//   87% {
-//     transform: translate(30%, -20%);
-//   }
-//   100% {
-//     transform: translate(-25%, -25%);
-//   }
-// }
 
 .fields {
   max-width: 600px;
@@ -1735,11 +1666,9 @@ header {
   .bcg_img {
     position: absolute;
     bottom: 0;
-    left: 0;
-    z-index: 0;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    z-index: 0;
+    object-fit: contain;
   }
 }
 
@@ -1764,6 +1693,7 @@ header {
 }
 
 .marquee {
+  position: relative;
   padding: 24px 0;
   overflow: hidden;
   white-space: nowrap;
@@ -1786,6 +1716,7 @@ header {
   }
   &.v2 {
     padding: 0;
+    background-color: #fff;
     .inner {
       padding-right: 72px;
       gap: 72px;
@@ -1922,7 +1853,6 @@ header {
 }
 
 .projects_slider {
-  background-color: $black;
   padding: 144px 72px;
   .slider {
     width: calc(100% + 72px);
@@ -2065,9 +1995,6 @@ header {
   display: flex;
   flex-direction: column;
   gap: 48px;
-  &.black {
-    background-color: $black;
-  }
   .section_title,
   .cards {
     position: relative;
@@ -2312,7 +2239,6 @@ header {
 }
 
 .coplexity {
-  position: relative;
   h2 {
     text-align: center;
     position: relative;
@@ -2529,14 +2455,13 @@ header {
 }
 
 .prices {
-  position: relative;
   display: flex;
   gap: 24px;
   justify-content: space-between;
   .left {
     position: sticky;
     top: 144px;
-    z-index: 2;
+
     height: fit-content;
     width: fit-content;
     .info {
@@ -3039,6 +2964,15 @@ header {
   }
 }
 
+@keyframes spin {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 @keyframes shine {
   from {
     background-position: 150% 0;
@@ -3490,7 +3424,6 @@ header {
 
 footer {
   position: relative;
-  background-color: $black;
   .map {
     height: 600px;
     position: relative;
@@ -3512,6 +3445,7 @@ footer {
     gap: 72px;
     padding: 144px 72px;
     color: #fff;
+    position: relative;
     hr {
       width: 100%;
       height: 1px;

@@ -55,54 +55,54 @@ document.addEventListener('click', (e) => {
 });
 
 //анімація 
-function initAnimations() {
-  const containers = document.querySelectorAll('.anim_fond');
+// function initAnimations() {
+//   const containers = document.querySelectorAll('.anim_fond');
 
-  containers.forEach(container => {
-    const balls = container.querySelectorAll('.ball');
+//   containers.forEach(container => {
+//     const balls = container.querySelectorAll('.ball');
 
-    // Центр і радіуси еліпса
-    let centerX = container.clientWidth / 2;
-    let centerY = container.clientHeight / 2;
-    let a = container.clientWidth * 0.3;
-    let b = container.clientHeight * 0.2;
+//     // Центр і радіуси еліпса
+//     let centerX = container.clientWidth / 2;
+//     let centerY = container.clientHeight / 2;
+//     let a = container.clientWidth * 0.3;
+//     let b = container.clientHeight * 0.2;
 
-    // Для кожної кулі зберігаємо її кут і швидкість
-    const states = Array.from(balls).map((ball, index) => ({
-      ball,
-      angle: index * (Math.PI * 2 / balls.length), // початковий зсув
-      speed: 0.003 + Math.random() * 0.001 // різна швидкість
-    }));
+//     // Для кожної кулі зберігаємо її кут і швидкість
+//     const states = Array.from(balls).map((ball, index) => ({
+//       ball,
+//       angle: index * (Math.PI * 2 / balls.length), // початковий зсув
+//       speed: 0.003 + Math.random() * 0.001 // різна швидкість
+//     }));
 
-    function frame() {
-      states.forEach(state => {
-        const { ball } = state;
-        const x = centerX + a * Math.cos(state.angle) - ball.clientWidth / 2;
-        const y = centerY + b * Math.sin(state.angle) - ball.clientHeight / 2;
+//     function frame() {
+//       states.forEach(state => {
+//         const { ball } = state;
+//         const x = centerX + a * Math.cos(state.angle) - ball.clientWidth / 2;
+//         const y = centerY + b * Math.sin(state.angle) - ball.clientHeight / 2;
 
-        ball.style.transform = `translate(${x}px, ${y}px)`;
+//         ball.style.transform = `translate(${x}px, ${y}px)`;
 
-        // Оновлюємо кут з урахуванням швидкості
-        state.angle += state.speed;
-      });
+//         // Оновлюємо кут з урахуванням швидкості
+//         state.angle += state.speed;
+//       });
 
-      requestAnimationFrame(frame);
-    }
+//       requestAnimationFrame(frame);
+//     }
 
-    frame();
+//     frame();
 
-    // При зміні розміру оновлюємо центр і радіуси
-    window.addEventListener('resize', () => {
-      centerX = container.clientWidth / 2;
-      centerY = container.clientHeight / 2;
-      a = container.clientWidth * 0.4;
-      b = container.clientHeight * 0.3;
-    });
-  });
-}
+//     // При зміні розміру оновлюємо центр і радіуси
+//     window.addEventListener('resize', () => {
+//       centerX = container.clientWidth / 2;
+//       centerY = container.clientHeight / 2;
+//       a = container.clientWidth * 0.4;
+//       b = container.clientHeight * 0.3;
+//     });
+//   });
+// }
 
 // Запуск після завантаження сторінки
-window.addEventListener('load', initAnimations);
+// window.addEventListener('load', initAnimations);
 
 // перемикання в help_ways
 $(document).ready(function () {

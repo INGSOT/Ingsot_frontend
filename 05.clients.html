@@ -37,12 +37,7 @@
     </section>
 
     <section class="clients">
-      <div class="anim_fond">
-        <div class="blur_layer">
-          <div class="ball v1"></div>
-          <div class="ball v2"></div>
-        </div>
-      </div>
+      <div class="bcg_anim"></div>
 
       <div class="tags near_black">
         <button type="button" class="on">усі</button>
@@ -308,6 +303,262 @@
     <div id="coplexity_placeholder"></div>
 
     <div id="footer_placeholder"></div>
+
+    <!-- для created_websites -->
+    <style>
+      @keyframes created_websites_anim {
+        0% {
+          --created-websites-x-0: 95%;
+          --created-websites-y-0: 75%;
+          --created-websites-s-start-0: 8%;
+          --created-websites-s-end-0: 56.590226783981535%;
+          --created-websites-c-0: hsla(200, 95%, 11%, 1);
+          --created-websites-y-1: 15%;
+          --created-websites-s-start-1: 1%;
+          --created-websites-s-end-1: 62.39165434620126%;
+          --created-websites-x-1: 95%;
+          --created-websites-c-1: hsla(0, 0%, 0%, 1);
+          --created-websites-c-4: hsla(217, 78%, 11%, 1);
+          --created-websites-s-start-4: 11.133917156423086%;
+          --created-websites-s-end-4: 51.76366794121349%;
+          --created-websites-y-4: 47%;
+          --created-websites-x-4: 90%;
+        }
+
+        50% {
+          --created-websites-x-0: 25%;
+          --created-websites-y-0: 90%;
+          --created-websites-s-start-0: 9;
+          --created-websites-s-end-0: 47.631590766043374%;
+          --created-websites-c-0: hsla(200, 93%, 21%, 1);
+          --created-websites-y-1: 12%;
+          --created-websites-s-start-1: 9;
+          --created-websites-s-end-1: 73;
+          --created-websites-x-1: 3%;
+          --created-websites-c-1: hsla(0, 0%, 0%, 1);
+          --created-websites-c-4: hsla(217, 77%, 13%, 1);
+          --created-websites-s-start-4: 9;
+          --created-websites-s-end-4: 49.48618142677546%;
+          --created-websites-y-4: 102%;
+          --created-websites-x-4: 42%;
+        }
+
+        100% {
+          --created-websites-y-1: 14%;
+          --created-websites-s-start-1: 9;
+          --created-websites-s-end-1: 38.76465783663554%;
+          --created-websites-x-1: 54%;
+          --created-websites-c-1: hsla(0, 0%, 0%, 1);
+        }
+      }
+
+      @property --created-websites-x-0 {
+        syntax: '<percentage>';
+        inherits: false;
+        initial-value: 95%
+      }
+
+      @property --created-websites-y-0 {
+        syntax: '<percentage>';
+        inherits: false;
+        initial-value: 75%
+      }
+
+      @property --created-websites-s-start-0 {
+        syntax: '<percentage>';
+        inherits: false;
+        initial-value: 8%
+      }
+
+      @property --created-websites-s-end-0 {
+        syntax: '<percentage>';
+        inherits: false;
+        initial-value: 56.590226783981535%
+      }
+
+      @property --created-websites-c-0 {
+        syntax: '<color>';
+        inherits: false;
+        initial-value: hsla(200, 95%, 11%, 1)
+      }
+
+      @property --created-websites-y-1 {
+        syntax: '<percentage>';
+        inherits: false;
+        initial-value: 15%
+      }
+
+      @property --created-websites-s-start-1 {
+        syntax: '<percentage>';
+        inherits: false;
+        initial-value: 1%
+      }
+
+      @property --created-websites-s-end-1 {
+        syntax: '<percentage>';
+        inherits: false;
+        initial-value: 62.39165434620126%
+      }
+
+      @property --created-websites-x-1 {
+        syntax: '<percentage>';
+        inherits: false;
+        initial-value: 95%
+      }
+
+      @property --created-websites-c-1 {
+        syntax: '<color>';
+        inherits: false;
+        initial-value: hsla(0, 0%, 0%, 1)
+      }
+
+      @property --created-websites-y-2 {
+        syntax: '<percentage>';
+        inherits: false;
+        initial-value: 86%
+      }
+
+      @property --created-websites-s-start-2 {
+        syntax: '<percentage>';
+        inherits: false;
+        initial-value: 20%
+      }
+
+      @property --created-websites-s-end-2 {
+        syntax: '<percentage>';
+        inherits: false;
+        initial-value: 66%
+      }
+
+      @property --created-websites-x-2 {
+        syntax: '<percentage>';
+        inherits: false;
+        initial-value: 2%
+      }
+
+      @property --created-websites-c-2 {
+        syntax: '<color>';
+        inherits: false;
+        initial-value: hsla(200, 41%, 19%, 1)
+      }
+
+      @property --created-websites-y-3 {
+        syntax: '<percentage>';
+        inherits: false;
+        initial-value: 101%
+      }
+
+      @property --created-websites-s-start-3 {
+        syntax: '<percentage>';
+        inherits: false;
+        initial-value: 18%
+      }
+
+      @property --created-websites-s-end-3 {
+        syntax: '<percentage>';
+        inherits: false;
+        initial-value: 49.94408311488525%
+      }
+
+      @property --created-websites-x-3 {
+        syntax: '<percentage>';
+        inherits: false;
+        initial-value: 55%
+      }
+
+      @property --created-websites-c-3 {
+        syntax: '<color>';
+        inherits: false;
+        initial-value: hsla(200, 91%, 9%, 1)
+      }
+
+      @property --created-websites-c-4 {
+        syntax: '<color>';
+        inherits: false;
+        initial-value: hsla(217, 78%, 11%, 1)
+      }
+
+      @property --created-websites-s-start-4 {
+        syntax: '<percentage>';
+        inherits: false;
+        initial-value: 11.133917156423086%
+      }
+
+      @property --created-websites-s-end-4 {
+        syntax: '<percentage>';
+        inherits: false;
+        initial-value: 51.76366794121349%
+      }
+
+      @property --created-websites-y-4 {
+        syntax: '<percentage>';
+        inherits: false;
+        initial-value: 47%
+      }
+
+      @property --created-websites-x-4 {
+        syntax: '<percentage>';
+        inherits: false;
+        initial-value: 90%
+      }
+
+      @property --created-websites-c-5 {
+        syntax: '<color>';
+        inherits: false;
+        initial-value: hsla(182, 83%, 12%, 1)
+      }
+
+      @property --created-websites-x-5 {
+        syntax: '<percentage>';
+        inherits: false;
+        initial-value: 93%
+      }
+
+      @property --created-websites-y-5 {
+        syntax: '<percentage>';
+        inherits: false;
+        initial-value: 94%
+      }
+
+      @property --created-websites-s-start-5 {
+        syntax: '<percentage>';
+        inherits: false;
+        initial-value: 8.392121895570533%
+      }
+
+      @property --created-websites-s-end-5 {
+        syntax: '<percentage>';
+        inherits: false;
+        initial-value: 48.52567687605722%
+      }
+
+      .clients .bcg_anim {
+        --created-websites-x-0: 95%;
+        --created-websites-y-0: 75%;
+        --created-websites-c-0: hsla(200, 95%, 11%, 1);
+        --created-websites-y-1: 15%;
+        --created-websites-x-1: 95%;
+        --created-websites-c-1: hsla(0, 0%, 0%, 1);
+        --created-websites-y-2: 86%;
+        --created-websites-x-2: 2%;
+        --created-websites-c-2: hsla(200, 41%, 19%, 1);
+        --created-websites-y-3: 101%;
+        --created-websites-x-3: 55%;
+        --created-websites-c-3: hsla(200, 91%, 9%, 1);
+        --created-websites-c-4: hsla(217, 78%, 11%, 1);
+        --created-websites-y-4: 47%;
+        --created-websites-x-4: 90%;
+        --created-websites-c-5: hsla(182, 83%, 12%, 1);
+        --created-websites-x-5: 93%;
+        --created-websites-y-5: 94%;
+        background-color: hsla(219, 42%, 1%, 1);
+        background-image: radial-gradient(circle at var(--created-websites-x-0) var(--created-websites-y-0), var(--created-websites-c-0) var(--created-websites-s-start-0), transparent var(--created-websites-s-end-0)), radial-gradient(circle at var(--created-websites-x-1) var(--created-websites-y-1), var(--created-websites-c-1) var(--created-websites-s-start-1), transparent var(--created-websites-s-end-1)), radial-gradient(circle at var(--created-websites-x-2) var(--created-websites-y-2), var(--created-websites-c-2) var(--created-websites-s-start-2), transparent var(--created-websites-s-end-2)), radial-gradient(circle at var(--created-websites-x-3) var(--created-websites-y-3), var(--created-websites-c-3) var(--created-websites-s-start-3), transparent var(--created-websites-s-end-3)), radial-gradient(circle at var(--created-websites-x-4) var(--created-websites-y-4), var(--created-websites-c-4) var(--created-websites-s-start-4), transparent var(--created-websites-s-end-4)), radial-gradient(circle at var(--created-websites-x-5) var(--created-websites-y-5), var(--created-websites-c-5) var(--created-websites-s-start-5), transparent var(--created-websites-s-end-5));
+        animation: created_websites_anim 10s linear infinite alternate;
+        background-blend-mode: normal, normal, normal, normal, normal, normal;
+        will-change: transform, opacity;
+        contain: paint;
+      }
+    </style>
 
   </div>
 
