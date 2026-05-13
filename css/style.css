@@ -1463,7 +1463,7 @@ header {
 header .logo {
   width: 200px;
   height: 72px;
-  background: url("../public/img/Ingsot_white.webp") no-repeat 50%;
+  background: url("../public/img/svg/Ingsot_logo_white.svg") no-repeat 50%;
 }
 header .logo:hover {
   -webkit-transform: scale(0.9);
