@@ -448,6 +448,13 @@ body .slick-track {
   inset: 0;
   z-index: 0;
 }
+.bcg_anim canvas {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
 
 .anim_bg {
   overflow: hidden;
@@ -1687,8 +1694,8 @@ header.dark .panel .burger:hover {
   display: inline-flex;
   padding-right: 24px;
   gap: 24px;
-  -webkit-animation: marquee infinite 5s linear;
-  animation: marquee infinite 5s linear;
+  -webkit-animation: marquee infinite 10s linear;
+  animation: marquee infinite 10s linear;
   color: #fff;
 }
 .marquee .inner a:hover {
