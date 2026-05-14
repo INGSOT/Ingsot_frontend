@@ -90,7 +90,8 @@ class GradientBg {
     this._startTime = null;
     this._rafId     = null;
 
-    this._gl = this._canvas.getContext('webgl');
+    this._gl = this._canvas.getContext('webgl2', { powerPreference: 'default' })
+            || this._canvas.getContext('webgl',  { powerPreference: 'default' });
 
     // WebGL недоступний (iOS приватний режим, старі браузери) — CSS fallback
     if (!this._gl) {
