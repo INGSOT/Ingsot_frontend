@@ -742,16 +742,6 @@
 
   </div>
 
-  <script src="js/gradient-bg.js"></script>
-  <script src="js/gradient-presets.js"></script>
-
-  <script>
-    const main_banner_anim = new GradientBg('#main_banner_anim', GRADIENT_PRESETS.dark_blue);
-    const projects_slider_anim = new GradientBg('#projects_slider_anim', GRADIENT_PRESETS.dark_warm);
-    const helping_anim = new GradientBg('#helping_anim', GRADIENT_PRESETS.dark_purple);
-    const created_websites_anim = new GradientBg('#created_websites_anim', GRADIENT_PRESETS.dark_blue);
-  </script>
-
   <script src="js/jquery_min_3.7.1.js"></script>
   <script src="js/slick.min.js"></script>
 
@@ -759,11 +749,24 @@
   <script src="js/flatpickr/uk.js"></script>
   <script src="js/flatpickr/ru.js"></script>
 
+  <script src="js/gradient-bg.js"></script>
+  <script src="js/gradient-presets.js"></script>
+
   <!-- Виклики компоненнтів -->
   <script src="js/loadComponent.js"></script>
   <script>
+    // #main_banner_anim вже є в DOM — ініціалізуємо одразу
+    new GradientBg('#main_banner_anim', GRADIENT_PRESETS.dark_blue);
+
+    // Решта canvas всередині компонентів — чекаємо завантаження
     loadComponent('header', '#header_placeholder');
-    loadComponent('coplexity', '#coplexity_placeholder');
+
+    loadComponent('coplexity', '#coplexity_placeholder').then(() => {
+      new GradientBg('#projects_slider_anim', GRADIENT_PRESETS.dark_warm);
+      new GradientBg('#helping_anim', GRADIENT_PRESETS.dark_purple);
+      new GradientBg('#created_websites_anim', GRADIENT_PRESETS.dark_blue);
+    });
+
     loadComponent('footer', '#footer_placeholder');
   </script>
 
