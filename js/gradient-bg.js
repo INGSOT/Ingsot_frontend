@@ -18,8 +18,13 @@ class GradientBg {
   `;
 
   // ─── Fragment shader ──────────────────────────────────────────────────────
+  // GL_FRAGMENT_PRECISION_HIGH guard: страховка для GPU без highp у FS
   static FS = `
+    #ifdef GL_FRAGMENT_PRECISION_HIGH
     precision highp float;
+    #else
+    precision mediump float;
+    #endif
 
     uniform vec2  u_res;
     uniform float u_time;   // секунди з моменту старту, росте нескінченно
@@ -77,10 +82,10 @@ class GradientBg {
   // ─── Constructor ──────────────────────────────────────────────────────────
   /**
    * @param {string|HTMLCanvasElement} target — CSS selector або canvas елемент
-   * @param {Object} config — конфіг (див. README або приклади нижче)
+   * @param {Object} config — конфіг (див. gradient-presets.js)
    */
   constructor(target, config) {
-    this._canvas  = typeof target === 'string'
+    this._canvas = typeof target === 'string'
       ? document.querySelector(target)
       : target;
 
@@ -89,21 +94,60 @@ class GradientBg {
     this._config    = config;
     this._startTime = null;
     this._rafId     = null;
+    this._gl        = null;
+    this._prog      = null;
+    this._u         = null;
+    this._inited    = false;   // GL context або fallback вже піднято
+    this._fallback  = false;   // ми у CSS-fallback режимі
+    this._visible   = false;   // IntersectionObserver state
+
+    this._onContextLost      = this._onContextLost.bind(this);
+    this._onContextRestored  = this._onContextRestored.bind(this);
+
+    this._initResizeObserver();
+    this._initVisibilityObserver();
+    // GL контекст створюється лазі — у `_tryInit` коли canvas видимий і має розмір.
+    // Це знімає race з layout (iOS Safari) і кратно зменшує одночасне memory usage
+    // на сторінках з кількома канвасами.
+  }
+
+  // ─── Lazy initialization ──────────────────────────────────────────────────
+  // Викликається з IntersectionObserver і ResizeObserver. Намагається підняти
+  // GL контекст у момент коли canvas одночасно (а) видимий і (б) має розмір > 0.
+  _tryInit() {
+    if (this._inited) return;
+    if (!this._visible) return;
+    if (!this._hasValidSize()) return;
 
     this._gl = this._canvas.getContext('webgl2', { powerPreference: 'default' })
             || this._canvas.getContext('webgl',  { powerPreference: 'default' });
 
-    // WebGL недоступний (iOS приватний режим, старі браузери) — CSS fallback
+    // WebGL недоступний (приватний режим, старі браузери) — CSS fallback
     if (!this._gl) {
+      this._fallback = true;
+      this._inited   = true;
       this._applyFallback();
       return;
     }
 
-    this._initGL();
-    this._initResizeObserver();
-    this._initVisibilityObserver();
+    this._canvas.addEventListener('webglcontextlost',     this._onContextLost,     false);
+    this._canvas.addEventListener('webglcontextrestored', this._onContextRestored, false);
+
+    try {
+      this._initGL();
+    } catch (e) {
+      // Compile/link збій — переключаємось у fallback замість чорного екрана
+      console.warn('GradientBg: GL init failed, falling back to CSS', e);
+      this._teardownGL();
+      this._fallback = true;
+      this._inited   = true;
+      this._applyFallback();
+      return;
+    }
+
     this._resize();
-    // RAF стартує через IntersectionObserver
+    this._inited = true;
+    this._startRaf();
   }
 
   // ─── CSS Fallback (WebGL недоступний) ────────────────────────────────────
@@ -181,15 +225,49 @@ class GradientBg {
     return s;
   }
 
+  _teardownGL() {
+    this._prog = null;
+    this._u    = null;
+    this._gl   = null;
+  }
+
+  // ─── Context loss / restore (iOS Safari memory pressure, rotation, tab switch)
+  _onContextLost(e) {
+    // preventDefault() обов'язковий — без нього restored ніколи не fires
+    e.preventDefault();
+    if (this._rafId) cancelAnimationFrame(this._rafId);
+    this._rafId     = null;
+    this._prog      = null;
+    this._u         = null;
+    this._startTime = null;
+  }
+
+  _onContextRestored() {
+    if (!this._gl) return;
+    try {
+      this._initGL();
+    } catch (err) {
+      console.warn('GradientBg: failed to restore GL context, falling back', err);
+      this._teardownGL();
+      this._fallback = true;
+      this._applyFallback();
+      return;
+    }
+    this._resize();
+    if (this._visible) this._startRaf();
+  }
+
   // ─── Visibility (пауза коли canvas поза viewport) ────────────────────────
   _initVisibilityObserver() {
     this._io = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        if (!this._rafId) {
-          this._startTime = null;
-          this._rafId = requestAnimationFrame(ts => this._frame(ts));
+      this._visible = entry.isIntersecting;
+      if (this._visible) {
+        if (!this._inited) {
+          this._tryInit();
+        } else if (this._gl && !this._rafId) {
+          this._startRaf();
         }
-      } else {
+      } else if (this._rafId) {
         cancelAnimationFrame(this._rafId);
         this._rafId = null;
       }
@@ -199,24 +277,57 @@ class GradientBg {
 
   // ─── Resize ───────────────────────────────────────────────────────────────
   _initResizeObserver() {
-    this._ro = new ResizeObserver(() => this._resize());
+    this._ro = new ResizeObserver(() => {
+      if (this._gl) {
+        this._resize();
+      } else if (!this._inited) {
+        // Розмір з'явився — можливо тепер можемо ініціалізуватися
+        this._tryInit();
+      }
+    });
     this._ro.observe(this._canvas);
   }
 
+  _hasValidSize() {
+    const r = this._canvas.getBoundingClientRect();
+    return r.width > 0 && r.height > 0;
+  }
+
+  // DPR обмежений до 2: на iPhone з DPR=3 повний backing buffer (×9 пікселів)
+  // спричиняє memory kill в iOS Safari. На blurred gradient blobs різниця
+  // 2x→3x DPR візуально непомітна.
   _resize() {
-    const dpr = devicePixelRatio || 1;
-    const r   = this._canvas.getBoundingClientRect();
-    this._canvas.width  = Math.round(r.width  * dpr);
-    this._canvas.height = Math.round(r.height * dpr);
+    if (!this._gl) return;
+    const r = this._canvas.getBoundingClientRect();
+    if (r.width <= 0 || r.height <= 0) return;  // не псуємо буфер 0×0
+
+    const dpr = Math.min(devicePixelRatio || 1, 2);
+    const w = Math.round(r.width  * dpr);
+    const h = Math.round(r.height * dpr);
+
+    if (this._canvas.width  !== w) this._canvas.width  = w;
+    if (this._canvas.height !== h) this._canvas.height = h;
     this._gl.viewport(0, 0, this._canvas.width, this._canvas.height);
   }
 
   // ─── Animation loop ───────────────────────────────────────────────────────
+  _startRaf() {
+    if (this._rafId) return;
+    this._startTime = null;
+    this._rafId = requestAnimationFrame(ts => this._frame(ts));
+  }
+
   _frame(ts) {
+    // Якщо контекст загублено посеред кадру — припиняємо до restored
+    if (!this._gl || this._gl.isContextLost() || !this._prog) {
+      this._rafId = null;
+      return;
+    }
     if (!this._startTime) this._startTime = ts;
-    // time в секундах — росте нескінченно, sin() всередині шейдера робить цикл
     const time = (ts - this._startTime) / 1000;
-    this._draw(time);
+    if (this._canvas.width > 0 && this._canvas.height > 0) {
+      this._draw(time);
+    }
     this._rafId = requestAnimationFrame(ts => this._frame(ts));
   }
 
@@ -251,9 +362,7 @@ class GradientBg {
   updateConfig(config) {
     this._config    = config;
     this._startTime = null;
-    if (!this._gl) {
-      this._applyFallback();
-    }
+    if (this._fallback) this._applyFallback();
   }
 
   // ─── Cleanup ──────────────────────────────────────────────────────────────
@@ -261,7 +370,11 @@ class GradientBg {
     if (this._rafId) cancelAnimationFrame(this._rafId);
     if (this._ro)    this._ro.disconnect();
     if (this._io)    this._io.disconnect();
-    if (this._gl)    this._gl.getExtension('WEBGL_lose_context')?.loseContext();
+    if (this._canvas) {
+      this._canvas.removeEventListener('webglcontextlost',     this._onContextLost,     false);
+      this._canvas.removeEventListener('webglcontextrestored', this._onContextRestored, false);
+    }
+    if (this._gl) this._gl.getExtension('WEBGL_lose_context')?.loseContext();
   }
 
   // ─── HSL → RGB utility (JS side, для конфігу) ────────────────────────────
