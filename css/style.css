@@ -1406,7 +1406,6 @@ header.dark .panel .burger:hover {
   padding: 24px 0;
   overflow: hidden;
   white-space: nowrap;
-  display: flex;
   -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
   mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
 }
@@ -1414,14 +1413,14 @@ header.dark .panel .burger:hover {
   animation-play-state: paused;
 }
 .marquee .track {
-  display: inline-flex;
-  flex-shrink: 0;
-  width: fit-content;
+  display: flex;
+  width: max-content;
   animation: marquee infinite 10s linear;
   will-change: transform;
 }
 .marquee .inner {
-  display: inline-flex;
+  display: flex;
+  flex-shrink: 0;
   padding-right: 24px;
   gap: 24px;
   color: #fff;
