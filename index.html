@@ -137,7 +137,7 @@
       </div>
     </section>
 
-    <div class="marquee">
+    <div class="marquee anim_bg">
       <div class="inner">
         <a href="">#моніторинг верстатів</a>
         <a href="">#статистика використання електроенергії</a>
@@ -749,25 +749,30 @@
   <script src="js/flatpickr/uk.js"></script>
   <script src="js/flatpickr/ru.js"></script>
 
-  <script src="js/gradient-bg.js" defer></script>
-  <script src="js/gradient-presets.js" defer></script>
-
   <!-- Виклики компоненнтів -->
-  <script src="js/loadComponent.js" defer></script>
+  <script src="js/loadComponent.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      new GradientBg('#main_banner_anim', GRADIENT_PRESETS.dark_blue);
+    loadComponent('header', '#header_placeholder');
+    loadComponent('coplexity', '#coplexity_placeholder');
+    loadComponent('footer', '#footer_placeholder');
+  </script>
 
-      loadComponent('header', '#header_placeholder');
+  <script src="js/gradient-bg.js"></script>
+  <script src="js/gradient-presets.js"></script>
 
-      loadComponent('coplexity', '#coplexity_placeholder').then(() => {
-        new GradientBg('#projects_slider_anim', GRADIENT_PRESETS.dark_warm);
-        new GradientBg('#helping_anim', GRADIENT_PRESETS.dark_purple);
-        new GradientBg('#created_websites_anim', GRADIENT_PRESETS.dark_blue);
-      });
+  <script>
+    const bgs = [
+      new GradientBg('#main_banner_anim', GRADIENT_PRESETS.dark_blue),
+      new GradientBg('#projects_slider_anim', GRADIENT_PRESETS.dark_warm),
+      new GradientBg('#helping_anim', GRADIENT_PRESETS.dark_purple),
+      new GradientBg('#created_websites_anim', GRADIENT_PRESETS.dark_blue),
+    ];
 
-      loadComponent('footer', '#footer_placeholder');
-    });
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      bgs.forEach(bg => bg._canvas.classList.add('ready'));
+    }));
+
+    window.addEventListener('pagehide', () => bgs.forEach(bg => bg.destroy()));
   </script>
 
   <script src="js/script.js" defer></script>

@@ -26,7 +26,8 @@
   <script src="js/gradient-presets.js"></script>
 
   <script>
-    const main_banner_anim = new GradientBg('#main_banner_anim', GRADIENT_PRESETS.dark_blue);
+    const bg = new GradientBg('#main_banner_anim', GRADIENT_PRESETS.dark_blue);
+    window.addEventListener('pagehide', () => bg.destroy());
   </script>
 
 </body>
