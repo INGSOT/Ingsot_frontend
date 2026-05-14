@@ -91,12 +91,37 @@ class GradientBg {
     this._rafId     = null;
 
     this._gl = this._canvas.getContext('webgl');
-    if (!this._gl) throw new Error('GradientBg: WebGL not supported');
+
+    // WebGL недоступний (iOS приватний режим, старі браузери) — CSS fallback
+    if (!this._gl) {
+      this._applyFallback();
+      return;
+    }
 
     this._initGL();
     this._initResizeObserver();
     this._initVisibilityObserver();
     this._resize();
+    // RAF стартує через IntersectionObserver
+  }
+
+  // ─── CSS Fallback (WebGL недоступний) ────────────────────────────────────
+  _applyFallback() {
+    const b   = this._config.blobs;
+    const bg  = this._config.bg;
+
+    const hsl = (blob) =>
+      `hsl(${blob.h},${Math.round(blob.s * 100)}%,${Math.round(blob.l * 100)}%)`;
+
+    const bgRgb = `rgb(${Math.round(bg[0]*255)},${Math.round(bg[1]*255)},${Math.round(bg[2]*255)})`;
+
+    // Статичний радіальний градієнт з кольорів конфігу
+    this._canvas.style.background = [
+      `radial-gradient(ellipse at ${Math.round(b[0].fx*100)}% ${Math.round(b[0].fy*100)}%, ${hsl(b[0])} 0%, transparent 60%)`,
+      `radial-gradient(ellipse at ${Math.round(b[2].fx*100)}% ${Math.round(b[2].fy*100)}%, ${hsl(b[2])} 0%, transparent 60%)`,
+      `radial-gradient(ellipse at ${Math.round(b[1].fx*100)}% ${Math.round(b[1].fy*100)}%, ${hsl(b[1])} 0%, transparent 70%)`,
+      bgRgb,
+    ].join(',');
   }
 
   // ─── WebGL init ───────────────────────────────────────────────────────────
@@ -225,6 +250,9 @@ class GradientBg {
   updateConfig(config) {
     this._config    = config;
     this._startTime = null;
+    if (!this._gl) {
+      this._applyFallback();
+    }
   }
 
   // ─── Cleanup ──────────────────────────────────────────────────────────────
@@ -232,7 +260,7 @@ class GradientBg {
     if (this._rafId) cancelAnimationFrame(this._rafId);
     if (this._ro)    this._ro.disconnect();
     if (this._io)    this._io.disconnect();
-    this._gl.getExtension('WEBGL_lose_context')?.loseContext();
+    if (this._gl)    this._gl.getExtension('WEBGL_lose_context')?.loseContext();
   }
 
   // ─── HSL → RGB utility (JS side, для конфігу) ────────────────────────────
