@@ -749,25 +749,25 @@
   <script src="js/flatpickr/uk.js"></script>
   <script src="js/flatpickr/ru.js"></script>
 
-  <script src="js/gradient-bg.js"></script>
-  <script src="js/gradient-presets.js"></script>
+  <script src="js/gradient-bg.js" defer></script>
+  <script src="js/gradient-presets.js" defer></script>
 
   <!-- Виклики компоненнтів -->
-  <script src="js/loadComponent.js"></script>
+  <script src="js/loadComponent.js" defer></script>
   <script>
-    // #main_banner_anim вже є в DOM — ініціалізуємо одразу
-    new GradientBg('#main_banner_anim', GRADIENT_PRESETS.dark_blue);
+    document.addEventListener('DOMContentLoaded', () => {
+      new GradientBg('#main_banner_anim', GRADIENT_PRESETS.dark_blue);
 
-    // Решта canvas всередині компонентів — чекаємо завантаження
-    loadComponent('header', '#header_placeholder');
+      loadComponent('header', '#header_placeholder');
 
-    loadComponent('coplexity', '#coplexity_placeholder').then(() => {
-      new GradientBg('#projects_slider_anim', GRADIENT_PRESETS.dark_warm);
-      new GradientBg('#helping_anim', GRADIENT_PRESETS.dark_purple);
-      new GradientBg('#created_websites_anim', GRADIENT_PRESETS.dark_blue);
+      loadComponent('coplexity', '#coplexity_placeholder').then(() => {
+        new GradientBg('#projects_slider_anim', GRADIENT_PRESETS.dark_warm);
+        new GradientBg('#helping_anim', GRADIENT_PRESETS.dark_purple);
+        new GradientBg('#created_websites_anim', GRADIENT_PRESETS.dark_blue);
+      });
+
+      loadComponent('footer', '#footer_placeholder');
     });
-
-    loadComponent('footer', '#footer_placeholder');
   </script>
 
   <script src="js/script.js" defer></script>
