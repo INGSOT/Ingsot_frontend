@@ -1410,17 +1410,21 @@ header.dark .panel .burger:hover {
   -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
   mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
 }
-.marquee:hover .inner {
+.marquee:hover .track {
   animation-play-state: paused;
 }
-.marquee .inner {
+.marquee .track {
+  display: inline-flex;
+  flex-shrink: 0;
   width: fit-content;
+  animation: marquee infinite 10s linear;
+  will-change: transform;
+}
+.marquee .inner {
   display: inline-flex;
   padding-right: 24px;
   gap: 24px;
-  animation: marquee infinite 10s linear;
   color: #fff;
-  will-change: transform;
 }
 .marquee .inner a:hover {
   color: #0088cc;
@@ -1429,10 +1433,12 @@ header.dark .panel .burger:hover {
   padding: 0;
   background-color: #fff;
 }
+.marquee.v2 .track {
+  animation: marquee infinite 25s linear;
+}
 .marquee.v2 .inner {
   padding-right: 72px;
   gap: 72px;
-  animation: marquee infinite 25s linear;
 }
 .marquee.v2 .inner div {
   width: 72px;
@@ -1447,7 +1453,7 @@ header.dark .panel .burger:hover {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-100%);
+    transform: translateX(-50%);
   }
 }
 .sbtr {

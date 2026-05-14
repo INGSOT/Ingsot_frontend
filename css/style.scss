@@ -1712,18 +1712,22 @@ header {
   -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
   mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
   &:hover {
-    .inner {
+    .track {
       animation-play-state: paused;
     }
   }
-  .inner {
+  .track {
+    display: inline-flex;
+    flex-shrink: 0;
     width: fit-content;
+    animation: marquee infinite 10s linear;
+    will-change: transform;
+  }
+  .inner {
     display: inline-flex;
     padding-right: 24px;
     gap: 24px;
-    animation: marquee infinite 10s linear;
     color: #fff;
-    will-change: transform;
     a:hover {
       color: $blue;
     }
@@ -1731,10 +1735,12 @@ header {
   &.v2 {
     padding: 0;
     background-color: #fff;
+    .track {
+      animation: marquee infinite 25s linear;
+    }
     .inner {
       padding-right: 72px;
       gap: 72px;
-      animation: marquee infinite 25s linear;
       div {
         width: 72px;
         height: 72px;
@@ -1751,7 +1757,7 @@ header {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-100%);
+    transform: translateX(-50%);
   }
 }
 
