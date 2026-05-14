@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="public/img/favicon.ico" />
+
+  <link rel="stylesheet" href="css/style.css">
+  <title>INGSOT</title>
+</head>
+
+<body>
+
+  <div class="wrapper">
+
+    <section class="main_banner dn" id="main_banner">
+      <div class="bcg_anim">
+        <canvas id="main_banner_anim"></canvas>
+      </div>
+    </section>
+
+  </div>
+
+  <script src="js/gradient-bg.js"></script>
+  <script src="js/gradient-presets.js"></script>
+
+  <script>
+    const main_banner_anim = new GradientBg('#main_banner_anim', GRADIENT_PRESETS.dark_blue);
+    const projects_slider_anim = new GradientBg('#projects_slider_anim', GRADIENT_PRESETS.dark_warm);
+    const helping_anim = new GradientBg('#helping_anim', GRADIENT_PRESETS.dark_purple);
+    const created_websites_anim = new GradientBg('#created_websites_anim', GRADIENT_PRESETS.dark_blue);
+  </script>
+
+</body>
+
+</html>
