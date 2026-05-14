@@ -1709,6 +1709,8 @@ header {
   overflow: hidden;
   white-space: nowrap;
   display: flex;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
   &:hover {
     .inner {
       animation-play-state: paused;
@@ -1721,6 +1723,7 @@ header {
     gap: 24px;
     animation: marquee infinite 10s linear;
     color: #fff;
+    will-change: transform;
     a:hover {
       color: $blue;
     }
