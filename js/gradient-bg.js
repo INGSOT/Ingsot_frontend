@@ -100,6 +100,7 @@ class GradientBg {
     this._inited    = false;   // GL context або fallback вже піднято
     this._fallback  = false;   // ми у CSS-fallback режимі
     this._visible   = false;   // IntersectionObserver state
+    this._lastFrame = 0;       // для throttle 30fps
 
     this._onContextLost      = this._onContextLost.bind(this);
     this._onContextRestored  = this._onContextRestored.bind(this);
@@ -119,8 +120,10 @@ class GradientBg {
     if (!this._visible) return;
     if (!this._hasValidSize()) return;
 
-    this._gl = this._canvas.getContext('webgl2', { powerPreference: 'default' })
-            || this._canvas.getContext('webgl',  { powerPreference: 'default' });
+    // low-power: підказка браузеру використовувати менш потужний GPU
+    // знижує температуру на iMac M1 без помітної різниці в якості
+    this._gl = this._canvas.getContext('webgl2', { powerPreference: 'low-power' })
+            || this._canvas.getContext('webgl',  { powerPreference: 'low-power' });
 
     // WebGL недоступний (приватний режим, старі браузери) — CSS fallback
     if (!this._gl) {
@@ -314,6 +317,7 @@ class GradientBg {
   _startRaf() {
     if (this._rafId) return;
     this._startTime = null;
+    this._lastFrame = 0;
     this._rafId = requestAnimationFrame(ts => this._frame(ts));
   }
 
@@ -323,6 +327,16 @@ class GradientBg {
       this._rafId = null;
       return;
     }
+
+    // Throttle до 30fps — знижує навантаження на WindowServer і температуру
+    // на повільній градієнтній анімації різниця 30/60fps непомітна
+    const elapsed = ts - this._lastFrame;
+    if (elapsed < 33) { // 33ms ≈ 30fps
+      this._rafId = requestAnimationFrame(ts => this._frame(ts));
+      return;
+    }
+    this._lastFrame = ts;
+
     if (!this._startTime) this._startTime = ts;
     const time = (ts - this._startTime) / 1000;
     if (this._canvas.width > 0 && this._canvas.height > 0) {
