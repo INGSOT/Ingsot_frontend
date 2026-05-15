@@ -39,31 +39,43 @@
     let isPaused   = false;
     let rafId      = null;
 
-    function clearClones() {
-      track.querySelectorAll(':scope > .inner.clone').forEach((c) => c.remove());
+    function makeClone() {
+      const clone = original.cloneNode(true);
+      clone.classList.add('clone');
+      clone.setAttribute('aria-hidden', 'true');
+      // Дублікати не повинні приймати фокус
+      clone.querySelectorAll('a, button, input, [tabindex]').forEach((el) => {
+        el.setAttribute('tabindex', '-1');
+      });
+      return clone;
     }
 
-    // Клонує .inner стільки разів, щоб трек був ≥ marquee + innerWidth.
-    // Це гарантує що при максимальному зсуві (-innerWidth) контент
-    // повністю покриває видиму область — нема порожнього простору на краю.
+    // Ідемпотентний sync: додає/видаляє клонів до потрібної кількості,
+    // НЕ скидає offset і transform — анімація триває без стрибка.
+    // Якщо innerWidth змінився (font swap, image load) — пропорційно
+    // масштабує offset, щоб relative-позиція в циклі зберіглась.
     function ensureFill() {
-      clearClones();
-      innerWidth = original.offsetWidth;
-      if (innerWidth === 0) return; // ще не виміряно (шрифти/зображення)
+      const newInnerWidth = original.offsetWidth;
+      if (newInnerWidth === 0) return;
 
       const marqueeWidth = marquee.offsetWidth;
-      const totalCopies  = Math.max(2, Math.ceil((marqueeWidth + innerWidth) / innerWidth));
+      const needed       = Math.max(2, Math.ceil((marqueeWidth + newInnerWidth) / newInnerWidth));
+      const existing     = track.querySelectorAll(':scope > .inner').length;
 
-      for (let i = 1; i < totalCopies; i++) {
-        const clone = original.cloneNode(true);
-        clone.classList.add('clone');
-        clone.setAttribute('aria-hidden', 'true');
-        // Дублікати не повинні приймати фокус
-        clone.querySelectorAll('a, button, input, [tabindex]').forEach((el) => {
-          el.setAttribute('tabindex', '-1');
-        });
-        track.appendChild(clone);
+      if (existing < needed) {
+        const frag = document.createDocumentFragment();
+        for (let i = existing; i < needed; i++) frag.appendChild(makeClone());
+        track.appendChild(frag);
+      } else if (existing > needed) {
+        const clones = track.querySelectorAll(':scope > .inner.clone');
+        for (let i = clones.length - 1; i >= needed - 1; i--) clones[i].remove();
       }
+
+      // Якщо вимірна ширина .inner змінилась — масштабуємо offset
+      if (innerWidth > 0 && innerWidth !== newInnerWidth) {
+        offset = (offset / innerWidth) * newInnerWidth;
+      }
+      innerWidth = newInnerWidth;
     }
 
     function frame(now) {
@@ -105,15 +117,12 @@
     io.observe(marquee);
 
     // Пере-перераховуємо клони на resize або коли original змінив розмір
-    // (наприклад після font swap або завантаження зображень)
+    // (наприклад після font swap або завантаження зображень).
+    // ensureFill сам не зачіпає поточний offset, тому анімація триває.
     let resizeTimer;
     function recompute() {
       clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => {
-        offset = 0;
-        track.style.transform = 'translate3d(0, 0, 0)';
-        ensureFill();
-      }, 100);
+      resizeTimer = setTimeout(ensureFill, 100);
     }
 
     const roMarquee = new ResizeObserver(recompute);
