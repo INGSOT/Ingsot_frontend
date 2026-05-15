@@ -1,40 +1,280 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uk">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="shortcut icon" href="public/img/favicon.ico" />
 
-  <link rel="stylesheet" href="css/style.css">
-  <title>INGSOT</title>
+  <title>INGSOT — GradientBg test bench</title>
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { width: 100%; height: 100vh; overflow: hidden; background: #000; font-family: -apple-system, "SF Pro Text", system-ui, sans-serif; }
+
+    #stage {
+      position: fixed; inset: 0;
+      background: #000;
+    }
+    #stage canvas {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      display: block;
+    }
+
+    #hud {
+      position: fixed;
+      top: 16px;
+      left: 16px;
+      z-index: 10;
+      width: 320px;
+      max-height: calc(100vh - 32px);
+      overflow-y: auto;
+      padding: 16px;
+      background: rgba(10, 12, 20, 0.85);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      color: #e8eaf0;
+      font-size: 12px;
+      line-height: 1.5;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    #hud h1 { font-size: 13px; font-weight: 600; margin-bottom: 8px; color: #fff; }
+    #hud h2 { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: #7a8198; margin: 12px 0 6px; }
+
+    .metric { display: flex; justify-content: space-between; padding: 2px 0; }
+    .metric span:first-child { color: #7a8198; }
+    .metric span:last-child { color: #fff; font-variant-numeric: tabular-nums; }
+
+    .fps-good { color: #4ade80 !important; }
+    .fps-ok { color: #facc15 !important; }
+    .fps-bad { color: #f87171 !important; }
+
+    .control { margin-bottom: 10px; }
+    .control-label { display: block; font-size: 11px; color: #7a8198; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .btn-group { display: flex; gap: 4px; flex-wrap: wrap; }
+    .btn-group button, select {
+      flex: 1;
+      padding: 6px 8px;
+      font-size: 11px;
+      font-family: inherit;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #e8eaf0;
+      border-radius: 4px;
+      cursor: pointer;
+      min-width: 0;
+    }
+    .btn-group button:hover, select:hover { background: rgba(255, 255, 255, 0.12); }
+    .btn-group button.active { background: #2563eb; border-color: #2563eb; color: #fff; }
+    select { width: 100%; }
+
+    .apply-btn {
+      width: 100%;
+      padding: 10px;
+      margin-top: 12px;
+      background: #2563eb;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+    }
+    .apply-btn:hover { background: #1d4ed8; }
+
+    code { font-family: "SF Mono", Menlo, monospace; font-size: 11px; color: #93c5fd; }
+  </style>
 </head>
 
 <body>
 
-  <div class="wrapper">
-
-    <section class="main_banner dn" id="main_banner">
-      <div class="bcg_anim">
-        <canvas id="main_banner_anim"></canvas>
-      </div>
-    </section>
-
+  <div id="stage">
+    <canvas id="bg_canvas"></canvas>
   </div>
+
+  <aside id="hud">
+    <h1>GradientBg test bench</h1>
+
+    <h2>Live metrics</h2>
+    <div class="metric"><span>FPS (rAF)</span><span id="m-fps">—</span></div>
+    <div class="metric"><span>Frame interval</span><span id="m-interval">—</span></div>
+    <div class="metric"><span>Canvas buffer</span><span id="m-canvas">—</span></div>
+    <div class="metric"><span>Effective DPR</span><span id="m-dpr">—</span></div>
+
+    <h2>GPU</h2>
+    <div class="metric"><span>Vendor</span><span id="m-vendor">—</span></div>
+    <div class="metric"><span>Renderer</span><span id="m-renderer">—</span></div>
+    <div class="metric"><span>Context</span><span id="m-context">—</span></div>
+
+    <h2>Settings</h2>
+
+    <div class="control">
+      <label class="control-label">Throttle</label>
+      <div class="btn-group" id="g-fps">
+        <button data-val="0">off (60)</button>
+        <button data-val="30">30</button>
+        <button data-val="15">15</button>
+        <button data-val="10">10</button>
+      </div>
+    </div>
+
+    <div class="control">
+      <label class="control-label">DPR cap</label>
+      <div class="btn-group" id="g-dpr">
+        <button data-val="1">1</button>
+        <button data-val="1.5">1.5</button>
+        <button data-val="2">2</button>
+        <button data-val="3">native</button>
+      </div>
+    </div>
+
+    <div class="control">
+      <label class="control-label">Power preference</label>
+      <div class="btn-group" id="g-power">
+        <button data-val="low-power">low-power</button>
+        <button data-val="default">default</button>
+        <button data-val="high-performance">high-perf</button>
+      </div>
+    </div>
+
+    <div class="control">
+      <label class="control-label">Preset</label>
+      <select id="g-preset"></select>
+    </div>
+
+    <button class="apply-btn" id="apply">Apply (destroy + recreate)</button>
+
+    <h2>Hint</h2>
+    <p style="color: #7a8198; font-size: 11px; line-height: 1.5;">
+      WindowServer high? → lower DPR cap + lower fps.<br>
+      Browser CPU high? → lower fps.<br>
+      Discrete GPU on? → set power to <code>low-power</code>.
+    </p>
+  </aside>
 
   <script src="js/gradient-bg.js"></script>
   <script src="js/gradient-presets.js"></script>
 
   <script>
-    const bgs = [
-      new GradientBg('#main_banner_anim', GRADIENT_PRESETS.dark_blue),
-    ];
+    // ─── Стан з URL params (для збереження між reload) ───────────────────────
+    const params = new URLSearchParams(location.search);
+    const state = {
+      fps:    parseFloat(params.get('fps')    ?? '30'),
+      dpr:    parseFloat(params.get('dpr')    ?? '2'),
+      power:  params.get('power')             ?? 'low-power',
+      preset: params.get('preset')            ?? 'dark_blue',
+    };
 
-    requestAnimationFrame(() => requestAnimationFrame(() => {
-      bgs.forEach(bg => bg._canvas.classList.add('ready'));
-    }));
+    // ─── Заповнюємо preset dropdown ──────────────────────────────────────────
+    const presetEl = document.getElementById('g-preset');
+    for (const name of Object.keys(GRADIENT_PRESETS)) {
+      const opt = document.createElement('option');
+      opt.value = name;
+      opt.textContent = name;
+      if (name === state.preset) opt.selected = true;
+      presetEl.appendChild(opt);
+    }
 
-    window.addEventListener('pagehide', () => bgs.forEach(bg => bg.destroy()));
+    // ─── Активуємо кнопки відповідно до поточного стану ──────────────────────
+    function syncButtons() {
+      for (const [groupId, val] of [['g-fps', state.fps], ['g-dpr', state.dpr], ['g-power', state.power]]) {
+        document.querySelectorAll(`#${groupId} button`).forEach((btn) => {
+          btn.classList.toggle('active', btn.dataset.val === String(val));
+        });
+      }
+    }
+
+    document.querySelectorAll('.btn-group button').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const group = btn.parentElement.id;
+        const val   = btn.dataset.val;
+        if (group === 'g-fps')   state.fps   = parseFloat(val);
+        if (group === 'g-dpr')   state.dpr   = parseFloat(val);
+        if (group === 'g-power') state.power = val;
+        syncButtons();
+      });
+    });
+    presetEl.addEventListener('change', () => { state.preset = presetEl.value; });
+
+    // ─── Створення / перестворення GradientBg ───────────────────────────────
+    let bg = null;
+    function makeBg() {
+      if (bg) bg.destroy();
+      bg = new GradientBg(
+        '#bg_canvas',
+        GRADIENT_PRESETS[state.preset],
+        { powerPreference: state.power, dprCap: state.dpr, targetFps: state.fps }
+      );
+      requestAnimationFrame(() => requestAnimationFrame(() => bg._canvas.classList.add('ready')));
+      // Підтягуємо метрики GPU після того як контекст піднявся
+      setTimeout(updateGpuMetrics, 100);
+    }
+
+    function updateGpuMetrics() {
+      if (!bg || !bg._gl) {
+        document.getElementById('m-vendor').textContent = bg && bg._fallback ? 'CSS fallback' : '—';
+        document.getElementById('m-renderer').textContent = '—';
+        document.getElementById('m-context').textContent = '—';
+        return;
+      }
+      const gl = bg._gl;
+      const ext = gl.getExtension('WEBGL_debug_renderer_info');
+      document.getElementById('m-vendor').textContent   = ext ? gl.getParameter(ext.UNMASKED_VENDOR_WEBGL) : 'masked';
+      document.getElementById('m-renderer').textContent = ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : 'masked';
+      document.getElementById('m-context').textContent  = gl.constructor.name.replace('RenderingContext', '');
+    }
+
+    document.getElementById('apply').addEventListener('click', () => {
+      const url = new URL(location.href);
+      url.searchParams.set('fps',    state.fps);
+      url.searchParams.set('dpr',    state.dpr);
+      url.searchParams.set('power',  state.power);
+      url.searchParams.set('preset', state.preset);
+      history.replaceState(null, '', url.toString());
+      makeBg();
+    });
+
+    window.addEventListener('pagehide', () => bg && bg.destroy());
+
+    // ─── Незалежний FPS-вимірювач через rAF ──────────────────────────────────
+    const mFps      = document.getElementById('m-fps');
+    const mInterval = document.getElementById('m-interval');
+    const mCanvas   = document.getElementById('m-canvas');
+    const mDpr      = document.getElementById('m-dpr');
+
+    let frames = 0;
+    let last   = performance.now();
+    let acc    = 0;
+    function fpsLoop(now) {
+      frames++;
+      acc += now - last;
+      last = now;
+      if (acc >= 500) {
+        const fps = (frames * 1000 / acc).toFixed(1);
+        mFps.textContent = fps;
+        mFps.className = fps >= 55 ? 'fps-good' : fps >= 25 ? 'fps-ok' : 'fps-bad';
+        mInterval.textContent = (acc / frames).toFixed(2) + ' ms';
+        frames = 0;
+        acc = 0;
+
+        if (bg && bg._canvas) {
+          mCanvas.textContent = `${bg._canvas.width} × ${bg._canvas.height}`;
+          mDpr.textContent    = bg._canvas.width && bg._canvas.getBoundingClientRect().width
+            ? (bg._canvas.width / bg._canvas.getBoundingClientRect().width).toFixed(2)
+            : '—';
+        }
+      }
+      requestAnimationFrame(fpsLoop);
+    }
+    requestAnimationFrame(fpsLoop);
+
+    // ─── Старт ───────────────────────────────────────────────────────────────
+    syncButtons();
+    makeBg();
   </script>
 
 </body>

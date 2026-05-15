@@ -82,9 +82,13 @@ class GradientBg {
   // ─── Constructor ──────────────────────────────────────────────────────────
   /**
    * @param {string|HTMLCanvasElement} target — CSS selector або canvas елемент
-   * @param {Object} config — конфіг (див. gradient-presets.js)
+   * @param {Object} config — пресет з gradient-presets.js
+   * @param {Object} [options]
+   * @param {'low-power'|'default'|'high-performance'} [options.powerPreference='low-power']
+   * @param {number} [options.dprCap=2] — обмеження devicePixelRatio для backing buffer
+   * @param {number} [options.targetFps=30] — ≤0 = без throttle (60fps по rAF)
    */
-  constructor(target, config) {
+  constructor(target, config, options = {}) {
     this._canvas = typeof target === 'string'
       ? document.querySelector(target)
       : target;
@@ -92,6 +96,13 @@ class GradientBg {
     if (!this._canvas) throw new Error(`GradientBg: canvas not found — "${target}"`);
 
     this._config    = config;
+    this._powerPref = options.powerPreference ?? 'low-power';
+    this._dprCap    = options.dprCap          ?? 2;
+    // targetFps: undefined → 30fps (default); ≤0 → без throttle; >0 → той fps
+    const fps       = options.targetFps;
+    this._frameMs   = fps === undefined ? 33
+                    : fps <= 0           ? 0
+                    : 1000 / fps;
     this._startTime = null;
     this._rafId     = null;
     this._gl        = null;
@@ -100,7 +111,7 @@ class GradientBg {
     this._inited    = false;   // GL context або fallback вже піднято
     this._fallback  = false;   // ми у CSS-fallback режимі
     this._visible   = false;   // IntersectionObserver state
-    this._lastFrame = 0;       // для throttle 30fps
+    this._lastFrame = 0;       // для throttle
 
     this._onContextLost      = this._onContextLost.bind(this);
     this._onContextRestored  = this._onContextRestored.bind(this);
@@ -120,10 +131,10 @@ class GradientBg {
     if (!this._visible) return;
     if (!this._hasValidSize()) return;
 
-    // low-power: підказка браузеру використовувати менш потужний GPU
-    // знижує температуру на iMac M1 без помітної різниці в якості
-    this._gl = this._canvas.getContext('webgl2', { powerPreference: 'low-power' })
-            || this._canvas.getContext('webgl',  { powerPreference: 'low-power' });
+    // powerPreference з options (default 'low-power'): підказка браузеру
+    // використовувати менш потужний GPU
+    this._gl = this._canvas.getContext('webgl2', { powerPreference: this._powerPref })
+            || this._canvas.getContext('webgl',  { powerPreference: this._powerPref });
 
     // WebGL недоступний (приватний режим, старі браузери) — CSS fallback
     if (!this._gl) {
@@ -304,7 +315,7 @@ class GradientBg {
     const r = this._canvas.getBoundingClientRect();
     if (r.width <= 0 || r.height <= 0) return;  // не псуємо буфер 0×0
 
-    const dpr = Math.min(devicePixelRatio || 1, 2);
+    const dpr = Math.min(devicePixelRatio || 1, this._dprCap);
     const w = Math.round(r.width  * dpr);
     const h = Math.round(r.height * dpr);
 
@@ -328,14 +339,17 @@ class GradientBg {
       return;
     }
 
-    // Throttle до 30fps — знижує навантаження на WindowServer і температуру
-    // на повільній градієнтній анімації різниця 30/60fps непомітна
-    const elapsed = ts - this._lastFrame;
-    if (elapsed < 33) { // 33ms ≈ 30fps
-      this._rafId = requestAnimationFrame(ts => this._frame(ts));
-      return;
+    // Throttle до targetFps (default 30fps): знижує навантаження на
+    // WindowServer і температуру. На повільній градієнтній анімації
+    // різниця 30/60fps непомітна. frameMs=0 → без throttle.
+    if (this._frameMs > 0) {
+      const elapsed = ts - this._lastFrame;
+      if (elapsed < this._frameMs) {
+        this._rafId = requestAnimationFrame(ts => this._frame(ts));
+        return;
+      }
+      this._lastFrame = ts;
     }
-    this._lastFrame = ts;
 
     if (!this._startTime) this._startTime = ts;
     const time = (ts - this._startTime) / 1000;
