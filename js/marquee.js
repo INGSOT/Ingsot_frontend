@@ -55,10 +55,13 @@
     // Якщо innerWidth змінився (font swap, image load) — пропорційно
     // масштабує offset, щоб relative-позиція в циклі зберіглась.
     function ensureFill() {
-      const newInnerWidth = original.offsetWidth;
+      // getBoundingClientRect для sub-pixel precision — offsetWidth округлює
+      // до цілих пікселів, через що клон може бути не точно над оригіналом
+      // і modulo wrap "плаває" на 0.5px.
+      const newInnerWidth = original.getBoundingClientRect().width;
       if (newInnerWidth === 0) return;
 
-      const marqueeWidth = marquee.offsetWidth;
+      const marqueeWidth = marquee.getBoundingClientRect().width;
       const needed       = Math.max(2, Math.ceil((marqueeWidth + newInnerWidth) / newInnerWidth));
       const existing     = track.querySelectorAll(':scope > .inner').length;
 
@@ -80,7 +83,9 @@
 
     function frame(now) {
       if (!lastTime) lastTime = now;
-      const dt = (now - lastTime) / 1000;
+      // Clamp dt у [0, 0.1]: коли таб був у фоні, rAF може дати dt=кілька
+      // секунд за один кадр → стрибок. Обмежуємо 100 мс щоб уникнути цього.
+      const dt = Math.min(0.1, Math.max(0, (now - lastTime) / 1000));
       lastTime = now;
 
       if (!isPaused && innerWidth > 0) {
