@@ -1708,16 +1708,18 @@ header {
   padding: 24px 0;
   overflow: hidden;
   white-space: nowrap;
-  contain: layout paint;
-  .track {
-    display: flex;
-    width: max-content;
+  display: flex;
+  &:hover {
+    .inner {
+      animation-play-state: paused;
+    }
   }
   .inner {
-    display: flex;
-    flex-shrink: 0;
+    width: fit-content;
+    display: inline-flex;
     padding-right: 24px;
     gap: 24px;
+    animation: marquee infinite 10s linear;
     color: #fff;
     a:hover {
       color: $blue;
@@ -1729,6 +1731,7 @@ header {
     .inner {
       padding-right: 72px;
       gap: 72px;
+      animation: marquee infinite 25s linear;
       div {
         width: 72px;
         height: 72px;
@@ -1737,6 +1740,15 @@ header {
         justify-content: center;
       }
     }
+  }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
   }
 }
 
