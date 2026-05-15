@@ -1710,13 +1710,9 @@ header {
   white-space: nowrap;
   -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
   mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
-  &:hover .track {
-    animation-play-state: paused;
-  }
   .track {
     display: flex;
     width: max-content;
-    animation: marquee infinite 10s linear;
     will-change: transform;
   }
   .inner {
@@ -1732,9 +1728,6 @@ header {
   &.v2 {
     padding: 0;
     background-color: #fff;
-    .track {
-      animation: marquee infinite 25s linear;
-    }
     .inner {
       padding-right: 72px;
       gap: 72px;
@@ -1746,15 +1739,6 @@ header {
         justify-content: center;
       }
     }
-  }
-}
-
-@keyframes marquee {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
   }
 }
 
