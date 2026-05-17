@@ -119,7 +119,8 @@
       </div>
       <div class="slider_control">
         <div class="progress">
-          <span></span>
+          <span class="n1"></span>
+          <span class="n2"></span>
         </div>
         <button type="button" class="round_btn">
           <svg width="8" height="12" viewBox="0 0 8 12" xmlns="http://www.w3.org/2000/svg">
@@ -137,21 +138,22 @@
       </div>
     </section>
 
-    <div class="marquee anim_bg">
-      <div class="inner">
-        <a href="">#моніторинг верстатів</a>
-        <a href="">#статистика використання електроенергії</a>
-        <a href="">#лічильник виготовленої продукції</a>
-        <a href="">#вимірювання тиску</a>
-        <a href="">#контроль температури</a>
-
-      </div>
-      <div class="inner">
-        <a href="">#моніторинг верстатів</a>
-        <a href="">#статистика використання електроенергії</a>
-        <a href="">#лічильник виготовленої продукції</a>
-        <a href="">#вимірювання тиску</a>
-        <a href="">#контроль температури</a>
+    <div class="marquee anim_bg" id="marquee">
+      <div class="slider">
+        <div class="item">
+          <a href="">#моніторинг верстатів</a>
+          <a href="">#статистика використання електроенергії</a>
+          <a href="">#лічильник виготовленої продукції</a>
+          <a href="">#вимірювання тиску</a>
+          <a href="">#контроль температури</a>
+        </div>
+        <div class="item">
+          <a href="">#моніторинг верстатів</a>
+          <a href="">#статистика використання електроенергії</a>
+          <a href="">#лічильник виготовленої продукції</a>
+          <a href="">#вимірювання тиску</a>
+          <a href="">#контроль температури</a>
+        </div>
       </div>
     </div>
 
@@ -760,6 +762,7 @@
   <script src="js/gradient-bg.js"></script>
   <script src="js/gradient-presets.js"></script>
 
+  <!-- виклики анімацій градієнту -->
   <script>
     const bgs = [
       new GradientBg('#main_banner_anim', GRADIENT_PRESETS.dark_blue),
@@ -777,42 +780,122 @@
 
   <script src="js/script.js" defer></script>
 
+  <!-- слайдер мейн баннера -->
   <script>
     $(document).ready(function () {
       const $slider = $('#main_banner .slider');
-      const $progressSpan = $('#main_banner .progress span');
+      const $n1 = $('#main_banner .progress .n1');
+      const $n2 = $('#main_banner .progress .n2');
 
-      // Ініціалізація slick
+      // Ініціалізація slick без автоплею
       $slider.slick({
         dots: false,
         arrows: true,
         slidesToShow: 1,
         slidesToScroll: 1,
         touchThreshold: 100,
-        swipeToSlide: true,
         infinite: true,
+        fade: true,
         prevArrow: $('#main_banner .slider_control button:first-of-type'),
         nextArrow: $('#main_banner .slider_control button:last-of-type'),
       });
 
-      // Рахуємо тільки оригінальні слайди
       const total = $slider.find('.slick-slide').not('.slick-cloned').length;
+      const step = 100 / total;
+      let timer;
 
-      function updateProgress(currentIndex) {
-        const percent = ((currentIndex + 1) / total) * 100;
-        $progressSpan.css('width', percent + '%');
+      function animateProgress(currentSlide) {
+        // Скидаємо попередню анімацію
+        if (timer) clearTimeout(timer);
+        $n1.stop(true);
+
+        // Початкова ширина для поточного слайду
+        const currentPercent = currentSlide * step;
+        $n1.css('width', currentPercent + '%');
+
+        // Анімація на +step за 5 сек
+        $n1.animate({ width: (currentPercent + step) + '%' }, 5000, 'linear');
+
+        // Запускаємо таймер: після 5 сек перемикаємо слайд
+        timer = setTimeout(() => {
+          $slider.slick('slickNext');
+        }, 5000);
+
+        // n2: миттєвий стрибок
+        $n2.css('width', (currentSlide * step) + '%');
       }
 
-      // Початкове значення
-      updateProgress($slider.slick('slickCurrentSlide'));
+      // Початковий стан
+      animateProgress(0);
 
-      // Оновлення після зміни слайду
+      // Оновлення після зміни слайду (авто чи вручну)
       $slider.on('afterChange', function (event, slick, currentSlide) {
-        updateProgress(currentSlide);
+        const index = currentSlide % total;
+        animateProgress(index);
       });
+
+    });
+
+  </script>
+
+  <script>
+    $(document).ready(function () {
+      const $slider = $('#main_banner .slider')[0];
+      let startX, startY;
+
+      // Початкова точка
+      $slider.addEventListener('touchstart', function (e) {
+        const t = e.touches[0];
+        startX = t.clientX;
+        startY = t.clientY;
+      }, { passive: true });
+
+      // Визначаємо кут руху
+      $slider.addEventListener('touchend', function (e) {
+        const t = e.changedTouches[0];
+        const dx = t.clientX - startX;
+        const dy = t.clientY - startY;
+
+        // якщо рух занадто малий — ігноруємо
+        if (Math.abs(dx) < 30 && Math.abs(dy) < 30) return;
+
+        const angle = Math.abs(Math.atan2(dy, dx) * 180 / Math.PI);
+
+        // допустимий діапазон для горизонтального свайпу
+        if (angle < 60) {
+          $('#main_banner .slider').slick('slickNext');
+        } else if (angle > 120) {
+          $('#main_banner .slider').slick('slickPrev');
+        }
+        // якщо кут ближче до вертикального — даємо сторінці скролитись
+      }, { passive: false });
+    });
+
+  </script>
+
+  <!-- бігуча строка -->
+  <script>
+    $(document).ready(function () {
+      const $slider = $('#marquee .slider');
+
+      // Ініціалізація slick
+      $slider.slick({
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        infinite: true,
+        autoplay: true,
+        autoplaySpeed: 0,
+        speed: 15000,
+        cssEase: 'linear',
+        arrows: false,
+        dots: false,
+        variableWidth: true,
+      });
+
     });
   </script>
 
+  <!-- анімація появи текста при скролі -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const animatedElements = document.querySelectorAll('.animate_on_scroll');
@@ -833,6 +916,7 @@
     });
   </script>
 
+  <!-- анімація ефекта ховера на блоках на мобілці -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       if (window.innerWidth <= 1024) {

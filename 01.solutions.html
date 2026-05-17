@@ -19,7 +19,9 @@
     <div id="header_placeholder"></div>
 
     <section class="main_banner white">
-      <div class="bcg_anim"></div>
+      <div class="bcg_anim">
+        <canvas id="main_banner_anim"></canvas>
+      </div>
       <div class="item">
         <div class="cont">
           <h1>Рішення</h1>
@@ -293,7 +295,9 @@
     </section>
 
     <section class="projects_slider" id="projects_slider">
-      <div class="bcg_anim"></div>
+      <div class="bcg_anim">
+        <canvas id="projects_slider_anim"></canvas>
+      </div>
       <div class="slider">
         <a href="04.1.cases_case.html" class="project_item">
           <div class="pict">
@@ -359,371 +363,6 @@
 
     <div id="footer_placeholder"></div>
 
-    <!-- для main_banner -->
-    <style>
-      @keyframes main_banner_anim {
-        0% {
-          --s-start-0: 0%;
-          --s-end-0: 37%;
-          --x-0: 8%;
-          --y-0: 89%;
-          --c-0: hsla(0, 0%, 0%, 0.5);
-        }
-
-        100% {
-          --s-start-0: 0%;
-          --s-end-0: 123.31365430648279%;
-          --x-0: 95%;
-          --y-0: 30%;
-          --c-0: hsla(200, 100%, 40%, 0.75);
-        }
-      }
-
-      @property --s-start-0 {
-        syntax: '<percentage>';
-        inherits: false;
-        initial-value: 0%
-      }
-
-      @property --s-end-0 {
-        syntax: '<percentage>';
-        inherits: false;
-        initial-value: 37%
-      }
-
-      @property --x-0 {
-        syntax: '<percentage>';
-        inherits: false;
-        initial-value: 8%
-      }
-
-      @property --y-0 {
-        syntax: '<percentage>';
-        inherits: false;
-        initial-value: 89%
-      }
-
-      @property --c-0 {
-        syntax: '<color>';
-        inherits: false;
-        initial-value: hsla(0, 0%, 0%, 0.5)
-      }
-
-      @property --c-1 {
-        syntax: '<color>';
-        inherits: false;
-        initial-value: hsla(200, 100%, 16%, 0.5)
-      }
-
-      @property --y-1 {
-        syntax: '<percentage>';
-        inherits: false;
-        initial-value: 0%
-      }
-
-      @property --s-start-1 {
-        syntax: '<percentage>';
-        inherits: false;
-        initial-value: 0%
-      }
-
-      @property --s-end-1 {
-        syntax: '<percentage>';
-        inherits: false;
-        initial-value: 123.31365430648279%
-      }
-
-      @property --x-1 {
-        syntax: '<percentage>';
-        inherits: false;
-        initial-value: 0%
-      }
-
-      @property --y-2 {
-        syntax: '<percentage>';
-        inherits: false;
-        initial-value: 77%
-      }
-
-      @property --s-start-2 {
-        syntax: '<percentage>';
-        inherits: false;
-        initial-value: 0%
-      }
-
-      @property --s-end-2 {
-        syntax: '<percentage>';
-        inherits: false;
-        initial-value: 76.30780127948216%
-      }
-
-      @property --x-2 {
-        syntax: '<percentage>';
-        inherits: false;
-        initial-value: 80%
-      }
-
-      @property --c-2 {
-        syntax: '<color>';
-        inherits: false;
-        initial-value: hsla(200, 97%, 36%, 0.5)
-      }
-
-      .main_banner .bcg_anim,
-      .marquee .bcg_anim {
-        --x-0: 8%;
-        --y-0: 89%;
-        --c-0: hsla(0, 0%, 0%, 0.5);
-        --c-1: hsla(200, 100%, 16%, 0.5);
-        --y-1: 0%;
-        --x-1: 0%;
-        --y-2: 77%;
-        --x-2: 80%;
-        --c-2: hsla(200, 97%, 36%, 0.5);
-        background-color: hsla(9, 0%, 0%, 1);
-        background-image: radial-gradient(circle at var(--x-0) var(--y-0), var(--c-0) var(--s-start-0), transparent var(--s-end-0)), radial-gradient(circle at var(--x-1) var(--y-1), var(--c-1) var(--s-start-1), transparent var(--s-end-1)), radial-gradient(circle at var(--x-2) var(--y-2), var(--c-2) var(--s-start-2), transparent var(--s-end-2));
-        animation: main_banner_anim 15s linear infinite alternate;
-        background-blend-mode: luminosity, normal, lighten;
-        will-change: transform, opacity;
-        contain: paint;
-      }
-    </style>
-
-    <!-- для projects_slider -->
-    <style>
-      @keyframes projects_slider_anim {
-        0% {
-          --project-slider-c-0: hsla(97, 2%, 11%, 1);
-          --project-slider-x-0: 91%;
-          --project-slider-s-start-0: 1%;
-          --project-slider-s-end-0: 61%;
-          --project-slider-y-0: 90%;
-          --project-slider-c-1: hsla(75, 0%, 0%, 1);
-          --project-slider-y-1: 24%;
-          --project-slider-s-start-1: 0%;
-          --project-slider-s-end-1: 55%;
-          --project-slider-x-1: 17%;
-          --project-slider-c-2: hsla(200, 85%, 7%, 1);
-          --project-slider-y-2: 32%;
-          --project-slider-x-2: 11%;
-          --project-slider-s-start-2: 19%;
-          --project-slider-s-end-2: 54%;
-          --project-slider-c-3: hsla(200, 100%, 40%, 1);
-          --project-slider-y-3: 31%;
-          --project-slider-s-start-3: 0%;
-          --project-slider-s-end-3: 67%;
-          --project-slider-x-3: 2%;
-          --project-slider-c-4: hsla(349, 0%, 0%, 1);
-          --project-slider-y-4: 93%;
-          --project-slider-s-start-4: 12%;
-          --project-slider-s-end-4: 82%;
-          --project-slider-x-4: 74%;
-        }
-
-        100% {
-          --project-slider-c-0: hsla(313, 0%, 0%, 1);
-          --project-slider-x-0: 49%;
-          --project-slider-s-start-0: 19%;
-          --project-slider-s-end-0: 69%;
-          --project-slider-y-0: 25%;
-          --project-slider-c-1: hsla(200, 84%, 10%, 1);
-          --project-slider-y-1: 41%;
-          --project-slider-s-start-1: 3%;
-          --project-slider-s-end-1: 77%;
-          --project-slider-x-1: 1%;
-          --project-slider-c-2: hsla(321, 0%, 0%, 1);
-          --project-slider-y-2: 93%;
-          --project-slider-x-2: 44%;
-          --project-slider-s-start-2: 6%;
-          --project-slider-s-end-2: 73%;
-          --project-slider-c-3: hsla(0, 0%, 0%, 1);
-          --project-slider-y-3: 51%;
-          --project-slider-s-start-3: 8%;
-          --project-slider-s-end-3: 86%;
-          --project-slider-x-3: 97%;
-          --project-slider-c-4: hsla(172, 95%, 37%, 1);
-          --project-slider-y-4: 69%;
-          --project-slider-s-start-4: 20%;
-          --project-slider-s-end-4: 75%;
-          --project-slider-x-4: 10%;
-        }
-      }
-
-      @property --project-slider-c-0 {
-        syntax: '<color>';
-        inherits: false;
-        initial-value: hsla(97, 2%, 11%, 1)
-      }
-
-      @property --project-slider-x-0 {
-        syntax: '<percentage>';
-        inherits: false;
-        initial-value: 91%
-      }
-
-      @property --project-slider-s-start-0 {
-        syntax: '<percentage>';
-        inherits: false;
-        initial-value: 1%
-      }
-
-      @property --project-slider-s-end-0 {
-        syntax: '<percentage>';
-        inherits: false;
-        initial-value: 61%
-      }
-
-      @property --project-slider-y-0 {
-        syntax: '<percentage>';
-        inherits: false;
-        initial-value: 90%
-      }
-
-      @property --project-slider-c-1 {
-        syntax: '<color>';
-        inherits: false;
-        initial-value: hsla(75, 0%, 0%, 1)
-      }
-
-      @property --project-slider-y-1 {
-        syntax: '<percentage>';
-        inherits: false;
-        initial-value: 24%
-      }
-
-      @property --project-slider-s-start-1 {
-        syntax: '<percentage>';
-        inherits: false;
-        initial-value: 0%
-      }
-
-      @property --project-slider-s-end-1 {
-        syntax: '<percentage>';
-        inherits: false;
-        initial-value: 55%
-      }
-
-      @property --project-slider-x-1 {
-        syntax: '<percentage>';
-        inherits: false;
-        initial-value: 17%
-      }
-
-      @property --project-slider-c-2 {
-        syntax: '<color>';
-        inherits: false;
-        initial-value: hsla(200, 85%, 7%, 1)
-      }
-
-      @property --project-slider-y-2 {
-        syntax: '<percentage>';
-        inherits: false;
-        initial-value: 32%
-      }
-
-      @property --project-slider-x-2 {
-        syntax: '<percentage>';
-        inherits: false;
-        initial-value: 11%
-      }
-
-      @property --project-slider-s-start-2 {
-        syntax: '<percentage>';
-        inherits: false;
-        initial-value: 19%
-      }
-
-      @property --project-slider-s-end-2 {
-        syntax: '<percentage>';
-        inherits: false;
-        initial-value: 54%
-      }
-
-      @property --project-slider-c-3 {
-        syntax: '<color>';
-        inherits: false;
-        initial-value: hsla(200, 100%, 40%, 1)
-      }
-
-      @property --project-slider-y-3 {
-        syntax: '<percentage>';
-        inherits: false;
-        initial-value: 31%
-      }
-
-      @property --project-slider-s-start-3 {
-        syntax: '<percentage>';
-        inherits: false;
-        initial-value: 0%
-      }
-
-      @property --project-slider-s-end-3 {
-        syntax: '<percentage>';
-        inherits: false;
-        initial-value: 67%
-      }
-
-      @property --project-slider-x-3 {
-        syntax: '<percentage>';
-        inherits: false;
-        initial-value: 2%
-      }
-
-      @property --project-slider-c-4 {
-        syntax: '<color>';
-        inherits: false;
-        initial-value: hsla(349, 0%, 0%, 1)
-      }
-
-      @property --project-slider-y-4 {
-        syntax: '<percentage>';
-        inherits: false;
-        initial-value: 93%
-      }
-
-      @property --project-slider-s-start-4 {
-        syntax: '<percentage>';
-        inherits: false;
-        initial-value: 12%
-      }
-
-      @property --project-slider-s-end-4 {
-        syntax: '<percentage>';
-        inherits: false;
-        initial-value: 82%
-      }
-
-      @property --project-slider-x-4 {
-        syntax: '<percentage>';
-        inherits: false;
-        initial-value: 74%
-      }
-
-      .projects_slider .bcg_anim {
-        --project-slider-project-slider-c-0: hsla(97, 2%, 11%, 1);
-        --project-slider-project-slider-x-0: 91%;
-        --project-slider-project-slider-y-0: 90%;
-        --project-slider-project-slider-c-1: hsla(75, 0%, 0%, 1);
-        --project-slider-project-slider-y-1: 24%;
-        --project-slider-project-slider-x-1: 17%;
-        --project-slider-project-slider-c-2: hsla(200, 85%, 7%, 1);
-        --project-slider-project-slider-y-2: 32%;
-        --project-slider-project-slider-x-2: 11%;
-        --project-slider-project-slider-c-3: hsla(200, 100%, 40%, 1);
-        --project-slider-project-slider-y-3: 31%;
-        --project-slider-project-slider-x-3: 2%;
-        --project-slider-project-slider-c-4: hsla(349, 0%, 0%, 1);
-        --project-slider-project-slider-y-4: 93%;
-        --project-slider-project-slider-x-4: 74%;
-        background-color: hsla(356, 0%, 0%, 1);
-        background-image: radial-gradient(circle at var(--project-slider-x-0) var(--project-slider-y-0), var(--project-slider-c-0) var(--project-slider-s-start-0), transparent var(--project-slider-s-end-0)), radial-gradient(circle at var(--project-slider-x-1) var(--project-slider-y-1), var(--project-slider-c-1) var(--project-slider-s-start-1), transparent var(--project-slider-s-end-1)), radial-gradient(circle at var(--project-slider-x-2) var(--project-slider-y-2), var(--project-slider-c-2) var(--project-slider-s-start-2), transparent var(--project-slider-s-end-2)), radial-gradient(circle at var(--project-slider-x-3) var(--project-slider-y-3), var(--project-slider-c-3) var(--project-slider-s-start-3), transparent var(--project-slider-s-end-3)), radial-gradient(circle at var(--project-slider-x-4) var(--project-slider-y-4), var(--project-slider-c-4) var(--project-slider-s-start-4), transparent var(--project-slider-s-end-4));
-        animation: projects_slider_anim 10s linear infinite alternate;
-        background-blend-mode: normal, normal, normal, normal, normal;
-        will-change: transform, opacity;
-        contain: paint;
-      }
-    </style>
-
   </div>
 
   <script src="js/jquery_min_3.7.1.js"></script>
@@ -741,6 +380,23 @@
     loadComponent('header', '#header_placeholder');
     loadComponent('coplexity', '#coplexity_placeholder');
     loadComponent('footer', '#footer_placeholder');
+  </script>
+
+  <script src="js/gradient-bg.js"></script>
+  <script src="js/gradient-presets.js"></script>
+
+  <!-- виклики анімацій градієнту -->
+  <script>
+    const bgs = [
+      new GradientBg('#main_banner_anim', GRADIENT_PRESETS.dark_blue),
+      new GradientBg('#projects_slider_anim', GRADIENT_PRESETS.dark_warm),
+    ];
+
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      bgs.forEach(bg => bg._canvas.classList.add('ready'));
+    }));
+
+    window.addEventListener('pagehide', () => bgs.forEach(bg => bg.destroy()));
   </script>
 
 </body>

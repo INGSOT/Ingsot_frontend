@@ -188,14 +188,14 @@ body {
   @media (max-width: 700px) {
     h1,
     .h1 {
-      font-size: 48px;
-      line-height: 48px;
+      font-size: 40px;
+      line-height: 40px;
     }
 
     h2,
     .h2 {
-      font-size: 36px;
-      line-height: 40px;
+      font-size: 30px;
+      line-height: 36px;
     }
 
     h3,
@@ -474,80 +474,6 @@ body {
   }
 }
 
-// .anim_fond {
-//   width: 100%;
-//   height: 100%;
-//   background-color: $black;
-//   position: absolute;
-//   top: 0;
-//   left: 0;
-//   z-index: 0;
-//   overflow: hidden;
-//   .blur_layer {
-//     position: absolute;
-//     height: 100%;
-//     inset: 0;
-//     filter: blur(250px);
-//   }
-//   .ball {
-//     position: absolute;
-//     border-radius: 50%;
-//     aspect-ratio: 1;
-//     &.v1 {
-//       width: 800px;
-//       background: radial-gradient(circle, rgba(172, 221, 242, 1) 0%, rgba(0, 136, 204, 1) 100%);
-//       aspect-ratio: 3 / 2;
-//     }
-//     &.v2 {
-//       width: 700px;
-//       background: radial-gradient(circle, rgba(217, 240, 255, 1) 0%, rgba(0, 114, 214, 1) 44%);
-//     }
-//     &.v3 {
-//       width: 800px;
-//       aspect-ratio: 3 / 2;
-//       background: radial-gradient(circle, rgba(247, 217, 161, 1) 0%, rgba(255, 157, 61, 1) 100%);
-//     }
-//     &.v4 {
-//       width: 700px;
-//       background: radial-gradient(circle, rgba(247, 161, 162, 1) 0%, rgba(255, 80, 61, 1) 100%);
-//     }
-//     &.v5 {
-//       width: 800px;
-//       background: radial-gradient(circle, rgba(179, 156, 255, 1) 0%, rgba(85, 43, 222, 1) 100%);
-//     }
-//     &.v6 {
-//       width: 700px;
-//       background: radial-gradient(circle, rgba(208, 195, 247, 1) 0%, rgba(132, 102, 242, 1) 100%);
-//     }
-//   }
-// }
-
-// @media (max-width: 700px) {
-//   .anim_fond {
-//     .ball {
-//       &.v1,
-//       &.v3,
-//       &.v5 {
-//         width: 500px;
-//       }
-//       &.v2,
-//       &.v4,
-//       &.v6 {
-//         width: 450px;
-//       }
-//     }
-//   }
-// }
-
-// @keyframes spin {
-//   0% {
-//     transform: rotate(0deg);
-//   }
-//   100% {
-//     transform: rotate(360deg);
-//   }
-// }
-
 .anim_bg {
   overflow: hidden;
   position: relative;
@@ -824,6 +750,7 @@ body {
   &.request {
     form,
     .thanks {
+      overflow: auto;
       height: 100%;
       padding: 48px;
       display: flex;
@@ -911,11 +838,21 @@ body {
     left: 0;
     width: 100%;
     height: 1px;
-    background-color: #ffffff26;
     span {
       display: block;
       height: 1px;
-      background-color: #fff;
+      position: absolute;
+      width: 0;
+      &.n1 {
+        z-index: 1;
+        background-color: #ffffff26;
+        transition: none;
+      }
+      &.n2 {
+        transition: none;
+        z-index: 2;
+        background-color: #fff;
+      }
     }
   }
 }
@@ -1538,7 +1475,7 @@ header {
 
 .main_banner {
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   position: relative;
   padding: 96px 0;
   &::after {
@@ -1619,7 +1556,7 @@ header {
     }
   }
   .item {
-    height: calc(100vh - 192px);
+    min-height: calc(100vh - 192px);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -1706,49 +1643,33 @@ header {
 .marquee {
   position: relative;
   padding: 24px 0;
-  overflow: hidden;
-  white-space: nowrap;
-  display: flex;
-  &:hover {
-    .inner {
-      animation-play-state: paused;
-    }
-  }
-  .inner {
-    width: fit-content;
-    display: inline-flex;
-    padding-right: 24px;
-    gap: 24px;
-    animation: marquee infinite 10s linear;
-    color: #fff;
-    a:hover {
-      color: $blue;
+  .slider {
+    width: 100%;
+    .item {
+      margin-right: 24px;
+      display: flex;
+      gap: 24px;
+      a {
+        width: fit-content;
+        color: #fff;
+        white-space: nowrap;
+        &:hover {
+          color: $blue;
+        }
+      }
     }
   }
   &.v2 {
     padding: 0;
     background-color: #fff;
-    .inner {
-      padding-right: 72px;
-      gap: 72px;
-      animation: marquee infinite 25s linear;
-      div {
-        width: 72px;
-        height: 72px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
+    .item {
+      margin-right: 72px;
+      width: 72px;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-  }
-}
-
-@keyframes marquee {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-100%);
   }
 }
 
@@ -1931,6 +1852,17 @@ header {
   }
 }
 
+@media (max-width: 700px) {
+  .projects_slider {
+    .slider {
+      .project_item {
+        width: 320px;
+        height: 262.5px;
+      }
+    }
+  }
+}
+
 .project_item {
   aspect-ratio: 4 / 3;
   position: relative;
@@ -2088,6 +2020,21 @@ header {
     padding: 48px 24px;
     .cards {
       padding: 24px 0 72px;
+      .item {
+        &:hover,
+        &.hover_active {
+          background-color: #ffffff26;
+          .imgs {
+            img {
+              @for $i from 2 through 4 {
+                &:nth-child(#{$i}) {
+                  transform: translateX(($i - 1) * 63px);
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
@@ -2099,7 +2046,7 @@ header {
   display: flex;
   align-items: center;
   span {
-    font-size: clamp(48px, 6vw, 120px);
+    font-size: clamp(36px, 6vw, 120px);
     line-height: 1;
     font-weight: 800;
     background: linear-gradient(90deg, #ff00cc, #3333ff);
@@ -2108,6 +2055,12 @@ header {
     background-clip: text;
     color: transparent;
     text-align: center;
+  }
+}
+
+@media (max-width: 700px) {
+  .gradient_text {
+    padding: 48px 24px;
   }
 }
 
@@ -3012,6 +2965,7 @@ header {
   .prices {
     flex-wrap: wrap;
     .left {
+      padding-top: 72px;
       width: 100%;
       position: relative;
       top: 0;
@@ -3099,6 +3053,13 @@ header {
     }
     .personnel {
       width: calc(100% + 48px);
+      .item {
+        &.slick-active {
+          img {
+            filter: none;
+          }
+        }
+      }
     }
     &.bg_white {
       .left {
@@ -3123,6 +3084,9 @@ header {
   .prices {
     .right {
       .cont {
+        .qlt {
+          margin: 0 auto;
+        }
         .text {
           padding: 48px 24px;
         }
@@ -3158,6 +3122,25 @@ header {
           width: calc(100% + 24px);
           padding-right: 24px;
         }
+      }
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  .prices {
+    .right {
+      .cont {
+        .circle_anim {
+          .curved_arrow {
+            right: -17px;
+          }
+        }
+      }
+    }
+    .personnel {
+      .item {
+        width: 312px;
       }
     }
   }
@@ -3646,6 +3629,9 @@ footer {
       }
       .cont {
         gap: 12px;
+        .linkWithImg {
+          white-space: wrap;
+        }
       }
       .link_block {
         width: 100%;

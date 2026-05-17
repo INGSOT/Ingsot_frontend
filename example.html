@@ -9,17 +9,36 @@
   <title>INGSOT — GradientBg test bench</title>
 
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { width: 100%; height: 100vh; overflow: hidden; background: #000; font-family: -apple-system, "SF Pro Text", system-ui, sans-serif; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      background: #000;
+      font-family: -apple-system, "SF Pro Text", system-ui, sans-serif;
+    }
 
     #stage {
-      position: fixed; inset: 0;
+      position: fixed;
+      inset: 0;
       background: #000;
     }
+
     #stage canvas {
-      position: absolute; inset: 0;
-      width: 100%; height: 100%;
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
       display: block;
+      will-change: transform;
+      transform: translateZ(0);
+      -webkit-transform: translateZ(0);
     }
 
     #hud {
@@ -41,21 +60,70 @@
       border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    #hud h1 { font-size: 13px; font-weight: 600; margin-bottom: 8px; color: #fff; }
-    #hud h2 { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: #7a8198; margin: 12px 0 6px; }
+    #hud h1 {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #fff;
+    }
 
-    .metric { display: flex; justify-content: space-between; padding: 2px 0; }
-    .metric span:first-child { color: #7a8198; }
-    .metric span:last-child { color: #fff; font-variant-numeric: tabular-nums; }
+    #hud h2 {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #7a8198;
+      margin: 12px 0 6px;
+    }
 
-    .fps-good { color: #4ade80 !important; }
-    .fps-ok { color: #facc15 !important; }
-    .fps-bad { color: #f87171 !important; }
+    .metric {
+      display: flex;
+      justify-content: space-between;
+      padding: 2px 0;
+    }
 
-    .control { margin-bottom: 10px; }
-    .control-label { display: block; font-size: 11px; color: #7a8198; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.05em; }
-    .btn-group { display: flex; gap: 4px; flex-wrap: wrap; }
-    .btn-group button, select {
+    .metric span:first-child {
+      color: #7a8198;
+    }
+
+    .metric span:last-child {
+      color: #fff;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .fps-good {
+      color: #4ade80 !important;
+    }
+
+    .fps-ok {
+      color: #facc15 !important;
+    }
+
+    .fps-bad {
+      color: #f87171 !important;
+    }
+
+    .control {
+      margin-bottom: 10px;
+    }
+
+    .control-label {
+      display: block;
+      font-size: 11px;
+      color: #7a8198;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+
+    .btn-group button,
+    select {
       flex: 1;
       padding: 6px 8px;
       font-size: 11px;
@@ -67,9 +135,21 @@
       cursor: pointer;
       min-width: 0;
     }
-    .btn-group button:hover, select:hover { background: rgba(255, 255, 255, 0.12); }
-    .btn-group button.active { background: #2563eb; border-color: #2563eb; color: #fff; }
-    select { width: 100%; }
+
+    .btn-group button:hover,
+    select:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .btn-group button.active {
+      background: #2563eb;
+      border-color: #2563eb;
+      color: #fff;
+    }
+
+    select {
+      width: 100%;
+    }
 
     .apply-btn {
       width: 100%;
@@ -84,9 +164,16 @@
       font-family: inherit;
       cursor: pointer;
     }
-    .apply-btn:hover { background: #1d4ed8; }
 
-    code { font-family: "SF Mono", Menlo, monospace; font-size: 11px; color: #93c5fd; }
+    .apply-btn:hover {
+      background: #1d4ed8;
+    }
+
+    code {
+      font-family: "SF Mono", Menlo, monospace;
+      font-size: 11px;
+      color: #93c5fd;
+    }
   </style>
 </head>
 
@@ -163,10 +250,10 @@
     // ─── Стан з URL params (для збереження між reload) ───────────────────────
     const params = new URLSearchParams(location.search);
     const state = {
-      fps:    parseFloat(params.get('fps')    ?? '30'),
-      dpr:    parseFloat(params.get('dpr')    ?? '2'),
-      power:  params.get('power')             ?? 'low-power',
-      preset: params.get('preset')            ?? 'dark_blue',
+      fps: parseFloat(params.get('fps') ?? '30'),
+      dpr: parseFloat(params.get('dpr') ?? '2'),
+      power: params.get('power') ?? 'low-power',
+      preset: params.get('preset') ?? 'dark_blue',
     };
 
     // ─── Заповнюємо preset dropdown ──────────────────────────────────────────
@@ -191,9 +278,9 @@
     document.querySelectorAll('.btn-group button').forEach((btn) => {
       btn.addEventListener('click', () => {
         const group = btn.parentElement.id;
-        const val   = btn.dataset.val;
-        if (group === 'g-fps')   state.fps   = parseFloat(val);
-        if (group === 'g-dpr')   state.dpr   = parseFloat(val);
+        const val = btn.dataset.val;
+        if (group === 'g-fps') state.fps = parseFloat(val);
+        if (group === 'g-dpr') state.dpr = parseFloat(val);
         if (group === 'g-power') state.power = val;
         syncButtons();
       });
@@ -223,16 +310,16 @@
       }
       const gl = bg._gl;
       const ext = gl.getExtension('WEBGL_debug_renderer_info');
-      document.getElementById('m-vendor').textContent   = ext ? gl.getParameter(ext.UNMASKED_VENDOR_WEBGL) : 'masked';
+      document.getElementById('m-vendor').textContent = ext ? gl.getParameter(ext.UNMASKED_VENDOR_WEBGL) : 'masked';
       document.getElementById('m-renderer').textContent = ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : 'masked';
-      document.getElementById('m-context').textContent  = gl.constructor.name.replace('RenderingContext', '');
+      document.getElementById('m-context').textContent = gl.constructor.name.replace('RenderingContext', '');
     }
 
     document.getElementById('apply').addEventListener('click', () => {
       const url = new URL(location.href);
-      url.searchParams.set('fps',    state.fps);
-      url.searchParams.set('dpr',    state.dpr);
-      url.searchParams.set('power',  state.power);
+      url.searchParams.set('fps', state.fps);
+      url.searchParams.set('dpr', state.dpr);
+      url.searchParams.set('power', state.power);
       url.searchParams.set('preset', state.preset);
       history.replaceState(null, '', url.toString());
       makeBg();
@@ -241,14 +328,14 @@
     window.addEventListener('pagehide', () => bg && bg.destroy());
 
     // ─── Незалежний FPS-вимірювач через rAF ──────────────────────────────────
-    const mFps      = document.getElementById('m-fps');
+    const mFps = document.getElementById('m-fps');
     const mInterval = document.getElementById('m-interval');
-    const mCanvas   = document.getElementById('m-canvas');
-    const mDpr      = document.getElementById('m-dpr');
+    const mCanvas = document.getElementById('m-canvas');
+    const mDpr = document.getElementById('m-dpr');
 
     let frames = 0;
-    let last   = performance.now();
-    let acc    = 0;
+    let last = performance.now();
+    let acc = 0;
     function fpsLoop(now) {
       frames++;
       acc += now - last;
@@ -263,7 +350,7 @@
 
         if (bg && bg._canvas) {
           mCanvas.textContent = `${bg._canvas.width} × ${bg._canvas.height}`;
-          mDpr.textContent    = bg._canvas.width && bg._canvas.getBoundingClientRect().width
+          mDpr.textContent = bg._canvas.width && bg._canvas.getBoundingClientRect().width
             ? (bg._canvas.width / bg._canvas.getBoundingClientRect().width).toFixed(2)
             : '—';
         }
