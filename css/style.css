@@ -775,7 +775,8 @@ body .slick-track {
   z-index: 1;
 }
 .modal_content.header_menu .body .item p {
-  color: #fff;
+  color: #0088cc;
+  font-weight: 700;
 }
 .modal_content.header_menu .body .item .h4 {
   margin-top: auto;
@@ -4004,12 +4005,15 @@ footer .footer .link_block .link_title button {
   flex-shrink: 0;
   width: 24px;
   height: 24px;
-  background: url("../public/img/svg/shevron_up.svg") no-repeat 50%;
-}
-footer .footer .link_block .link_title button.on {
+  background: url("../public/img/svg/shevron_white_up.svg") no-repeat 50%;
   -webkit-transform: rotate(180deg);
   -ms-transform: rotate(180deg);
   transform: rotate(180deg);
+}
+footer .footer .link_block .link_title button.on {
+  -webkit-transform: rotate(0);
+  -ms-transform: rotate(0);
+  transform: rotate(0);
 }
 footer .footer .link_block div {
   display: -webkit-box;

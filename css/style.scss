@@ -720,7 +720,8 @@ body {
           z-index: 1;
         }
         p {
-          color: #fff;
+          color: $blue;
+          font-weight: 700;
         }
         .h4 {
           margin-top: auto;
@@ -3523,9 +3524,10 @@ footer {
           flex-shrink: 0;
           width: 24px;
           height: 24px;
-          background: url("../public/img/svg/shevron_up.svg") no-repeat 50%;
+          background: url("../public/img/svg/shevron_white_up.svg") no-repeat 50%;
+          transform: rotate(180deg);
           &.on {
-            transform: rotate(180deg);
+            transform: rotate(0);
           }
         }
       }
