@@ -795,6 +795,7 @@
         slidesToScroll: 1,
         touchThreshold: 100,
         infinite: true,
+        touchAngle: 60,
         prevArrow: $('#main_banner .slider_control button:first-of-type'),
         nextArrow: $('#main_banner .slider_control button:last-of-type'),
       });
@@ -838,37 +839,26 @@
   </script>
 
   <script>
-    $(document).ready(function () {
-      const $slider = $('#main_banner .slider')[0];
-      let startX, startY;
-
-      // Початкова точка
-      $slider.addEventListener('touchstart', function (e) {
-        const t = e.touches[0];
-        startX = t.clientX;
-        startY = t.clientY;
-      }, { passive: true });
-
-      // Визначаємо кут руху
-      $slider.addEventListener('touchend', function (e) {
-        const t = e.changedTouches[0];
-        const dx = t.clientX - startX;
-        const dy = t.clientY - startY;
-
-        // якщо рух занадто малий — ігноруємо
-        if (Math.abs(dx) < 30 && Math.abs(dy) < 30) return;
-
-        const angle = Math.abs(Math.atan2(dy, dx) * 180 / Math.PI);
-
-        // допустимий діапазон для горизонтального свайпу
-        if (angle < 60) {
-          $('#main_banner .slider').slick('slickNext');
-        } else if (angle > 120) {
-          $('#main_banner .slider').slick('slickPrev');
-        }
-        // якщо кут ближче до вертикального — даємо сторінці скролитись
-      }, { passive: false });
+    $('#main_banner .slider').on('touchstart', function (e) {
+      const touch = e.originalEvent.touches[0];
+      $(this).data('touchStartX', touch.clientX);
+      $(this).data('touchStartY', touch.clientY);
+      $(this).data('scrollLocked', null);
     });
+
+    $('#main_banner .slider').on('touchmove', function (e) {
+      const touch = e.originalEvent.touches[0];
+      const deltaX = Math.abs(touch.clientX - $(this).data('touchStartX'));
+      const deltaY = Math.abs(touch.clientY - $(this).data('touchStartY'));
+
+      if ($(this).data('scrollLocked') === null && (deltaX > 5 || deltaY > 5)) {
+        $(this).data('scrollLocked', deltaX > deltaY);
+      }
+
+      if ($(this).data('scrollLocked')) {
+        e.preventDefault();
+      }
+    }, { passive: false });
 
   </script>
 

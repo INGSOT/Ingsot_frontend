@@ -720,11 +720,12 @@ body {
           z-index: 1;
         }
         p {
-          color: $blue;
-          font-weight: 700;
+          color: #fff;
         }
         .h4 {
           margin-top: auto;
+          color: $blue;
+          font-weight: 700;
         }
         .tags {
           padding-top: 12px;
