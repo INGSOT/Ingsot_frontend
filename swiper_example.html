@@ -14,12 +14,9 @@
 
   <div class="wrapper">
 
-    <section class="main_banner dn" id="main_banner">
-      <div class="bcg_anim">
-        <canvas id="main_banner_anim"></canvas>
-      </div>
-      <div class="slider">
-        <div class="item">
+    <section class="swiper main_banner dn" id="main_banner">
+      <div class="swiper-wrapper slider">
+        <div class="swiper-slide item">
           <div class="cont">
             <h5>АГЕНЦІЯ ЦИФРОВИХ РІШЕНЬ ПОВНОГО ЦИКЛУ</h5>
             <h1>Автоматизація</h1>
@@ -50,7 +47,7 @@
             </div>
           </div>
         </div>
-        <div class="item">
+        <div class="swiper-slide item">
           <div class="cont">
             <h5>АГЕНЦІЯ ЦИФРОВИХ РІШЕНЬ ПОВНОГО ЦИКЛУ</h5>
             <h1>Автоматизація</h1>
@@ -81,7 +78,7 @@
             </div>
           </div>
         </div>
-        <div class="item">
+        <div class="swiper-slide item">
           <div class="cont">
             <h5>АГЕНЦІЯ ЦИФРОВИХ РІШЕНЬ ПОВНОГО ЦИКЛУ</h5>
             <h1>Автоматизація</h1>
@@ -118,12 +115,12 @@
           <span class="n1"></span>
           <span class="n2"></span>
         </div>
-        <button type="button" class="round_btn">
+        <button type="button" class="swiper-button-prev round_btn">
           <svg width="8" height="12" viewBox="0 0 8 12" xmlns="http://www.w3.org/2000/svg">
             <path d="M7.41406 1.41406L2.82812 5.99704L7.41406 10.5859L6 12L0 5.99704L6 0L7.41406 1.41406Z" />
           </svg>
         </button>
-        <button type="button" class="round_btn">
+        <button type="button" class="swiper-button-next round_btn">
           <svg width="8" height="12" viewBox="0 0 8 12" xmlns="http://www.w3.org/2000/svg">
             <path d="M0 10.5859L4.58594 6.00296L8.01831e-07 1.41406L1.41406 0L7.41406 6.00296L1.41406 12L0 10.5859Z" />
           </svg>
@@ -136,108 +133,73 @@
 
   </div>
 
-  <script src="js/jquery_min_3.7.1.js"></script>
-  <script src="js/slick.min.js"></script>
+  <script src="js/swiper_min_12.1.4.js"></script>
 
-  <script src="js/gradient-bg.js"></script>
-  <script src="js/gradient-presets.js"></script>
-
-  <!-- виклики анімацій градієнту -->
   <script>
-    const bgs = [
-      new GradientBg('#main_banner_anim', GRADIENT_PRESETS.dark_blue),
-    ];
+    document.addEventListener('DOMContentLoaded', () => {
+      const n1 = document.querySelector('#main_banner .progress .n1');
+      const n2 = document.querySelector('#main_banner .progress .n2');
 
-    requestAnimationFrame(() => requestAnimationFrame(() => {
-      bgs.forEach(bg => bg._canvas.classList.add('ready'));
-    }));
-
-    window.addEventListener('pagehide', () => bgs.forEach(bg => bg.destroy()));
-  </script>
-
-  <script src="js/script.js" defer></script>
-
-  <!-- слайдер мейн баннера -->
-  <script>
-    $(document).ready(function () {
-      const $slider = $('#main_banner .slider');
-      const $n1 = $('#main_banner .progress .n1');
-      const $n2 = $('#main_banner .progress .n2');
-
-      // Ініціалізація slick без автоплею
-      $slider.slick({
-        dots: false,
-        arrows: true,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        touchThreshold: 100,
-        infinite: true,
-        touchAngle: 60,
-        prevArrow: $('#main_banner .slider_control button:first-of-type'),
-        nextArrow: $('#main_banner .slider_control button:last-of-type'),
+      const swiper = new Swiper('#main_banner', {
+        loop: true,
+        slidesPerView: 1,
+        speed: 800,
+        navigation: {
+          nextEl: '#main_banner .slider_control button:last-of-type',
+          prevEl: '#main_banner .slider_control button:first-of-type',
+        },
       });
 
-      const total = $slider.find('.slick-slide').not('.slick-cloned').length;
+      const total = swiper.slides.length; // кількість слайдів
       const step = 100 / total;
+      const duration = 5000; // 5 сек на один крок
       let timer;
+      let currentPercent = 0;
 
-      function animateProgress(currentSlide) {
-        // Скидаємо попередню анімацію
-        if (timer) clearTimeout(timer);
-        $n1.stop(true);
+      function startCycle(index) {
+        if (timer) clearInterval(timer);
 
-        // Початкова ширина для поточного слайду
-        const currentPercent = currentSlide * step;
-        $n1.css('width', currentPercent + '%');
+        // виставляємо початкову ширину відповідно до поточного слайду
+        currentPercent = index * step;
+        n1.style.width = currentPercent + '%';
+        n2.style.width = currentPercent + '%';
 
-        // Анімація на +step за 5 сек
-        $n1.animate({ width: (currentPercent + step) + '%' }, 5000, 'linear');
+        timer = setInterval(() => {
+          currentPercent += (step / (duration / 50)); // приріст кожні 50мс
+          n1.style.width = currentPercent + '%';
 
-        // Запускаємо таймер: після 5 сек перемикаємо слайд
-        timer = setTimeout(() => {
-          $slider.slick('slickNext');
-        }, 5000);
+          // якщо досягли наступної позначки
+          const threshold = (swiper.realIndex + 1) * step;
+          if (currentPercent >= threshold) {
+            swiper.slideNext();
 
-        // n2: миттєвий стрибок
-        $n2.css('width', (currentSlide * step) + '%');
+            // виставляємо n2 на позначку й залишаємо на 1 сек
+            n2.style.width = threshold + '%';
+            n2.style.transition = 'width 0.3s ease';
+
+            // якщо перевищили 100% → цикл знову з нуля
+            if (currentPercent >= 100) {
+              currentPercent = 0;
+              n1.style.width = '0%';
+              n2.style.width = '0%';
+            }
+          }
+        }, 50);
       }
 
-      // Початковий стан
-      animateProgress(0);
+      // початковий запуск
+      startCycle(0);
 
-      // Оновлення після зміни слайду (авто чи вручну)
-      $slider.on('afterChange', function (event, slick, currentSlide) {
-        const index = currentSlide % total;
-        animateProgress(index);
+      // коли користувач перемикає вручну
+      swiper.on('slideChange', () => {
+        const index = swiper.realIndex % total;
+        startCycle(index);
       });
-
     });
+
 
   </script>
 
-  <script>
-    $('#main_banner .slider').on('touchstart', function (e) {
-      const touch = e.originalEvent.touches[0];
-      $(this).data('touchStartX', touch.clientX);
-      $(this).data('touchStartY', touch.clientY);
-      $(this).data('scrollLocked', null);
-    });
-
-    $('#main_banner .slider').on('touchmove', function (e) {
-      const touch = e.originalEvent.touches[0];
-      const deltaX = Math.abs(touch.clientX - $(this).data('touchStartX'));
-      const deltaY = Math.abs(touch.clientY - $(this).data('touchStartY'));
-
-      if ($(this).data('scrollLocked') === null && (deltaX > 5 || deltaY > 5)) {
-        $(this).data('scrollLocked', deltaX > deltaY);
-      }
-
-      if ($(this).data('scrollLocked')) {
-        e.preventDefault();
-      }
-    }, { passive: false });
-
-  </script>
 
 </body>
 

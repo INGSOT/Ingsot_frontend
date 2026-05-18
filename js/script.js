@@ -43,66 +43,18 @@ const scrollToUp = () => {
 }
 
 // Дропи в мобільному футері
-document.addEventListener('click', (e) => {
-  if (window.innerWidth <= 700 && e.target.matches('.link_block .link_title button')) {
-    const button = e.target;
-    const linkBlock = button.closest('.link_block');
-    const drop = linkBlock?.querySelector('.drop');
+$(document).ready(function () {
+  // делегування події: працює навіть для елементів доданих пізніше
+  $(document).on('click', '#footer .link_block .link_title button', function () {
+    const $btn = $(this);
 
-    button.classList.toggle('on');
-    drop?.classList.toggle('on');
-  }
+    // перемикаємо клас on на кнопці
+    $btn.toggleClass('on');
+
+    // знаходимо сусідній .drop і застосовуємо slideToggle
+    $btn.closest('.link_title').siblings('.drop').slideToggle(500);
+  });
 });
-
-//анімація 
-// function initAnimations() {
-//   const containers = document.querySelectorAll('.anim_fond');
-
-//   containers.forEach(container => {
-//     const balls = container.querySelectorAll('.ball');
-
-//     // Центр і радіуси еліпса
-//     let centerX = container.clientWidth / 2;
-//     let centerY = container.clientHeight / 2;
-//     let a = container.clientWidth * 0.3;
-//     let b = container.clientHeight * 0.2;
-
-//     // Для кожної кулі зберігаємо її кут і швидкість
-//     const states = Array.from(balls).map((ball, index) => ({
-//       ball,
-//       angle: index * (Math.PI * 2 / balls.length), // початковий зсув
-//       speed: 0.003 + Math.random() * 0.001 // різна швидкість
-//     }));
-
-//     function frame() {
-//       states.forEach(state => {
-//         const { ball } = state;
-//         const x = centerX + a * Math.cos(state.angle) - ball.clientWidth / 2;
-//         const y = centerY + b * Math.sin(state.angle) - ball.clientHeight / 2;
-
-//         ball.style.transform = `translate(${x}px, ${y}px)`;
-
-//         // Оновлюємо кут з урахуванням швидкості
-//         state.angle += state.speed;
-//       });
-
-//       requestAnimationFrame(frame);
-//     }
-
-//     frame();
-
-//     // При зміні розміру оновлюємо центр і радіуси
-//     window.addEventListener('resize', () => {
-//       centerX = container.clientWidth / 2;
-//       centerY = container.clientHeight / 2;
-//       a = container.clientWidth * 0.4;
-//       b = container.clientHeight * 0.3;
-//     });
-//   });
-// }
-
-// Запуск після завантаження сторінки
-// window.addEventListener('load', initAnimations);
 
 // перемикання в help_ways
 $(document).ready(function () {
@@ -245,40 +197,70 @@ $(document).ready(function () {
 });
 
 // projects_slider
-$(document).ready(function () {
-  const $slider = $('#projects_slider .slider');
-  const $progressSpan = $('#projects_slider .progress span');
+document.addEventListener('DOMContentLoaded', () => {
+  const sliderEl = document.querySelector('#projects_slider');
+  if (!sliderEl) return; // якщо елемента немає — вихід
 
-  // Ініціалізація slick
-  $slider.slick({
-    dots: false,
-    arrows: true,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    touchThreshold: 100,
-    swipeToSlide: true,
-    infinite: true,
-    variableWidth: true,
-    prevArrow: $('#projects_slider .slider_control button:first-of-type'),
-    nextArrow: $('#projects_slider .slider_control button:last-of-type'),
+  const n1 = document.querySelector('.projects_slider .progress .n1');
+  const n2 = document.querySelector('.projects_slider .progress .n2');
+
+  const projects_slider = new Swiper('#projects_slider', {
+    loop: true,
+    slidesPerView: 'auto',
+    speed: 800,
+    edgeSwipeThreshold: 1,
+    longSwipesRatio: 0.1,
+    navigation: {
+      nextEl: '.projects_slider .slider_control button:last-of-type',
+      prevEl: '.projects_slider .slider_control button:first-of-type',
+    },
   });
 
-  // Рахуємо тільки оригінальні слайди
-  const total = $slider.find('.slick-slide').not('.slick-cloned').length;
+  const total = projects_slider.slides.length; // кількість слайдів
+  const step = 100 / total;
+  const duration = 5000; // 5 сек на один крок
+  let timer;
+  let currentPercent = 0;
 
-  function updateProgress(currentIndex) {
-    const percent = ((currentIndex + 1) / total) * 100;
-    $progressSpan.css('width', percent + '%');
+  function startCycle(index) {
+    if (timer) clearInterval(timer);
+
+    currentPercent = index * step;
+    n1.style.width = currentPercent + '%';
+    n2.style.width = currentPercent + '%';
+
+    timer = setInterval(() => {
+      currentPercent += (step / (duration / 50));
+      n1.style.width = currentPercent + '%';
+
+      const threshold = (projects_slider.realIndex + 1) * step;
+      if (currentPercent >= threshold) {
+        projects_slider.slideNext();
+
+        // n2 залишається на позначці мінімум 1 сек
+        n2.style.width = threshold + '%';
+        n2.style.transition = 'width 0.3s ease';
+        setTimeout(() => {
+          // після 1 сек залишаємо як є
+        }, 1000);
+
+        if (currentPercent >= 100) {
+          currentPercent = 0;
+          n1.style.width = '0%';
+          n2.style.width = '0%';
+        }
+      }
+    }, 50);
   }
 
-  // Початкове значення
-  updateProgress($slider.slick('slickCurrentSlide'));
+  startCycle(0);
 
-  // Оновлення після зміни слайду
-  $slider.on('afterChange', function (event, slick, currentSlide) {
-    updateProgress(currentSlide);
+  projects_slider.on('slideChange', () => {
+    const index = projects_slider.realIndex % total;
+    startCycle(index);
   });
 });
+
 
 // скрол до якоря
 document.addEventListener("DOMContentLoaded", () => {

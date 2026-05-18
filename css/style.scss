@@ -233,14 +233,24 @@ body {
     }
   }
 
-  /*****  загальні для Слайдер Slick *****/
-  .slick-list {
+  /*****  загальні для Слайдер Swiper *****/
+  .swiper {
+    position: relative;
     overflow: hidden;
+    width: 100%;
+    height: 100%;
   }
 
-  .slick-track {
+  .swiper-wrapper {
     display: flex;
-    transition: none;
+    transition-property: transform;
+    box-sizing: content-box;
+  }
+
+  .swiper-slide {
+    flex-shrink: 0;
+    width: 100%;
+    height: auto;
   }
 }
 
@@ -497,6 +507,12 @@ body {
     background-color: #001945;
     background-size: 200% 200%;
     animation: gradientFlow 10s linear infinite;
+  }
+  &.dark {
+    &::before {
+      background: radial-gradient(circle at 40% 40%, rgba(1, 74, 110, 0.667) 0%, transparent 50%),
+        radial-gradient(circle at 60% 60%, rgba(0, 85, 111, 0.607) 0%, transparent 50%);
+    }
   }
 }
 
@@ -1646,9 +1662,11 @@ header {
   position: relative;
   padding: 24px 0;
   .slider {
+    position: relative;
     width: 100%;
+    transition-timing-function: linear;
     .item {
-      margin-right: 24px;
+      width: max-content;
       display: flex;
       gap: 24px;
       a {
@@ -1733,8 +1751,8 @@ header {
         top: 0;
         left: 0;
         z-index: 1;
-        background: linear-gradient(180deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 1) 90%);
-        opacity: 0.75;
+        background: linear-gradient(0deg, rgba(2, 3, 5, 0.9) 40%, rgba(2, 3, 5, 0.5) 100%);
+        opacity: 1;
       }
       &:hover,
       &.hover_active {
@@ -1742,7 +1760,7 @@ header {
           transform: scale(1);
         }
         &::after {
-          opacity: 0.3;
+          opacity: 0.6;
         }
       }
     }
@@ -1799,12 +1817,6 @@ header {
   .slider_control {
     margin-top: 72px;
     padding: 24px 0 0;
-    .progress {
-      background-color: #ffffff26;
-      span {
-        background-color: #fff;
-      }
-    }
   }
 }
 
@@ -3536,7 +3548,6 @@ footer {
         display: flex;
         flex-direction: column;
         gap: 8px;
-        margin-top: 12px;
         a {
           &.tg {
             display: flex;
@@ -3644,11 +3655,12 @@ footer {
           }
         }
         .drop {
-          overflow: hidden;
-          max-height: 0;
-          transition: 0.5s;
-          &.on {
-            max-height: 350px;
+          display: none;
+          padding-bottom: 24px;
+          transition: none;
+          a {
+            display: block;
+            margin-top: 8px;
           }
         }
         div.soc {

@@ -420,52 +420,56 @@
         </div>
 
         <div class="personnel" id="personnel">
-          <div class="item orange">
-            <img src="public/img/person_male.webp" alt="">
-            <div>
-              <h3>Firstname</h3>
-              <h5>Lastname</h5>
-              <p>Position</p>
-            </div>
-          </div>
-          <div class="item pine_green">
-            <img src="public/img/person_female.webp" alt="">
-            <div>
-              <h3>Firstname</h3>
-              <h5>Lastname</h5>
-              <p>Position</p>
-            </div>
-          </div>
-          <div class="item white">
-            <img src="public/img/person_male.webp" alt="">
-            <div>
-              <h3>Firstname</h3>
-              <h5>Lastname</h5>
-              <p>Position</p>
-            </div>
-          </div>
-          <div class="item blue">
-            <img src="public/img/person_female.webp" alt="">
-            <div>
-              <h3>Firstname</h3>
-              <h5>Lastname</h5>
-              <p>Position</p>
-            </div>
-          </div>
-          <div class="item green">
-            <img src="public/img/person_male.webp" alt="">
-            <div>
-              <h3>Firstname</h3>
-              <h5>Lastname</h5>
-              <p>Position</p>
-            </div>
-          </div>
-          <div class="item purple">
-            <img src="public/img/person_female.webp" alt="">
-            <div>
-              <h3>Firstname</h3>
-              <h5>Lastname</h5>
-              <p>Position</p>
+          <div class="swiper">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide item orange">
+                <img src="public/img/person_male.webp" alt="">
+                <div>
+                  <h3>Firstname</h3>
+                  <h5>Lastname</h5>
+                  <p>Position</p>
+                </div>
+              </div>
+              <div class="swiper-slide item pine_green">
+                <img src="public/img/person_female.webp" alt="">
+                <div>
+                  <h3>Firstname</h3>
+                  <h5>Lastname</h5>
+                  <p>Position</p>
+                </div>
+              </div>
+              <div class="swiper-slide item white">
+                <img src="public/img/person_male.webp" alt="">
+                <div>
+                  <h3>Firstname</h3>
+                  <h5>Lastname</h5>
+                  <p>Position</p>
+                </div>
+              </div>
+              <div class="swiper-slide item blue">
+                <img src="public/img/person_female.webp" alt="">
+                <div>
+                  <h3>Firstname</h3>
+                  <h5>Lastname</h5>
+                  <p>Position</p>
+                </div>
+              </div>
+              <div class="swiper-slide item green">
+                <img src="public/img/person_male.webp" alt="">
+                <div>
+                  <h3>Firstname</h3>
+                  <h5>Lastname</h5>
+                  <p>Position</p>
+                </div>
+              </div>
+              <div class="swiper-slide item purple">
+                <img src="public/img/person_female.webp" alt="">
+                <div>
+                  <h3>Firstname</h3>
+                  <h5>Lastname</h5>
+                  <p>Position</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -500,7 +504,7 @@
   </div>
 
   <script src="js/jquery_min_3.7.1.js"></script>
-  <script src="js/slick.min.js"></script>
+  <script src="js/swiper_min_12.1.4.js"></script>
 
   <script src="js/flatpickr/flatpickr.js"></script>
   <script src="js/flatpickr/uk.js"></script>
@@ -565,15 +569,16 @@
   </script>
 
   <script>
-    $('#personnel').slick({
-      dots: false,
-      arrows: false,
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      touchThreshold: 100,
-      swipeToSlide: true,
-      infinite: true,
-      variableWidth: true,
+    document.addEventListener('DOMContentLoaded', () => {
+
+      const projects_slider = new Swiper('#personnel .swiper', {
+        loop: true,
+        slidesPerView: 'auto',
+        speed: 800,
+        edgeSwipeThreshold: 1,
+        longSwipesRatio: 0.1,
+      });
+
     });
   </script>
 
