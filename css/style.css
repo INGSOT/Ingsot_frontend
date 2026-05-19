@@ -219,7 +219,6 @@ body .swiper-wrapper {
 body .swiper-slide {
   -ms-flex-negative: 0;
   flex-shrink: 0;
-  width: 100%;
   height: auto;
 }
 
@@ -1723,7 +1722,6 @@ header.dark .panel .burger:hover {
 }
 .marquee .slider {
   position: relative;
-  width: 100%;
   -webkit-transition-timing-function: linear;
   -o-transition-timing-function: linear;
   transition-timing-function: linear;
@@ -1751,8 +1749,15 @@ header.dark .panel .burger:hover {
   padding: 0;
   background-color: #fff;
 }
+.marquee.v2 .box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 72px;
+}
 .marquee.v2 .item {
-  margin-right: 72px;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
   width: 72px;
   height: 72px;
   display: -webkit-box;
