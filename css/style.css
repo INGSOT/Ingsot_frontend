@@ -1006,40 +1006,51 @@ body .swiper-slide {
   color: #020305;
   background-color: #fff !important;
 }
-.tags.pine_green a {
+.tags.pine_green a,
+.tags.pine_green button {
   background-color: #1a676b;
 }
-.tags.blue a {
+.tags.blue a,
+.tags.blue button {
   background-color: #0088cc;
 }
-.tags.green a {
+.tags.green a,
+.tags.green button {
   background-color: #73b62e;
 }
-.tags.orange a {
+.tags.orange a,
+.tags.orange button {
   background-color: #ff9d3d;
 }
-.tags.purple a {
+.tags.purple a,
+.tags.purple button {
   background-color: #552bde;
 }
-.tags.near_black a {
+.tags.near_black a,
+.tags.near_black button {
   background-color: rgba(2, 3, 5, 0.3019607843);
 }
-.tags.near_black a:hover {
+.tags.near_black a:hover,
+.tags.near_black button:hover {
   background-color: #fff;
   color: #020305;
 }
-.tags.black a {
+.tags.black a,
+.tags.black button {
   background-color: #020305;
 }
-.tags.black a:hover {
+.tags.black a:hover,
+.tags.black button:hover {
   background-color: #fff;
   color: #020305;
 }
-.tags.white a {
+.tags.white a,
+.tags.white button {
   background-color: #fff;
   color: #020305;
 }
-.tags.white a:hover {
+.tags.white a:hover,
+.tags.white button:hover {
   background-color: #020305;
   color: #fff;
 }
@@ -1770,6 +1781,14 @@ header.dark .panel .burger:hover {
   -ms-flex-pack: center;
   justify-content: center;
 }
+.marquee.v2 .item img,
+.marquee.v2 .item svg {
+  max-width: 100%;
+  max-height: 100%;
+}
+.marquee.v2 .item svg {
+  fill: #020305;
+}
 
 .sbtr {
   padding: 144px 72px;
@@ -2252,6 +2271,13 @@ header.dark .panel .burger:hover {
   -webkit-transition: 0.5s all ease-in-out;
   -o-transition: 0.5s all ease-in-out;
   transition: 0.5s all ease-in-out;
+  overflow: hidden;
+}
+.cont_sites .item span {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0;
 }
 .cont_sites .item div {
   width: 210px;
@@ -2286,6 +2312,10 @@ header.dark .panel .burger:hover {
   transition: inherit;
   opacity: 0;
 }
+.cont_sites .item:hover span,
+.cont_sites .item.hover_active span {
+  opacity: 1;
+}
 .cont_sites .item:hover p,
 .cont_sites .item.hover_active p {
   opacity: 1;
@@ -2299,50 +2329,6 @@ header.dark .panel .burger:hover {
 .cont_sites .item:hover div svg,
 .cont_sites .item.hover_active div svg {
   fill: #fff;
-}
-.cont_sites .item:hover.microl,
-.cont_sites .item.hover_active.microl {
-  background-color: #002443;
-}
-.cont_sites .item:hover.honda,
-.cont_sites .item.hover_active.honda {
-  background-color: #d71f27;
-}
-.cont_sites .item:hover.sixt,
-.cont_sites .item.hover_active.sixt {
-  background-color: #ff5f00;
-}
-.cont_sites .item:hover.save,
-.cont_sites .item.hover_active.save {
-  background-color: #417ec1;
-}
-.cont_sites .item:hover.coba,
-.cont_sites .item.hover_active.coba {
-  background-color: #58a3ad;
-}
-.cont_sites .item:hover.domofony,
-.cont_sites .item.hover_active.domofony {
-  background-color: #015ca5;
-}
-.cont_sites .item:hover.um,
-.cont_sites .item.hover_active.um {
-  background-color: #ea2227;
-}
-.cont_sites .item:hover.revive,
-.cont_sites .item.hover_active.revive {
-  background-color: #0500be;
-}
-.cont_sites .item:hover.atgroupe,
-.cont_sites .item.hover_active.atgroupe {
-  background-color: #ed4228;
-}
-.cont_sites .item:hover.ksimex,
-.cont_sites .item.hover_active.ksimex {
-  background-color: #0056a7;
-}
-.cont_sites .item:hover.iknet,
-.cont_sites .item.hover_active.iknet {
-  background-color: #47ae34;
 }
 .cont_sites .plug {
   width: calc((100% - 24px) / 4);

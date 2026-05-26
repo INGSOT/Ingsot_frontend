@@ -915,32 +915,38 @@ body {
     }
   }
   &.pine_green {
-    a {
+    a,
+    button {
       background-color: #1a676b;
     }
   }
   &.blue {
-    a {
+    a,
+    button {
       background-color: $blue;
     }
   }
   &.green {
-    a {
+    a,
+    button {
       background-color: $green;
     }
   }
   &.orange {
-    a {
+    a,
+    button {
       background-color: $orange;
     }
   }
   &.purple {
-    a {
+    a,
+    button {
       background-color: $purple;
     }
   }
   &.near_black {
-    a {
+    a,
+    button {
       background-color: #0203054d;
       &:hover {
         background-color: #fff;
@@ -949,7 +955,8 @@ body {
     }
   }
   &.black {
-    a {
+    a,
+    button {
       background-color: $black;
       &:hover {
         background-color: #fff;
@@ -958,7 +965,8 @@ body {
     }
   }
   &.white {
-    a {
+    a,
+    button {
       background-color: #fff;
       color: $black;
       &:hover {
@@ -1691,6 +1699,14 @@ header {
       display: flex;
       align-items: center;
       justify-content: center;
+      img,
+      svg {
+        max-width: 100%;
+        max-height: 100%;
+      }
+      svg {
+        fill: $black;
+      }
     }
   }
 }
@@ -2103,6 +2119,13 @@ header {
     justify-content: center;
     background-color: #ffffff0d;
     transition: 0.5s all ease-in-out;
+    overflow: hidden;
+    span {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      opacity: 0;
+    }
     div {
       width: 210px;
       height: 210px;
@@ -2127,6 +2150,9 @@ header {
     }
     &:hover,
     &.hover_active {
+      span {
+        opacity: 1;
+      }
       p {
         opacity: 1;
       }
@@ -2135,39 +2161,6 @@ header {
         svg {
           fill: #fff;
         }
-      }
-      &.microl {
-        background-color: #002443;
-      }
-      &.honda {
-        background-color: #d71f27;
-      }
-      &.sixt {
-        background-color: #ff5f00;
-      }
-      &.save {
-        background-color: #417ec1;
-      }
-      &.coba {
-        background-color: #58a3ad;
-      }
-      &.domofony {
-        background-color: #015ca5;
-      }
-      &.um {
-        background-color: #ea2227;
-      }
-      &.revive {
-        background-color: #0500be;
-      }
-      &.atgroupe {
-        background-color: #ed4228;
-      }
-      &.ksimex {
-        background-color: #0056a7;
-      }
-      &.iknet {
-        background-color: #47ae34;
       }
     }
   }
