@@ -1002,7 +1002,6 @@ body .swiper-slide {
 }
 .tags a.on,
 .tags button.on {
-  pointer-events: none;
   color: #020305;
   background-color: #fff !important;
 }
@@ -2851,9 +2850,19 @@ header.dark .panel .burger:hover {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  gap: 24px;
+}
+.prices .right .cont .title .ingsot_marked li {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   gap: 12px;
 }
-.prices .right .cont .title .ingsot_marked::before {
+.prices .right .cont .title .ingsot_marked li::before {
   content: "";
   width: 24px;
   height: 24px;

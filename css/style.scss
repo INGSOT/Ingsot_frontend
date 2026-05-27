@@ -909,7 +909,6 @@ body {
     @include p3;
     color: #fff;
     &.on {
-      pointer-events: none;
       color: $black;
       background-color: #fff !important;
     }
@@ -2571,13 +2570,18 @@ header {
         }
         .ingsot_marked {
           display: flex;
-          gap: 12px;
-          &::before {
-            content: "";
-            width: 24px;
-            height: 24px;
-            flex-shrink: 0;
-            background: url("../public/img/Ingsot_colored.webp") no-repeat 50% / 15px;
+          flex-direction: column;
+          gap: 24px;
+          li {
+            display: flex;
+            gap: 12px;
+            &::before {
+              content: "";
+              width: 24px;
+              height: 24px;
+              flex-shrink: 0;
+              background: url("../public/img/Ingsot_colored.webp") no-repeat 50% / 15px;
+            }
           }
         }
         .img {
