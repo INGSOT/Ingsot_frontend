@@ -2846,7 +2846,7 @@ header.dark .panel .burger:hover {
 .prices .right .cont .title.g24 {
   gap: 24px;
 }
-.prices .right .cont .title .ingsot_marked {
+.prices .right .cont .title ul {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -2856,13 +2856,13 @@ header.dark .panel .burger:hover {
   flex-direction: column;
   gap: 24px;
 }
-.prices .right .cont .title .ingsot_marked li {
+.prices .right .cont .title ul li {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   gap: 12px;
 }
-.prices .right .cont .title .ingsot_marked li::before {
+.prices .right .cont .title ul li::before {
   content: "";
   width: 24px;
   height: 24px;
