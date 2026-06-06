@@ -30,7 +30,7 @@
 $black: #020305;
 $blue: #0088cc;
 $green: #73b62e;
-$orange: #ff9d3d;
+$orange: #f07700;
 $purple: #552bde;
 $grey: #e1e7ed;
 
@@ -153,29 +153,29 @@ body {
   h1,
   .h1 {
     font-weight: 400;
-    font-size: 80px;
-    line-height: 80px;
+    font-size: clamp(40px, 2vw + 1rem, 80px);
+    line-height: 100%;
   }
 
   h2,
   .h2 {
     font-weight: 400;
-    font-size: 48px;
-    line-height: 60px;
+    font-size: clamp(24px, 2vw + 1rem, 48px);
+    line-height: 125%;
   }
 
   h3,
   .h3 {
     font-weight: 400;
-    font-size: 36px;
-    line-height: 40px;
+    font-size: clamp(24px, 2vw + 1rem, 36px);
+    line-height: 110%;
   }
 
   h4,
   .h4 {
     font-weight: 400;
-    font-size: 24px;
-    line-height: 32px;
+    font-size: clamp(18px, 2vw + 1rem, 24px);
+    line-height: 130%;
   }
 
   h5,
@@ -186,30 +186,6 @@ body {
   }
 
   @media (max-width: 700px) {
-    h1,
-    .h1 {
-      font-size: 40px;
-      line-height: 40px;
-    }
-
-    h2,
-    .h2 {
-      font-size: 30px;
-      line-height: 36px;
-    }
-
-    h3,
-    .h3 {
-      font-size: 24px;
-      line-height: 32px;
-    }
-
-    h4,
-    .h4 {
-      font-size: 18px;
-      line-height: 24px;
-    }
-
     h5,
     .h5 {
       font-size: 16px;
@@ -813,7 +789,15 @@ body {
 
 @media (max-width: 1024px) {
   .modal_content.header_menu .body .item {
-    width: calc((100% - 48px) / 2);
+    width: 100%;
+    aspect-ratio: initial;
+    p,
+    .tags {
+      display: none;
+    }
+    .h4 {
+      display: block;
+    }
   }
 }
 
@@ -908,7 +892,8 @@ body {
     border-radius: 12px;
     @include p3;
     color: #fff;
-    &.on {
+    &.on,
+    &:hover {
       color: $black;
       background-color: #fff !important;
     }
@@ -943,14 +928,16 @@ body {
       background-color: $purple;
     }
   }
+  &.grey {
+    a,
+    button {
+      background-color: #797b80;
+    }
+  }
   &.near_black {
     a,
     button {
       background-color: #0203054d;
-      &:hover {
-        background-color: #fff;
-        color: $black;
-      }
     }
   }
   &.black {
@@ -969,343 +956,43 @@ body {
       background-color: #fff;
       color: $black;
       &:hover {
-        background-color: $black;
+        background-color: $black !important;
         color: #fff;
       }
     }
   }
 }
 
-.help_ways {
-  position: relative;
+.crumbles {
   display: flex;
-  flex-direction: column;
-  gap: 24px;
-  &.v1 {
-    .item {
-      .left,
-      .right {
-        max-width: 600px;
-        width: calc((100% - 96px) / 2);
-      }
-    }
+  gap: 4px;
+  max-width: 100%;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    width: 0;
+    height: 0;
   }
-  &.v2 {
-    .item {
-      .left,
-      .right {
-        max-width: 600px;
-        width: calc((100% - 398px) / 2);
-      }
-    }
-  }
-  &.v3 {
-    .item {
-      .left {
-        max-width: 400px;
-        width: 100%;
-      }
-      .right {
-        max-width: 1296px;
-        width: 100%;
-      }
-    }
-  }
-  .item {
-    scroll-margin-top: 96px;
-    display: flex;
-    justify-content: space-between;
-    gap: 12px;
+  a {
+    @include p3;
     color: #fff;
-    border-top: 1px solid transparent;
-    .left {
-      button {
-        font-size: 36px;
-        line-height: 40px;
-        color: #415c7c;
-        text-align: left;
-        &:hover {
-          color: #fff;
-        }
-      }
-      .drop {
-        font-size: 18px;
-        line-height: 24px;
-        font-weight: 700;
-        display: none;
-        transition: none;
-        .tags {
-          padding-top: 12px;
-        }
+    opacity: 0.6;
+    display: flex;
+    gap: 4px;
+    white-space: nowrap;
+    &:not(:first-child) {
+      &::before {
+        content: "";
+        width: 12px;
+        height: 16px;
+        background: url("../public/img/svg/arrow2.svg") no-repeat 50%;
       }
     }
-    .small_img {
-      flex-shrink: 0;
-      width: 48px;
-      height: 48px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      img {
-        max-width: 100%;
-      }
-    }
-    .big_img {
-      opacity: 0;
-      max-width: 350px;
-      width: 100%;
-      aspect-ratio: 4 / 5;
-      position: absolute;
-      top: 8px;
-      left: 0;
-      right: 0;
-      margin: auto;
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        border-radius: 24px;
-      }
-    }
-    .right {
-      position: relative;
-      opacity: 0;
+    &:last-child {
+      opacity: 0.3;
       pointer-events: none;
-      .drop {
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 100%;
-      }
-      .text {
-        display: flex;
-        flex-direction: column;
-        gap: 24px;
-      }
-      .cards {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px;
-        a {
-          width: calc((100% - 24px) / 3);
-          border-radius: 24px;
-          border: 1px solid transparent;
-          padding: 24px;
-          display: flex;
-          flex-direction: column;
-          gap: 12px;
-          aspect-ratio: 106 / 65;
-          color: #fff;
-          background-color: #ffffff0d;
-          &:hover {
-            background-color: #ffffff26;
-          }
-          p {
-            margin-top: auto;
-          }
-        }
-      }
     }
-    &.on {
-      padding-top: 12px;
-      border-top: 1px solid #fff;
-      .left {
-        button {
-          color: #fff;
-        }
-      }
-      .small_img,
-      .big_img {
-        opacity: 1;
-      }
-      .right {
-        opacity: 1;
-        pointer-events: all;
-      }
-    }
-    &.blue {
-      &.on {
-        border-top: 1px solid $blue;
-        .cards {
-          a {
-            &:hover {
-              border: 1px solid $blue;
-            }
-          }
-        }
-      }
-    }
-    &.orange {
-      &.on {
-        border-top: 1px solid $orange;
-        .cards {
-          a {
-            &:hover {
-              border: 1px solid $orange;
-            }
-          }
-        }
-      }
-    }
-    &.purple {
-      &.on {
-        border-top: 1px solid $purple;
-        .cards {
-          a {
-            &:hover {
-              border: 1px solid $purple;
-            }
-          }
-        }
-      }
-    }
-    &.pine_green {
-      &.on {
-        border-top: 1px solid #1a676b;
-        .cards {
-          a {
-            &:hover {
-              border: 1px solid #1a676b;
-            }
-          }
-        }
-      }
-    }
-    &.green {
-      &.on {
-        border-top: 1px solid $green;
-        .cards {
-          a {
-            &:hover {
-              border: 1px solid $green;
-            }
-          }
-        }
-      }
-    }
-    &.white {
-      &.on {
-        border-top: 1px solid #fff;
-        .cards {
-          a {
-            &:hover {
-              border: 1px solid #fff;
-            }
-          }
-        }
-      }
-    }
-    &.black {
-      &.on {
-        border-top: 1px solid $black;
-        .cards {
-          a {
-            &:hover {
-              border: 1px solid $black;
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-@media (max-width: 1400px) {
-  .help_ways {
-    .item {
-      .right {
-        .cards {
-          a {
-            width: calc((100% - 12px) / 2);
-          }
-        }
-      }
-    }
-  }
-}
-
-@media (max-width: 1024px) {
-  .help_ways {
-    gap: 12px;
-    &.v1 {
-      .item {
-        .left {
-          max-width: calc(100% - 72px);
-          width: 100%;
-        }
-        .right {
-          max-width: 100%;
-          width: 100%;
-        }
-      }
-    }
-    &.v2 {
-      .item {
-        .left {
-          max-width: 100%;
-          width: 100%;
-        }
-        .big_img {
-          opacity: 1;
-          position: initial;
-          max-width: calc(50% - 12px);
-          width: 100%;
-          height: fit-content;
-          margin: 0;
-          transition: none;
-          display: none;
-        }
-        .right {
-          margin-left: auto;
-          max-width: calc(50% - 12px);
-          width: 100%;
-        }
-      }
-    }
-    .item {
-      flex-wrap: wrap;
-      .right {
-        opacity: 1;
-        .drop {
-          position: initial;
-          transition: none;
-          display: none;
-        }
-        .text {
-          gap: 16px;
-          padding-bottom: 12px;
-        }
-      }
-    }
-  }
-}
-
-@media (max-width: 700px) {
-  .help_ways {
-    .item {
-      .right {
-        .cards {
-          a {
-            width: 100%;
-            aspect-ratio: initial;
-            min-height: 260px;
-          }
-        }
-      }
-    }
-    &.v2 {
-      .item {
-        .big_img {
-          max-width: 100%;
-          max-height: 350px;
-        }
-        .right {
-          margin-left: 0;
-          max-width: 100%;
-          width: 100%;
-        }
-      }
+    &:hover {
+      opacity: 1;
     }
   }
 }
@@ -1499,9 +1186,11 @@ header {
 
 .main_banner {
   width: 100%;
-  min-height: 100vh;
   position: relative;
-  padding: 96px 0;
+  padding: 96px 0 0;
+  &.swiper {
+    padding: 96px 0;
+  }
   &::after {
     content: "";
     width: 100%;
@@ -1511,66 +1200,14 @@ header {
     left: 0;
     z-index: 0;
     pointer-events: none;
-  }
-  &::before {
-    content: "";
-    width: 48px;
-    height: 48px;
-    z-index: 2;
-    position: absolute;
-    left: 24px;
-    bottom: 24px;
-    background: url("../public/img/svg/shevron_white_down.svg") no-repeat 50%;
-  }
-  &.dn {
-    &::before {
-      display: none;
-    }
-  }
-  &.white {
-    &::after {
-      background-color: #fff;
-    }
-  }
-  &.orange {
-    &::after {
-      background-color: $orange;
-    }
-    .item {
-      .cont {
-        h5 {
-          color: $orange;
-        }
-      }
-    }
-  }
-  &.purple {
-    &::after {
-      background-color: $purple;
-    }
-    .item {
-      .cont {
-        h5 {
-          color: $purple;
-        }
-      }
-    }
-  }
-  &.blue {
-    &::after {
-      background-color: $blue;
-    }
-    .item {
-      .cont {
-        h5 {
-          color: $blue;
-        }
-      }
-    }
+    background-color: #0203054d;
   }
   .slider {
     position: relative;
     z-index: 3;
+    .item {
+      min-height: calc(100vh - 192px);
+    }
   }
   &.short {
     height: initial;
@@ -1580,13 +1217,11 @@ header {
     }
   }
   .item {
-    min-height: calc(100vh - 192px);
     display: flex;
     flex-direction: column;
     justify-content: center;
     position: relative;
     z-index: 1;
-
     .cont {
       max-width: 800px;
       width: 100%;
@@ -2070,6 +1705,268 @@ header {
   }
 }
 
+.solutions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  .item {
+    width: calc((100% - 48px) / 3);
+    border-radius: 8px;
+    border: 1px solid #ffffff26;
+    overflow: hidden;
+    position: relative;
+    &:hover {
+      &::after {
+        opacity: 0.1;
+      }
+      .btn_decor_blue {
+        &::after {
+          right: -6px;
+        }
+      }
+    }
+    &.colored {
+      &::after {
+        opacity: 0.1;
+      }
+      &:hover {
+        &::after {
+          opacity: 0.2;
+        }
+      }
+    }
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      opacity: 0;
+      background-color: #fff;
+    }
+    .cont {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      color: #fff;
+      position: relative;
+      z-index: 1;
+    }
+    .main_link {
+      position: absolute;
+      z-index: 1;
+      inset: 0;
+    }
+    .pict {
+      width: fit-content;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background-color: #000;
+      border-radius: 4px;
+      padding: 0 4px;
+      img {
+        height: 24px;
+      }
+      p {
+        @include p3;
+      }
+    }
+    .sol_img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      border-radius: 24px;
+    }
+    .tags {
+      a {
+        position: relative;
+        z-index: 2;
+      }
+    }
+    .btn_decor_white {
+      position: relative;
+      z-index: 2;
+    }
+    &.pine_green {
+      &::after {
+        background-color: #1a676b;
+      }
+      .cont {
+        .pict {
+          border: 0.5px solid #1a676b;
+          color: #1a676b;
+        }
+      }
+    }
+    &.grey {
+      &::after {
+        background-color: #797b80;
+      }
+      .cont {
+        .pict {
+          border: 0.5px solid #797b80;
+          color: #797b80;
+        }
+      }
+    }
+    &.blue {
+      &::after {
+        background-color: $blue;
+      }
+      .cont {
+        .pict {
+          border: 0.5px solid $blue;
+          color: $blue;
+        }
+      }
+    }
+    &.green {
+      &::after {
+        background-color: $green;
+      }
+      .cont {
+        .pict {
+          border: 0.5px solid $green;
+          color: $green;
+        }
+      }
+    }
+    &.orange {
+      &::after {
+        background-color: $orange;
+      }
+      .cont {
+        .pict {
+          border: 0.5px solid $orange;
+          color: $orange;
+        }
+      }
+    }
+    &.purple {
+      &::after {
+        background-color: $purple;
+      }
+      .cont {
+        .pict {
+          border: 0.5px solid $purple;
+          color: $purple;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1480px) {
+  .solutions {
+    .item {
+      width: calc(50% - 12px);
+    }
+  }
+}
+
+@media (max-width: 1000px) {
+  .solutions {
+    .item {
+      width: 100%;
+      &.colored {
+        .cont {
+          p,
+          .tags,
+          .btns_container {
+            display: none;
+          }
+          .pict {
+            p {
+              display: block;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .solutions {
+    .item {
+      .cont {
+        padding: 12px;
+        gap: 12px;
+      }
+    }
+  }
+}
+
+.sub_solutions {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  h2 {
+    width: 100%;
+    color: #fff;
+  }
+  .item {
+    width: calc((100% - 48px) / 3);
+    min-height: 260px;
+    border-radius: 8px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 24px;
+    color: #fff;
+    background-color: #ffffff0d;
+    &:hover {
+      background-color: #ffffff1a;
+      p {
+        &::after {
+          opacity: 60%;
+        }
+      }
+    }
+    p {
+      display: flex;
+      align-items: end;
+      &::after {
+        content: "";
+        width: 24px;
+        height: 24px;
+        flex-shrink: 0;
+        background: url("../public/img/svg/shevron_white_right.svg") no-repeat 50%;
+        opacity: 15%;
+      }
+    }
+  }
+}
+
+@media (max-width: 1300px) {
+  .sub_solutions {
+    .item {
+      width: calc(50% - 12px);
+    }
+  }
+}
+
+@media (max-width: 1000px) {
+  .sub_solutions {
+    .item {
+      width: 100%;
+    }
+  }
+}
+
+@media (max-width: 800px) {
+  .sub_solutions {
+    .item {
+      width: 100%;
+      gap: 12px;
+      min-height: initial;
+    }
+  }
+}
+
 .gradient_text {
   background-color: $black;
   padding: 78px 48px;
@@ -2357,25 +2254,18 @@ header {
 
 .services {
   position: relative;
-  .animate_bg {
-    &::before {
-      width: 50vw;
-      filter: blur(10vw);
-    }
-    &::after {
-      width: 50vw;
-      filter: blur(15vw);
-    }
-  }
+  display: flex;
+  flex-direction: column;
+  gap: 72px;
   .stack_projects {
     position: relative;
-    max-width: 1296px;
-    width: calc(100% - 400px);
+    max-width: 950px;
+    width: 100%;
     color: #fff;
     display: flex;
     flex-direction: column;
     gap: 24px;
-    margin: 72px 0 0 auto;
+    margin: 72px auto 0;
     .direction {
       display: flex;
       gap: 12px;
@@ -2410,18 +2300,10 @@ header {
 
 @media (max-width: 1024px) {
   .services {
-    .animate_bg {
-      &::before {
-        width: 80vw;
-        filter: blur(15vw);
-      }
-      &::after {
-        width: 80vw;
-        filter: blur(20vw);
-      }
-    }
+    gap: 48px;
     .stack_projects {
       width: 100%;
+      margin: 0 auto;
     }
   }
 }
@@ -2433,7 +2315,6 @@ header {
   .left {
     position: sticky;
     top: 144px;
-
     height: fit-content;
     width: fit-content;
     .info {
@@ -2519,9 +2400,10 @@ header {
   }
   .right {
     position: relative;
-    flex-shrink: 0;
-    width: 50%;
-    min-width: 888px;
+    // flex-shrink: 0;
+    max-width: 50%;
+    width: 100%;
+    // min-width: 888px;
     display: flex;
     flex-direction: column;
     gap: 48px;
@@ -2990,7 +2872,7 @@ header {
       }
     }
     .right {
-      width: 100%;
+      max-width: 100%;
       min-width: initial;
     }
     .personnel {
@@ -3518,35 +3400,20 @@ footer {
     }
     .link_block {
       flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
       .link_title {
-        flex-direction: row;
-        justify-content: space-between;
-        margin: 0;
-        a {
-          color: $blue;
-          font-size: 18px;
-          line-height: 24px;
-          font-weight: 700;
-          &:hover {
-            color: #fff;
-          }
-        }
-        button {
-          display: none;
-          flex-shrink: 0;
-          width: 24px;
-          height: 24px;
-          background: url("../public/img/svg/shevron_white_up.svg") no-repeat 50%;
-          transform: rotate(180deg);
-          &.on {
-            transform: rotate(0);
-          }
+        margin-bottom: 4px;
+        color: $blue;
+        font-size: 18px;
+        line-height: 24px;
+        font-weight: 700;
+        &:hover {
+          color: #fff;
         }
       }
       div {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
         a {
           &.tg {
             display: flex;
@@ -3564,6 +3431,7 @@ footer {
           }
         }
         &.soc {
+          display: flex;
           flex-direction: row;
           gap: 12px;
           flex-wrap: wrap;
@@ -3634,34 +3502,16 @@ footer {
           line-height: 24px;
         }
       }
-      .info {
-        .h3 {
-          font-size: 24px;
-          line-height: 32px;
-        }
+      .hiden_mob {
+        display: none;
       }
       .cont {
-        gap: 12px;
         .linkWithImg {
           white-space: wrap;
         }
       }
       .link_block {
         width: 100%;
-        .link_title {
-          button {
-            display: block;
-          }
-        }
-        .drop {
-          display: none;
-          padding-bottom: 24px;
-          transition: none;
-          a {
-            display: block;
-            margin-top: 8px;
-          }
-        }
         div.soc {
           width: 100%;
         }
