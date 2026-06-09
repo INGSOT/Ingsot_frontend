@@ -102,7 +102,7 @@ class GradientBg {
     this._dprCap    = options.dprCap ?? defaultDprCap;
     // targetFps: undefined → 30fps (default); ≤0 → без throttle; >0 → той fps
     const fps       = options.targetFps;
-    this._frameMs   = fps === undefined ? 33
+    this._frameMs   = fps === undefined ? 50
                     : fps <= 0           ? 0
                     : 1000 / fps;
     this._startTime = null;
@@ -117,6 +117,14 @@ class GradientBg {
 
     this._onContextLost      = this._onContextLost.bind(this);
     this._onContextRestored  = this._onContextRestored.bind(this);
+    this._onVisibilityChange = () => {
+      if (document.hidden) {
+        if (this._rafId) { cancelAnimationFrame(this._rafId); this._rafId = null; }
+      } else if (this._gl && this._visible) {
+        this._startRaf();
+      }
+    };
+    document.addEventListener('visibilitychange', this._onVisibilityChange);
 
     this._initResizeObserver();
     this._initVisibilityObserver();
@@ -228,6 +236,9 @@ class GradientBg {
     for (const n of names) {
       this._u[n] = gl.getUniformLocation(this._prog, n);
     }
+
+    // Кешуємо RGB кольори blob-ів — вони незмінні протягом анімації
+    this._blobColors = this._config.blobs.map(b => GradientBg.hsl2rgb(b.h, b.s, b.l));
   }
 
   _compile(type, src) {
@@ -287,7 +298,7 @@ class GradientBg {
         cancelAnimationFrame(this._rafId);
         this._rafId = null;
       }
-    }, { threshold: 0.01 }); // 1% видимості вже достатньо щоб запустити
+    }, { threshold: 0.15 }); // 15% видимості — запобігає одночасній анімації сусідніх canvas
     this._io.observe(this._canvas);
   }
 
@@ -383,8 +394,7 @@ class GradientBg {
     gl.uniform3fv(u['u_bg'],   c.bg);
 
     c.blobs.forEach((b, i) => {
-      const rgb = GradientBg.hsl2rgb(b.h, b.s, b.l);
-      gl.uniform3fv(u[`u_c${i}`],  rgb);
+      gl.uniform3fv(u[`u_c${i}`],  this._blobColors[i]);
       gl.uniform2f( u[`u_f${i}`],  b.fx, b.fy);
       gl.uniform2f( u[`u_to${i}`], b.tx, b.ty);
       gl.uniform1f( u[`u_r${i}`],  b.r);
@@ -399,8 +409,9 @@ class GradientBg {
    * @param {Object} config
    */
   updateConfig(config) {
-    this._config    = config;
-    this._startTime = null;
+    this._config     = config;
+    this._startTime  = null;
+    this._blobColors = config.blobs.map(b => GradientBg.hsl2rgb(b.h, b.s, b.l));
     if (this._fallback) this._applyFallback();
   }
 
@@ -409,6 +420,7 @@ class GradientBg {
     if (this._rafId) cancelAnimationFrame(this._rafId);
     if (this._ro)    this._ro.disconnect();
     if (this._io)    this._io.disconnect();
+    document.removeEventListener('visibilitychange', this._onVisibilityChange);
     if (this._canvas) {
       this._canvas.removeEventListener('webglcontextlost',     this._onContextLost,     false);
       this._canvas.removeEventListener('webglcontextrestored', this._onContextRestored, false);
