@@ -313,12 +313,20 @@ class GradientBg {
   _resize() {
     if (!this._gl) return;
     const r = this._canvas.getBoundingClientRect();
-    if (r.width <= 0 || r.height <= 0) return;  // не псуємо буфер 0×0
+    if (r.width <= 0 || r.height <= 0) return;
 
     const dpr = Math.min(devicePixelRatio || 1, this._dprCap);
-    const w = Math.round(r.width  * dpr);
-    const h = Math.round(r.height * dpr);
+    const w = Math.round(r.width * dpr);
 
+    // Рендеримо лише видиму частину canvas (перетин з viewport).
+    // CSS height залишається 100% секції, але backing buffer обмежений viewport-ом —
+    // пікселі поза екраном не рендеряться.
+    const visibleTop    = Math.max(r.top, 0);
+    const visibleBottom = Math.min(r.bottom, window.innerHeight);
+    const visibleH      = Math.max(visibleBottom - visibleTop, 0);
+    const h = Math.round(visibleH * dpr);
+
+    if (h <= 0) return;
     if (this._canvas.width  !== w) this._canvas.width  = w;
     if (this._canvas.height !== h) this._canvas.height = h;
     this._gl.viewport(0, 0, this._canvas.width, this._canvas.height);
