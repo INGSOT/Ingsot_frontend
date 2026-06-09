@@ -97,7 +97,9 @@ class GradientBg {
 
     this._config    = config;
     this._powerPref = options.powerPreference ?? 'low-power';
-    this._dprCap    = options.dprCap          ?? 2;
+    // На великих екранах (>1440px) DPR=1 достатньо для розмитого градієнту
+    const defaultDprCap = window.innerWidth > 1440 ? 1 : 1.5;
+    this._dprCap    = options.dprCap ?? defaultDprCap;
     // targetFps: undefined → 30fps (default); ≤0 → без throttle; >0 → той fps
     const fps       = options.targetFps;
     this._frameMs   = fps === undefined ? 33
