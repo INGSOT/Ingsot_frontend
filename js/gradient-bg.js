@@ -356,7 +356,8 @@ class GradientBg {
         this._rafId = requestAnimationFrame(ts => this._frame(ts));
         return;
       }
-      this._lastFrame = ts;
+      // Зберігаємо залишок щоб не накопичувався drift при пропущених кадрах
+      this._lastFrame = this._lastFrame === 0 ? ts : this._lastFrame + this._frameMs;
     }
 
     if (!this._startTime) this._startTime = ts;
