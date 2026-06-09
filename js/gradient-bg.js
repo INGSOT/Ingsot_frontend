@@ -329,7 +329,6 @@ class GradientBg {
     if (r.width <= 0 || r.height <= 0) return;
 
     const dpr = Math.min(devicePixelRatio || 1, this._dprCap);
-    const w = Math.round(r.width * dpr);
 
     // Рендеримо лише видиму частину canvas (перетин з viewport).
     // CSS height залишається 100% секції, але backing buffer обмежений viewport-ом —
@@ -337,7 +336,12 @@ class GradientBg {
     const visibleTop    = Math.max(r.top, 0);
     const visibleBottom = Math.min(r.bottom, window.innerHeight);
     const visibleH      = Math.max(visibleBottom - visibleTop, 0);
-    const h = Math.round(visibleH * dpr);
+
+    // Рендеримо у 2× менший буфер — браузер розтягує через GPU texture sampling
+    // безкоштовно. Для розмитого градієнту різниця непомітна.
+    const scale = 0.5;
+    const w = Math.round(r.width   * dpr * scale);
+    const h = Math.round(visibleH  * dpr * scale);
 
     if (h <= 0) return;
     if (this._canvas.width  !== w) this._canvas.width  = w;
