@@ -53,6 +53,7 @@ body {
   line-height: 24px;
   font-weight: 500;
   color: #020305;
+  scrollbar-gutter: stable;
 }
 body a {
   text-decoration: none;
