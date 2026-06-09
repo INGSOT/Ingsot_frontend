@@ -814,7 +814,7 @@
   <!-- Виклики компоненнтів -->
   <script src="js/loadComponent.js"></script>
   <script>
-    loadComponent('header', '#header_placeholder');
+    const headerReady = loadComponent('header', '#header_placeholder');
     loadComponent('coplexity', '#coplexity_placeholder');
     loadComponent('footer', '#footer_placeholder');
   </script>
@@ -844,9 +844,10 @@
 
   <script src="js/script.js" defer></script>
 
-  <!-- слайдер мейн баннера -->
+  <!-- слайдер мейн баннера — запускається після завантаження header щоб Swiper
+       розрахував висоту слайдів з урахуванням реального розміру хедера -->
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
+    headerReady.then(() => {
       const n1 = document.querySelector('#main_banner .progress .n1');
       const n2 = document.querySelector('#main_banner .progress .n2');
 
