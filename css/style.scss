@@ -675,7 +675,11 @@ body {
   opacity: 0;
   pointer-events: none;
   background-color: #0203054d;
+  -webkit-backdrop-filter: blur(15vw);
   backdrop-filter: blur(15vw);
+  isolation: isolate;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
   &.on {
     opacity: 1;
     pointer-events: all;

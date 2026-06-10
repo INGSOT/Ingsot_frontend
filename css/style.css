@@ -605,7 +605,11 @@ body .swiper-slide {
   opacity: 0;
   pointer-events: none;
   background-color: rgba(2, 3, 5, 0.3019607843);
+  -webkit-backdrop-filter: blur(15vw);
   backdrop-filter: blur(15vw);
+  isolation: isolate;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 .modal.on {
   opacity: 1;
